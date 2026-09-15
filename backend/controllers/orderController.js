@@ -76,9 +76,10 @@ const createOrder = async (req, res, next) => {
 
     // Re-verify coupon discount against server-calculated subtotal
     let serverDiscount = 0;
+    let validCouponDoc = null;
     if (couponApplied && couponApplied.code) {
       const couponDoc = await Coupon.findOne({ code: couponApplied.code.toUpperCase().trim() });
-      if (couponDoc && couponDoc.isActive) {
+      if (couponDoc && couponDoc.active !== false) {
         const validation = couponDoc.isValid(serverItemsPrice);
         if (validation.valid) {
           if (couponDoc.discountType === 'percentage') {
@@ -90,6 +91,7 @@ const createOrder = async (req, res, next) => {
             serverDiscount = Math.min(couponDoc.discountValue, serverItemsPrice);
           }
           serverDiscount = Math.round(serverDiscount);
+          validCouponDoc = couponDoc;
         }
       }
     } else if (discountAmount > 0) {
@@ -147,6 +149,11 @@ const createOrder = async (req, res, next) => {
 
     // Clear user cart
     await Cart.findOneAndUpdate({ user: req.user._id }, { items: [], coupon: undefined });
+
+    // Increment coupon usage
+    if (validCouponDoc) {
+      await Coupon.findByIdAndUpdate(validCouponDoc._id, { $inc: { usedCount: 1 } });
+    }
 
     // Send in-app notification
     await Notification.create({

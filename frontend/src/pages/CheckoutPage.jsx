@@ -21,13 +21,31 @@ import {
   Check,
   ExternalLink,
   Smartphone,
+  Sparkles,
 } from 'lucide-react';
 
 export const CheckoutPage = () => {
-  const { items, subtotal, discountAmount, tax, shipping, grandTotal, coupon, clearCart, fetchCart } = useCart();
+  const {
+    items,
+    subtotal,
+    discountAmount,
+    tax,
+    shipping,
+    grandTotal,
+    coupon,
+    clearCart,
+    fetchCart,
+    applyCoupon,
+    removeCoupon,
+  } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { addToast } = useNotifications();
   const navigate = useNavigate();
+
+  // Coupon state
+  const [couponCode, setCouponCode] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [availableCoupons, setAvailableCoupons] = useState([]);
 
   // Always fetch latest cart & live synced prices on mount
   useEffect(() => {
@@ -35,6 +53,38 @@ export const CheckoutPage = () => {
       fetchCart();
     }
   }, []);
+
+  // Fetch available discount coupons for one-tap apply
+  useEffect(() => {
+    couponAPI
+      .getPublic()
+      .then((res) => {
+        if (res.success && res.coupons) {
+          setAvailableCoupons(res.coupons);
+        }
+      })
+      .catch((err) => console.log('Notice: coupons fetch', err.message));
+  }, []);
+
+  const handleApplyCoupon = async (codeToApply) => {
+    const code = (codeToApply || couponCode).trim();
+    if (!code) {
+      addToast('Please enter a coupon code.', 'info');
+      return;
+    }
+    setCouponLoading(true);
+    const res = await applyCoupon(code);
+    setCouponLoading(false);
+    if (res && res.success) {
+      setCouponCode('');
+    }
+  };
+
+  const handleRemoveCoupon = async () => {
+    setCouponLoading(true);
+    await removeCoupon();
+    setCouponLoading(false);
+  };
 
   // Multi-step: 1 = Address, 2 = Payment & Review
   const [currentStep, setCurrentStep] = useState(1);
@@ -624,6 +674,107 @@ export const CheckoutPage = () => {
                 </div>
               )}
 
+              {/* Promo / Discount Code Card */}
+              <div className="p-4 sm:p-5 bg-gold-50/30 rounded-lg border border-gold-200/80 shadow-sm space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Tag className="w-4 h-4 text-gold-700" />
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-luxury-950">
+                      Apply Discount / Promo Privilege
+                    </h3>
+                  </div>
+                  {coupon && (
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-green-800 bg-green-100 px-2 py-0.5 rounded">
+                      Promo Active
+                    </span>
+                  )}
+                </div>
+
+                {coupon ? (
+                  <div className="p-3 bg-white border border-gold-300 rounded-lg flex items-center justify-between shadow-xs">
+                    <div className="flex items-center space-x-2.5">
+                      <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center text-green-700 flex-shrink-0">
+                        <Check className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-mono font-bold text-xs text-luxury-950 tracking-wider">
+                            {coupon.code}
+                          </span>
+                          <span className="text-[10px] text-green-700 font-bold uppercase">
+                            APPLIED
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-600">
+                          Privilege discount: <strong className="text-green-700">-{formatCurrency(discountAmount)}</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveCoupon}
+                      disabled={couponLoading}
+                      className="text-[11px] font-bold uppercase tracking-wider text-red-600 hover:text-red-800 hover:underline px-2 py-1"
+                    >
+                      {couponLoading ? 'Removing...' : 'Remove'}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleApplyCoupon();
+                          }
+                        }}
+                        placeholder="Enter discount code (e.g. VIP, LUXURY20)"
+                        className="flex-1 px-3.5 py-2.5 bg-white border border-gray-300 rounded text-xs font-mono uppercase tracking-wider focus:outline-none focus:border-luxury-950"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleApplyCoupon()}
+                        disabled={couponLoading || !couponCode.trim()}
+                        className="px-6 py-2.5 bg-luxury-950 text-gold-400 text-xs font-bold uppercase tracking-wider rounded hover:bg-black transition disabled:opacity-40 flex items-center justify-center space-x-1.5"
+                      >
+                        <Tag className="w-3.5 h-3.5" />
+                        <span>{couponLoading ? 'Applying...' : 'Apply Code'}</span>
+                      </button>
+                    </div>
+
+                    {/* Available Clickable Coupons */}
+                    {availableCoupons.length > 0 && (
+                      <div className="pt-2 border-t border-gold-200/60">
+                        <p className="text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-1.5 flex items-center space-x-1">
+                          <Sparkles className="w-3 h-3 text-gold-600" />
+                          <span>Available Privileges (Tap to Apply):</span>
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {availableCoupons.map((c) => (
+                            <button
+                              key={c.code}
+                              type="button"
+                              onClick={() => handleApplyCoupon(c.code)}
+                              className="px-2.5 py-1 bg-white hover:bg-gold-50 border border-gold-300 text-luxury-950 rounded text-[11px] font-mono font-bold flex items-center space-x-1 transition active:scale-95 shadow-xs"
+                            >
+                              <Tag className="w-3 h-3 text-gold-600" />
+                              <span>{c.code}</span>
+                              <span className="text-[10px] text-green-700 font-sans font-semibold">
+                                ({c.discountType === 'percentage' ? `${c.discountValue}% OFF` : `₹${c.discountValue} OFF`})
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div className="space-y-4">
                 {/* UPI Instant QR Code Scan & Pay Option */}
                 <div
@@ -900,6 +1051,67 @@ export const CheckoutPage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Promo Code Box in Summary */}
+            {coupon ? (
+              <div className="p-3 bg-gold-50/70 border border-gold-200 rounded text-xs flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Tag className="w-3.5 h-3.5 text-gold-700" />
+                  <div>
+                    <span className="font-mono font-bold text-luxury-950">{coupon.code}</span>
+                    <p className="text-[10px] text-green-700 font-semibold">Savings: -{formatCurrency(discountAmount)}</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRemoveCoupon}
+                  disabled={couponLoading}
+                  className="text-[10px] font-bold text-red-600 uppercase hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-2 pt-2 border-t border-gray-100">
+                <div className="flex gap-1.5">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleApplyCoupon();
+                      }
+                    }}
+                    placeholder="Promo code (e.g. VIP)"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-xs font-mono uppercase tracking-wider focus:outline-none focus:border-luxury-950"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleApplyCoupon()}
+                    disabled={couponLoading || !couponCode.trim()}
+                    className="px-3.5 py-2 bg-luxury-950 text-gold-400 text-xs font-bold uppercase tracking-wider rounded hover:bg-black transition disabled:opacity-40"
+                  >
+                    {couponLoading ? '...' : 'Apply'}
+                  </button>
+                </div>
+                {availableCoupons.length > 0 && (
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {availableCoupons.slice(0, 3).map((c) => (
+                      <button
+                        key={c.code}
+                        type="button"
+                        onClick={() => handleApplyCoupon(c.code)}
+                        className="px-2 py-0.5 bg-gray-50 hover:bg-gold-50 border border-gray-200 text-[10px] font-mono font-semibold text-gray-700 rounded transition"
+                      >
+                        {c.code} ({c.discountType === 'percentage' ? `${c.discountValue}%` : `₹${c.discountValue}`})
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Price Calculations */}
             <div className="space-y-2.5 text-xs text-gray-600 border-t border-gray-100 pt-4">

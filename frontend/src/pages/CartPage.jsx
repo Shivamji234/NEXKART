@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatters';
+import { couponAPI } from '../services/api';
 import {
   Trash2,
   ArrowRight,
@@ -12,6 +13,7 @@ import {
   ShieldCheck,
   Truck,
   RotateCcw,
+  Sparkles,
 } from 'lucide-react';
 
 export const CartPage = () => {
@@ -32,21 +34,32 @@ export const CartPage = () => {
     fetchCart,
   } = useCart();
 
+  const [availableCoupons, setAvailableCoupons] = useState([]);
+
   useEffect(() => {
     if (fetchCart) {
       fetchCart();
     }
+    couponAPI
+      .getPublic()
+      .then((res) => {
+        if (res.success && res.coupons) {
+          setAvailableCoupons(res.coupons);
+        }
+      })
+      .catch((err) => console.log('Notice: coupons fetch', err.message));
   }, []);
 
   const [couponCode, setCouponCode] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleApplyCoupon = async (e) => {
-    e.preventDefault();
-    if (!couponCode.trim()) return;
+  const handleApplyCoupon = async (e, codeOverride) => {
+    if (e) e.preventDefault();
+    const code = (codeOverride || couponCode).trim();
+    if (!code) return;
     setCouponLoading(true);
-    await applyCoupon(couponCode.trim());
+    await applyCoupon(code);
     setCouponLoading(false);
     setCouponCode('');
   };
@@ -193,22 +206,45 @@ export const CartPage = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleApplyCoupon} className="flex space-x-2">
-                <input
-                  type="text"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                  placeholder="Promo Code (e.g. LUXURY20)"
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded text-xs uppercase tracking-wider focus:outline-none focus:border-luxury-950"
-                />
-                <button
-                  type="submit"
-                  disabled={couponLoading}
-                  className="px-4 py-2 bg-luxury-950 text-gold-400 text-xs font-semibold uppercase tracking-widest rounded hover:bg-luxury-800 transition disabled:opacity-50"
-                >
-                  Apply
-                </button>
-              </form>
+              <div className="space-y-2">
+                <form onSubmit={handleApplyCoupon} className="flex space-x-2">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                    placeholder="Promo Code (e.g. VIP, LUXURY20)"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded text-xs uppercase tracking-wider focus:outline-none focus:border-luxury-950 font-mono"
+                  />
+                  <button
+                    type="submit"
+                    disabled={couponLoading || !couponCode.trim()}
+                    className="px-4 py-2 bg-luxury-950 text-gold-400 text-xs font-semibold uppercase tracking-widest rounded hover:bg-luxury-800 transition disabled:opacity-50"
+                  >
+                    {couponLoading ? '...' : 'Apply'}
+                  </button>
+                </form>
+                {availableCoupons.length > 0 && (
+                  <div className="pt-2 border-t border-gray-100">
+                    <p className="text-[10px] uppercase font-bold text-gray-400 mb-1 flex items-center space-x-1">
+                      <Sparkles className="w-3 h-3 text-gold-600" />
+                      <span>Available Privileges (Tap to Apply):</span>
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {availableCoupons.map((c) => (
+                        <button
+                          key={c.code}
+                          type="button"
+                          onClick={() => handleApplyCoupon(null, c.code)}
+                          className="px-2 py-0.5 bg-gray-50 hover:bg-gold-50 border border-gray-200 text-[10px] font-mono font-semibold text-gray-800 rounded transition"
+                        >
+                          <Tag className="w-2.5 h-2.5 inline mr-1 text-gold-600" />
+                          {c.code} ({c.discountType === 'percentage' ? `${c.discountValue}%` : `₹${c.discountValue}`})
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* Pricing details */}

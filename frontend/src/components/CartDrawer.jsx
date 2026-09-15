@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatters';
-import { X, Trash2, ShoppingBag, ArrowRight, Minus, Plus, Tag } from 'lucide-react';
+import { couponAPI } from '../services/api';
+import { X, Trash2, ShoppingBag, ArrowRight, Minus, Plus, Tag, Sparkles } from 'lucide-react';
 
 export const CartDrawer = () => {
   const {
@@ -23,9 +24,21 @@ export const CartDrawer = () => {
     fetchCart,
   } = useCart();
 
+  const [availableCoupons, setAvailableCoupons] = useState([]);
+
   useEffect(() => {
     if (isCartOpen && fetchCart) {
       fetchCart();
+    }
+    if (isCartOpen) {
+      couponAPI
+        .getPublic()
+        .then((res) => {
+          if (res.success && res.coupons) {
+            setAvailableCoupons(res.coupons);
+          }
+        })
+        .catch((err) => console.log('Notice: coupons fetch', err.message));
     }
   }, [isCartOpen]);
 
@@ -210,22 +223,41 @@ export const CartDrawer = () => {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleApplyCoupon} className="flex space-x-2">
-                  <input
-                    type="text"
-                    value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value)}
-                    placeholder="Privilege Code (e.g. LUXURY20)"
-                    className="flex-1 px-3 py-1.5 border border-gray-300 text-xs rounded uppercase tracking-wider focus:outline-none focus:border-luxury-950"
-                  />
-                  <button
-                    type="submit"
-                    disabled={couponLoading}
-                    className="px-4 py-1.5 bg-luxury-950 text-gold-400 text-xs font-semibold uppercase tracking-wider rounded hover:bg-luxury-800 transition disabled:opacity-50"
-                  >
-                    Apply
-                  </button>
-                </form>
+                <div className="space-y-2">
+                  <form onSubmit={handleApplyCoupon} className="flex space-x-2">
+                    <input
+                      type="text"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                      placeholder="Privilege Code (e.g. VIP, LUXURY20)"
+                      className="flex-1 px-3 py-1.5 border border-gray-300 text-xs rounded uppercase tracking-wider focus:outline-none focus:border-luxury-950 font-mono"
+                    />
+                    <button
+                      type="submit"
+                      disabled={couponLoading || !couponCode.trim()}
+                      className="px-4 py-1.5 bg-luxury-950 text-gold-400 text-xs font-semibold uppercase tracking-wider rounded hover:bg-luxury-800 transition disabled:opacity-50"
+                    >
+                      {couponLoading ? '...' : 'Apply'}
+                    </button>
+                  </form>
+                  {availableCoupons.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {availableCoupons.slice(0, 3).map((c) => (
+                        <button
+                          key={c.code}
+                          type="button"
+                          onClick={() => {
+                            setCouponLoading(true);
+                            applyCoupon(c.code).finally(() => setCouponLoading(false));
+                          }}
+                          className="px-2 py-0.5 bg-gray-50 hover:bg-gold-50 border border-gray-200 text-[10px] font-mono font-semibold text-gray-700 rounded transition"
+                        >
+                          {c.code} ({c.discountType === 'percentage' ? `${c.discountValue}%` : `₹${c.discountValue}`})
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
 
               {/* Breakdown */}
