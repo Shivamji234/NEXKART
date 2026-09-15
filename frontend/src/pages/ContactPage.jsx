@@ -63,16 +63,41 @@ export const ContactPage = () => {
                 <Mail className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-bold text-white uppercase tracking-wider">Email Support</p>
-                  <p className="text-gray-400 mt-0.5">nexkart2.0@gmail.com</p>
+                  <a
+                    href="mailto:nexkart2.0@gmail.com"
+                    className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2 block mt-0.5 text-sm font-medium"
+                    title="Click to send email"
+                  >
+                    nexkart2.0@gmail.com
+                  </a>
+                  <p className="text-[10px] text-gray-400 mt-0.5">Click to email customer support</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
                 <Phone className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-bold text-white uppercase tracking-wider">Phone & WhatsApp Helpline</p>
-                  <p className="text-gray-400 mt-0.5">+91 72689 27163</p>
-                  <p className="text-[10px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST</p>
+                  <p className="font-bold text-white uppercase tracking-wider">Helpline & WhatsApp</p>
+                  <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                    <a
+                      href="tel:+917268927163"
+                      className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded font-mono text-xs flex items-center space-x-1.5 transition border border-white/15 shadow-sm"
+                      title="Click to call helpline"
+                    >
+                      <Phone className="w-3 h-3 text-gold-400" />
+                      <span>Call: +91 72689 27163</span>
+                    </a>
+                    <a
+                      href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 bg-green-600/30 hover:bg-green-600/40 text-green-300 hover:text-green-200 rounded text-xs flex items-center space-x-1.5 transition border border-green-500/35 shadow-sm font-medium"
+                      title="Click to open WhatsApp chat"
+                    >
+                      <span>💬 Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                  <p className="text-[10px] text-gray-400 mt-1.5">Mon - Sat: 9:00 AM – 8:00 PM IST (Click to call or chat)</p>
                 </div>
               </div>
 

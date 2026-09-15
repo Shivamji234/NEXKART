@@ -82,9 +82,37 @@ export const Footer = () => {
             <p className="text-xs text-gray-400 leading-relaxed pr-2 sm:pr-6">
               NexKart is a modern luxury e-commerce platform created to make premium online shopping simpler, faster and more enjoyable. Combining architectural aesthetics, trusted shopping experiences, and smart technology to discover exquisite products effortlessly.
             </p>
-            <div className="pt-2 text-xs text-gray-400 space-y-1">
-              <p><strong className="text-gray-200">Customer Support:</strong> nexkart2.0@gmail.com</p>
-              <p><strong className="text-gray-200">Helpline / WhatsApp:</strong> +91 72689 27163</p>
+            <div className="pt-2 text-xs text-gray-400 space-y-1.5">
+              <p>
+                <strong className="text-gray-200">Customer Support:</strong>{' '}
+                <a
+                  href="mailto:nexkart2.0@gmail.com"
+                  className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2"
+                  title="Send email to NexKart Customer Support"
+                >
+                  nexkart2.0@gmail.com
+                </a>
+              </p>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <strong className="text-gray-200">Helpline / WhatsApp:</strong>
+                <a
+                  href="tel:+917268927163"
+                  className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2 font-medium"
+                  title="Call NexKart Helpline"
+                >
+                  +91 72689 27163
+                </a>
+                <span className="text-gray-600">&bull;</span>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-green-400 hover:text-green-300 font-semibold transition hover:underline"
+                  title="Chat directly on WhatsApp"
+                >
+                  <span>WhatsApp Chat ↗</span>
+                </a>
+              </div>
               <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
               <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
             </div>

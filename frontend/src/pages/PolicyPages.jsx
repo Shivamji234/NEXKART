@@ -124,11 +124,33 @@ export const PolicyPages = () => {
 
               <div className="p-4 bg-gray-50 rounded border border-gray-200">
                 <h3 className="font-bold text-luxury-950 uppercase tracking-wide">
-                  Are promotional codes applicable on all items?
+                  How can I reach NexKart Customer Support & Helpline?
                 </h3>
-                <p className="mt-1 text-gray-600">
-                  Active promotional codes such as <strong className="text-luxury-950">LUXURY20</strong> and <strong className="text-luxury-950">FIRST10</strong> can be applied in your shopping bag or during checkout provided the minimum order requirement is satisfied.
+                <p className="mt-1 text-gray-600 leading-relaxed">
+                  Our customer concierge is available Monday through Saturday, 9:00 AM to 8:00 PM IST across Pan-India:
                 </p>
+                <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                  <a
+                    href="mailto:nexkart2.0@gmail.com"
+                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-gray-300 text-luxury-950 hover:border-gold-500 rounded text-xs font-semibold transition shadow-2xs"
+                  >
+                    <span>✉️ nexkart2.0@gmail.com</span>
+                  </a>
+                  <a
+                    href="tel:+917268927163"
+                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-gray-300 text-luxury-950 hover:border-gold-500 rounded text-xs font-semibold font-mono transition shadow-2xs"
+                  >
+                    <span>📞 +91 72689 27163</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-green-50 border border-green-300 text-green-800 hover:bg-green-100 rounded text-xs font-semibold transition shadow-2xs"
+                  >
+                    <span>💬 Chat on WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

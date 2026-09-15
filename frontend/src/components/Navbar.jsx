@@ -109,9 +109,21 @@ export const Navbar = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="bg-luxury-950 text-gold-400 py-1.5 px-3 text-center text-[10px] sm:text-[11px] tracking-normal sm:tracking-[0.2em] uppercase font-medium border-b border-white/5 overflow-hidden">
-        <span className="inline-block truncate max-w-full">
-          Complimentary Delivery Above ₹2,999 &bull; Bespoke Packaging
+      <div className="bg-luxury-950 text-gold-400 py-1.5 px-3 text-center text-[10px] sm:text-[11px] tracking-normal sm:tracking-widest uppercase font-medium border-b border-white/5 overflow-hidden">
+        <span className="inline-flex items-center space-x-2 truncate max-w-full justify-center">
+          <span>Complimentary Delivery On All Orders</span>
+          <span className="text-gold-600">&bull;</span>
+          <span>Support:{' '}
+            <a href="mailto:nexkart2.0@gmail.com" className="hover:text-white underline transition">
+              nexkart2.0@gmail.com
+            </a>
+          </span>
+          <span className="hidden md:inline text-gold-600">&bull;</span>
+          <span className="hidden md:inline">Helpline:{' '}
+            <a href="tel:+917268927163" className="hover:text-white underline transition">
+              +91 72689 27163
+            </a>
+          </span>
         </span>
       </div>
 
@@ -473,6 +485,35 @@ export const Navbar = () => {
                     </Link>
                   </div>
                 )}
+              </div>
+
+              {/* Direct Support Contacts */}
+              <div className="border-t border-gray-200 pt-4 text-xs text-gray-500 space-y-2">
+                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Client Support & Helpline</p>
+                <div>
+                  <a
+                    href="mailto:nexkart2.0@gmail.com"
+                    className="text-luxury-900 font-medium hover:text-gold-600 block"
+                  >
+                    ✉️ nexkart2.0@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center space-x-3 pt-1">
+                  <a
+                    href="tel:+917268927163"
+                    className="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-luxury-950 rounded font-mono text-[11px] font-semibold flex items-center space-x-1"
+                  >
+                    <span>📞 Call Helpline</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2.5 py-1 bg-green-50 hover:bg-green-100 text-green-800 border border-green-200 rounded text-[11px] font-semibold flex items-center space-x-1"
+                  >
+                    <span>💬 WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </nav>
           </div>
