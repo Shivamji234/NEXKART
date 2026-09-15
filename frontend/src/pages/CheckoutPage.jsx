@@ -53,7 +53,20 @@ export const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('upi_qr'); // 'upi_qr' | 'razorpay' | 'cod'
   const [upiTxnId, setUpiTxnId] = useState('');
   const [copiedUpi, setCopiedUpi] = useState(false);
+  const [merchantUpiId, setMerchantUpiId] = useState('7268927163@upi');
+  const [merchantUpiName, setMerchantUpiName] = useState('NEXKART Maison');
   const [processingPayment, setProcessingPayment] = useState(false);
+
+  // Fetch live UPI & Payment configuration
+  useEffect(() => {
+    paymentAPI
+      .getKey()
+      .then((res) => {
+        if (res.upiId) setMerchantUpiId(res.upiId);
+        if (res.upiName) setMerchantUpiName(res.upiName);
+      })
+      .catch((err) => console.log('Notice: using default payment config', err.message));
+  }, []);
 
   // Load addresses
   useEffect(() => {
@@ -176,7 +189,7 @@ export const CheckoutPage = () => {
           paymentMethod: 'upi_qr',
           paymentResult: {
             upiTxnId: upiTxnId.trim(),
-            upiId: '7268927163@upi',
+            upiId: merchantUpiId,
             paidAt: new Date(),
           },
         });
@@ -192,7 +205,7 @@ export const CheckoutPage = () => {
           await paymentAPI.verifyUpiPayment({
             orderId: createdOrder._id,
             upiTxnId: upiTxnId.trim(),
-            upiId: '7268927163@upi',
+            upiId: merchantUpiId,
           });
         } catch (verifyErr) {
           console.warn('UPI ledger record note:', verifyErr.message);
@@ -656,7 +669,7 @@ export const CheckoutPage = () => {
                         <div className="flex flex-col items-center bg-white p-3 rounded-lg border border-gold-300 shadow-sm flex-shrink-0">
                           <img
                             src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(
-                              `upi://pay?pa=7268927163@upi&pn=NEXKART%20Maison&am=${grandTotal}&cu=INR&tn=NexKartOrder`
+                              `upi://pay?pa=${merchantUpiId}&pn=${encodeURIComponent(merchantUpiName)}&am=${grandTotal}&cu=INR&tn=NexKartOrder`
                             )}`}
                             alt="NexKart UPI QR Code"
                             className="w-36 h-36 sm:w-40 sm:h-40 object-contain rounded"
@@ -689,15 +702,15 @@ export const CheckoutPage = () => {
                             </span>
                             <div className="flex items-center space-x-2">
                               <code className="px-3 py-1.5 bg-gray-100 border border-gray-300 rounded font-mono text-xs font-bold text-luxury-950">
-                                7268927163@upi
+                                {merchantUpiId}
                               </code>
                               <button
                                 type="button"
                                 onClick={() => {
-                                  navigator.clipboard.writeText('7268927163@upi');
+                                  navigator.clipboard.writeText(merchantUpiId);
                                   setCopiedUpi(true);
                                   setTimeout(() => setCopiedUpi(false), 2000);
-                                  addToast('UPI ID copied to clipboard: 7268927163@upi');
+                                  addToast(`UPI ID copied to clipboard: ${merchantUpiId}`);
                                 }}
                                 className="px-3 py-1.5 bg-luxury-950 text-gold-400 hover:bg-black rounded text-[11px] font-semibold flex items-center space-x-1"
                               >
@@ -710,7 +723,7 @@ export const CheckoutPage = () => {
                           {/* Mobile Direct Pay Link */}
                           <div className="pt-1 block sm:hidden">
                             <a
-                              href={`upi://pay?pa=7268927163@upi&pn=NEXKART%20Maison&am=${grandTotal}&cu=INR&tn=NexKartOrder`}
+                              href={`upi://pay?pa=${merchantUpiId}&pn=${encodeURIComponent(merchantUpiName)}&am=${grandTotal}&cu=INR&tn=NexKartOrder`}
                               className="inline-flex items-center space-x-1.5 text-xs font-bold text-luxury-950 bg-gold-400/30 px-3 py-2 rounded hover:bg-gold-400/50 w-full justify-center"
                             >
                               <Smartphone className="w-3.5 h-3.5" />

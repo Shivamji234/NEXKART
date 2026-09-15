@@ -13,10 +13,9 @@ export const VerifyOtpPage = () => {
 
   const emailParam = searchParams.get('email') || '';
   const purpose = searchParams.get('purpose') || 'verification';
-  const devOtpPassed = location.state?.devOtp;
   const redirect = location.state?.redirect || '/';
 
-  const [otp, setOtp] = useState(devOtpPassed || '');
+  const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(60);
   const [canResend, setCanResend] = useState(false);
@@ -61,7 +60,6 @@ export const VerifyOtpPage = () => {
       const res = await resendOtp(emailParam, purpose);
       if (res.success) {
         addToast(res.message);
-        if (res.devOtp) setOtp(res.devOtp);
         setCooldown(60);
         setCanResend(false);
       }
@@ -86,19 +84,9 @@ export const VerifyOtpPage = () => {
             {isLoginFlow ? 'Authenticate Sign-In' : 'Verify Your Identity'}
           </h2>
           <p className="text-xs text-gray-500 leading-relaxed">
-            A 6-digit security code has been transmitted via <strong className="text-luxury-950">Brevo</strong> to <strong className="text-luxury-950">{emailParam}</strong>.
+            A 6-digit security code has been transmitted to your email (<strong className="text-luxury-950">{emailParam}</strong>) and registered phone number.
           </p>
         </div>
-
-        {/* Development Helper Badge */}
-        {otp && (
-          <div className="p-3 bg-gold-50 border border-gold-200 rounded text-center space-y-1">
-            <span className="text-[10px] font-bold text-gold-900 uppercase tracking-widest">
-              Development Test Code Active
-            </span>
-            <p className="text-sm font-mono font-bold text-luxury-950 tracking-widest">{otp}</p>
-          </div>
-        )}
 
         <form onSubmit={handleVerify} className="space-y-6">
           <div>

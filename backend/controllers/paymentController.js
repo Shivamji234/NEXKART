@@ -10,6 +10,8 @@ const getPaymentKey = (req, res) => {
   res.status(200).json({
     success: true,
     key: process.env.RAZORPAY_KEY_ID || 'rzp_test_demo1234567890',
+    upiId: process.env.UPI_ID || process.env.UPI_MERCHANT_ID || '7268927163@upi',
+    upiName: process.env.UPI_MERCHANT_NAME || 'NEXKART Maison',
   });
 };
 
@@ -168,7 +170,7 @@ const verifyUpiPayment = async (req, res, next) => {
     }
 
     const cleanUpiTxnId = upiTxnId.trim();
-    const cleanUpiId = upiId || '7268927163@upi';
+    const cleanUpiId = upiId || process.env.UPI_ID || process.env.UPI_MERCHANT_ID || '7268927163@upi';
 
     // Update order status
     order.paymentMethod = 'upi_qr';

@@ -29,7 +29,7 @@ export const LoginPage = () => {
       if (res.requiresVerification || res.requiresOtp) {
         addToast(res.message, 'info');
         navigate(`/verify-otp?email=${encodeURIComponent(res.email)}&purpose=login`, {
-          state: { devOtp: res.devOtp, redirect },
+          state: { redirect },
         });
         return;
       }

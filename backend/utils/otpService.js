@@ -7,24 +7,30 @@ const generateOTP = () => {
   return Math.floor(100000 + crypto.randomInt(0, 900000)).toString();
 };
 
-// Store OTP securely
-const createAndStoreOTP = async (identifier, purpose = 'verification') => {
-  const plainOtp = generateOTP();
+// Store OTP securely (supports array of identifiers e.g. [email, mobile])
+const createAndStoreOTP = async (identifiers, purpose = 'verification', existingOtp = null) => {
+  const plainOtp = existingOtp || generateOTP();
   const salt = await bcrypt.genSalt(10);
   const otpHash = await bcrypt.hash(plainOtp, salt);
 
   // Expire in 10 minutes
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-  // Remove previous unverified OTPs for this identifier and purpose
-  await OTP.deleteMany({ identifier: identifier.toLowerCase(), purpose });
+  const list = Array.isArray(identifiers) ? identifiers : [identifiers];
 
-  await OTP.create({
-    identifier: identifier.toLowerCase(),
-    otpHash,
-    purpose,
-    expiresAt,
-  });
+  for (const id of list) {
+    if (!id) continue;
+    const cleanId = id.toString().trim().toLowerCase();
+    // Remove previous unverified OTPs for this identifier and purpose
+    await OTP.deleteMany({ identifier: cleanId, purpose });
+
+    await OTP.create({
+      identifier: cleanId,
+      otpHash,
+      purpose,
+      expiresAt,
+    });
+  }
 
   return { plainOtp, expiresAt };
 };

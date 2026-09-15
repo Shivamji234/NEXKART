@@ -199,8 +199,62 @@ const sendOrderConfirmationEmail = async (email, order) => {
   });
 };
 
+/**
+ * Dispatches Transactional SMS via Brevo (Sendinblue) SMS API
+ */
+const sendOTPSMS = async (mobile, otp, purposeTitle = 'Verification') => {
+  const apiKey = process.env.BREVO_API_KEY;
+  if (!apiKey || apiKey === 'your_brevo_api_key' || apiKey === 'devpassword') {
+    return null;
+  }
+
+  if (!mobile) return null;
+
+  // Format mobile to international E.164 (e.g. +917268927163)
+  let cleanMobile = mobile.toString().replace(/[^0-9]/g, '');
+  if (cleanMobile.length === 10) {
+    cleanMobile = '91' + cleanMobile;
+  }
+  if (!cleanMobile.startsWith('+')) {
+    cleanMobile = '+' + cleanMobile;
+  }
+
+  const payload = {
+    sender: 'NEXKRT',
+    recipient: cleanMobile,
+    content: `Your NEXKART security code for ${purposeTitle} is ${otp}. Valid for 10 minutes. Do not share this code with anyone.`,
+    type: 'transactional',
+  };
+
+  try {
+    const response = await fetch('https://api.brevo.com/v3/transactionalSMS/sms', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': apiKey.trim(),
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const resData = await response.json();
+    if (!response.ok) {
+      console.warn(`[Brevo SMS Notice] Status ${response.status}: ${resData.message || JSON.stringify(resData)}`);
+      return null;
+    }
+
+    console.log(`[Brevo SMS] Dispatched SMS to ${cleanMobile}, Ref: ${resData.reference || resData.messageId}`);
+    return { success: true, reference: resData.reference || resData.messageId };
+  } catch (err) {
+    console.warn(`[Brevo SMS Exception]: ${err.message}`);
+    return null;
+  }
+};
+
 module.exports = {
   sendEmail,
   sendOTPEmail,
+  sendOTPSMS,
   sendOrderConfirmationEmail,
 };
+

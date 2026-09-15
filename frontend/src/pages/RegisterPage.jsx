@@ -42,9 +42,7 @@ export const RegisterPage = () => {
       if (res.success) {
         addToast(res.message);
         // Navigate to OTP verification page
-        navigate(`/verify-otp?email=${encodeURIComponent(formData.email.toLowerCase())}`, {
-          state: { devOtp: res.devOtp },
-        });
+        navigate(`/verify-otp?email=${encodeURIComponent(formData.email.toLowerCase())}`);
       }
     } catch (err) {
       addToast(err.message, 'error');
