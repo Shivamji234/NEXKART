@@ -4,7 +4,6 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { CartDrawer } from '../components/CartDrawer';
 import { ToastContainer } from '../components/Toast';
-import { WhatsAppButton } from '../components/WhatsAppButton';
 
 export const MainLayout = () => {
   return (
@@ -12,7 +11,6 @@ export const MainLayout = () => {
       <ToastContainer />
       <Navbar />
       <CartDrawer />
-      <WhatsAppButton />
       <main className="flex-1 w-full max-w-full overflow-x-hidden">
         <Outlet />
       </main>

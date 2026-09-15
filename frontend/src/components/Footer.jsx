@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNotifications } from '../context/NotificationContext';
-import { ArrowRight, Shield, Award, Clock, Sparkles } from 'lucide-react';
+import { ArrowRight, Shield, Award, Clock, Sparkles, Instagram, Youtube } from 'lucide-react';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -116,6 +116,36 @@ export const Footer = () => {
               <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
               <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
             </div>
+
+            {/* Official Social Media Channels */}
+            <div className="pt-2">
+              <p className="text-[10px] uppercase font-bold text-gray-300 tracking-wider mb-2">
+                Official Channels
+              </p>
+              <div className="flex items-center space-x-3">
+                <a
+                  href="https://www.instagram.com/nexkartstore2.0?utm_source=qr&stkn=d3VpejdoZTcwaGdz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-orange-600/20 hover:from-pink-600/35 hover:via-purple-600/35 hover:to-orange-600/35 text-pink-300 hover:text-pink-200 border border-pink-500/30 rounded-md text-xs font-semibold transition"
+                  title="Follow NexKart on Instagram"
+                >
+                  <Instagram className="w-4 h-4 text-pink-400" />
+                  <span>Instagram</span>
+                </a>
+
+                <a
+                  href="https://www.youtube.com/@nexkart-store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/35 text-red-300 hover:text-red-200 border border-red-500/30 rounded-md text-xs font-semibold transition"
+                  title="Subscribe to NexKart on YouTube"
+                >
+                  <Youtube className="w-4 h-4 text-red-500" />
+                  <span>YouTube</span>
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Maison Collections */}
@@ -179,9 +209,33 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar: Payments & Copyright */}
+        {/* Bottom Bar: Payments, Copyright & Socials */}
         <div className="border-t border-white/10 mt-12 sm:mt-14 pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4 text-center md:text-left">
-          <p>&copy; {new Date().getFullYear()} NEXKART Private Limited. Crafted for luxury connoisseurs.</p>
+          <div className="space-y-1.5">
+            <p>&copy; {new Date().getFullYear()} NEXKART Private Limited. Crafted for luxury connoisseurs.</p>
+            <div className="flex items-center justify-center md:justify-start space-x-3 text-xs">
+              <span className="text-gray-400 font-medium">Follow Us:</span>
+              <a
+                href="https://www.instagram.com/nexkartstore2.0?utm_source=qr&stkn=d3VpejdoZTcwaGdz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1 text-pink-400 hover:text-pink-300 transition"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+                <span>Instagram</span>
+              </a>
+              <span className="text-gray-700">&bull;</span>
+              <a
+                href="https://www.youtube.com/@nexkart-store"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1 text-red-500 hover:text-red-400 transition"
+              >
+                <Youtube className="w-3.5 h-3.5" />
+                <span>YouTube</span>
+              </a>
+            </div>
+          </div>
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 text-[10px] tracking-wider uppercase text-gray-400">
             <span className="px-2 py-1 bg-white/5 border border-white/10 rounded">UPI</span>
             <span className="px-2 py-1 bg-white/5 border border-white/10 rounded">Razorpay</span>

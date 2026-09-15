@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { contactAPI } from '../services/api';
 import { useNotifications } from '../context/NotificationContext';
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Instagram, Youtube } from 'lucide-react';
 
 export const ContactPage = () => {
   const [name, setName] = useState('');
@@ -114,8 +114,35 @@ export const ContactPage = () => {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-white/10 text-[11px] text-gray-400">
+          <div className="pt-6 border-t border-white/10 text-[11px] text-gray-400 space-y-3">
             <p>Orders dispatched with white-glove packaging across Varanasi and Pan-India.</p>
+            <div className="pt-2 border-t border-white/10">
+              <p className="text-[10px] uppercase font-bold text-gold-400 tracking-wider mb-2">
+                Official Social Channels
+              </p>
+              <div className="flex items-center space-x-2.5">
+                <a
+                  href="https://www.instagram.com/nexkartstore2.0?utm_source=qr&stkn=d3VpejdoZTcwaGdz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-orange-600/20 hover:from-pink-600/35 text-pink-300 rounded border border-pink-500/30 text-xs font-semibold transition shadow-2xs"
+                  title="Follow on Instagram"
+                >
+                  <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://www.youtube.com/@nexkart-store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/35 text-red-300 rounded border border-red-500/30 text-xs font-semibold transition shadow-2xs"
+                  title="Subscribe on YouTube"
+                >
+                  <Youtube className="w-3.5 h-3.5 text-red-500" />
+                  <span>YouTube</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
