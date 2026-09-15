@@ -117,7 +117,19 @@ const createProduct = async (req, res, next) => {
 // @access  Private/Admin
 const updateProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const updateData = { ...req.body };
+    if (updateData.price !== undefined) {
+      const price = Number(updateData.price);
+      let discountPrice = Number(updateData.discountPrice);
+      if (isNaN(discountPrice) || discountPrice <= 0 || discountPrice >= price) {
+        updateData.discountPrice = 0;
+        updateData.discountPercentage = 0;
+      } else {
+        updateData.discountPercentage = Math.round(((price - discountPrice) / price) * 100);
+      }
+    }
+
+    const product = await Product.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
       runValidators: true,
     });

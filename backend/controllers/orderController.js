@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
+const Coupon = require('../models/Coupon');
 const Notification = require('../models/Notification');
 const { sendOrderConfirmationEmail } = require('../utils/emailService');
 
@@ -37,21 +38,16 @@ const createOrder = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Please provide complete delivery address.' });
     }
 
-    // COD limit validation (e.g., maximum ₹50,000 for COD for security)
-    if (paymentMethod === 'cod' && totalPrice > 50000) {
-      return res.status(400).json({
-        success: false,
-        message: 'Cash on Delivery is limited to orders up to ₹50,000 for high-value security.',
-      });
-    }
+    // Verify inventory stock & enforce live selling price from database
+    let serverItemsPrice = 0;
+    const verifiedOrderItems = [];
 
-    // Verify inventory stock
     for (const item of orderItems) {
       const product = await Product.findById(item.product);
       if (!product) {
         return res.status(404).json({
           success: false,
-          message: `Product ${item.name} not found.`,
+          message: `Product ${item.name || 'selected'} not found.`,
         });
       }
       if (product.stock < item.quantity) {
@@ -60,10 +56,61 @@ const createOrder = async (req, res, next) => {
           message: `Insufficient inventory for ${product.name}. Only ${product.stock} left.`,
         });
       }
+
+      const livePrice = (product.discountPrice > 0 && product.discountPrice < product.price)
+        ? product.discountPrice
+        : product.price;
+
+      verifiedOrderItems.push({
+        product: product._id,
+        name: product.name,
+        image: (product.images?.length > 0) ? product.images[0].url : (item.image || ''),
+        price: livePrice,
+        quantity: Number(item.quantity),
+        size: item.size || '',
+        color: item.color || '',
+      });
+
+      serverItemsPrice += livePrice * Number(item.quantity);
+    }
+
+    // Re-verify coupon discount against server-calculated subtotal
+    let serverDiscount = 0;
+    if (couponApplied && couponApplied.code) {
+      const couponDoc = await Coupon.findOne({ code: couponApplied.code.toUpperCase().trim() });
+      if (couponDoc && couponDoc.isActive) {
+        const validation = couponDoc.isValid(serverItemsPrice);
+        if (validation.valid) {
+          if (couponDoc.discountType === 'percentage') {
+            serverDiscount = (serverItemsPrice * couponDoc.discountValue) / 100;
+            if (couponDoc.maxDiscount && couponDoc.maxDiscount > 0) {
+              serverDiscount = Math.min(serverDiscount, couponDoc.maxDiscount);
+            }
+          } else if (couponDoc.discountType === 'fixed') {
+            serverDiscount = Math.min(couponDoc.discountValue, serverItemsPrice);
+          }
+          serverDiscount = Math.round(serverDiscount);
+        }
+      }
+    } else if (discountAmount > 0) {
+      serverDiscount = Math.min(Number(discountAmount), serverItemsPrice);
+    }
+
+    const taxableAmount = Math.max(0, serverItemsPrice - serverDiscount);
+    const serverTax = Math.round(taxableAmount * 0.05);
+    const serverShipping = serverItemsPrice >= 2999 || serverItemsPrice === 0 ? 0 : 250;
+    const serverTotalPrice = Math.max(0, taxableAmount + serverTax + serverShipping);
+
+    // COD limit validation (maximum ₹50,000 for COD for security)
+    if (paymentMethod === 'cod' && serverTotalPrice > 50000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Cash on Delivery is limited to orders up to ₹50,000 for high-value security.',
+      });
     }
 
     // Deduct inventory
-    for (const item of orderItems) {
+    for (const item of verifiedOrderItems) {
       await Product.findByIdAndUpdate(item.product, {
         $inc: { stock: -item.quantity },
       });
@@ -74,17 +121,17 @@ const createOrder = async (req, res, next) => {
     const order = await Order.create({
       orderNumber,
       user: req.user._id,
-      orderItems,
+      orderItems: verifiedOrderItems,
       shippingAddress,
       paymentMethod,
       paymentStatus: paymentMethod === 'cod' ? 'Pending' : (paymentResult ? 'Completed' : 'Pending'),
       paymentResult: paymentResult || undefined,
-      itemsPrice,
-      discountAmount,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-      couponApplied,
+      itemsPrice: serverItemsPrice,
+      discountAmount: serverDiscount,
+      taxPrice: serverTax,
+      shippingPrice: serverShipping,
+      totalPrice: serverTotalPrice,
+      couponApplied: serverDiscount > 0 ? couponApplied : undefined,
       orderStatus: 'Confirmed',
       timeline: [
         {
@@ -105,7 +152,7 @@ const createOrder = async (req, res, next) => {
     await Notification.create({
       user: req.user._id,
       title: 'Order Confirmed',
-      message: `Your order #${orderNumber} of ₹${totalPrice.toLocaleString('en-IN')} is confirmed.`,
+      message: `Your order #${orderNumber} of ₹${serverTotalPrice.toLocaleString('en-IN')} is confirmed.`,
       type: 'order',
       data: { orderId: order._id.toString() },
     });

@@ -24,10 +24,17 @@ import {
 } from 'lucide-react';
 
 export const CheckoutPage = () => {
-  const { items, subtotal, discountAmount, tax, shipping, grandTotal, coupon, clearCart } = useCart();
+  const { items, subtotal, discountAmount, tax, shipping, grandTotal, coupon, clearCart, fetchCart } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { addToast } = useNotifications();
   const navigate = useNavigate();
+
+  // Always fetch latest cart & live synced prices on mount
+  useEffect(() => {
+    if (fetchCart) {
+      fetchCart();
+    }
+  }, []);
 
   // Multi-step: 1 = Address, 2 = Payment & Review
   const [currentStep, setCurrentStep] = useState(1);
@@ -237,9 +244,10 @@ export const CheckoutPage = () => {
         }
         const createdOrder = createdOrderRes.order;
 
-        // Create Razorpay transaction order
+        // Create Razorpay transaction order using verified server total
         const rzpOrderRes = await paymentAPI.createRazorpayOrder({
-          amount: grandTotal,
+          amount: createdOrder.totalPrice,
+          orderId: createdOrder._id,
           receipt: `rcpt_${createdOrder.orderNumber}`,
         });
 

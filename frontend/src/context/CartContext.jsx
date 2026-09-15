@@ -22,6 +22,36 @@ export const CartProvider = ({ children }) => {
   // Sync cart when authentication status changes
   useEffect(() => {
     if (isAuthenticated) {
+      const localCart = localStorage.getItem('nexkart_guest_cart');
+      if (localCart) {
+        try {
+          const parsed = JSON.parse(localCart);
+          if (parsed.items && parsed.items.length > 0) {
+            (async () => {
+              for (const gi of parsed.items) {
+                const pid = gi.product?._id || gi.product;
+                if (pid) {
+                  try {
+                    await cartAPI.addToCart({
+                      productId: pid,
+                      quantity: gi.quantity || 1,
+                      size: gi.size || '',
+                      color: gi.color || '',
+                    });
+                  } catch (e) {
+                    console.warn('Guest cart item merge notice:', e.message);
+                  }
+                }
+              }
+              localStorage.removeItem('nexkart_guest_cart');
+              fetchCart();
+            })();
+            return;
+          }
+        } catch (e) {
+          localStorage.removeItem('nexkart_guest_cart');
+        }
+      }
       fetchCart();
     } else {
       // Load guest cart from localStorage
@@ -44,7 +74,15 @@ export const CartProvider = ({ children }) => {
   const calculateGuestTotals = (cartItems, appliedCoupon) => {
     let sub = 0;
     cartItems.forEach((i) => {
-      sub += i.price * i.quantity;
+      const prod = i.product;
+      let effectivePrice = i.price;
+      if (prod && typeof prod === 'object' && prod.price !== undefined) {
+        effectivePrice = (prod.discountPrice > 0 && prod.discountPrice < prod.price)
+          ? prod.discountPrice
+          : prod.price;
+        i.price = effectivePrice;
+      }
+      sub += effectivePrice * i.quantity;
     });
 
     let disc = 0;
@@ -103,7 +141,9 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, quantity = 1, size = '', color = '') => {
     const selectedSize = size || (product.sizes?.length > 0 ? product.sizes[0] : '');
     const selectedColor = color || (product.colors?.length > 0 ? product.colors[0].name : '');
-    const price = product.discountPrice > 0 ? product.discountPrice : product.price;
+    const price = (product.discountPrice > 0 && product.discountPrice < product.price)
+      ? product.discountPrice
+      : product.price;
     const image = product.images?.[0]?.url || '';
 
     if (isAuthenticated) {

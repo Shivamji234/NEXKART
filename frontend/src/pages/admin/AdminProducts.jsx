@@ -109,6 +109,12 @@ export const AdminProducts = () => {
   const handleSaveProduct = async (e) => {
     e.preventDefault();
 
+    const priceNum = Number(formData.price);
+    let discountPriceNum = Number(formData.discountPrice) || 0;
+    if (discountPriceNum >= priceNum || discountPriceNum <= 0) {
+      discountPriceNum = 0;
+    }
+
     const payload = {
       name: formData.name,
       sku: formData.sku.toUpperCase(),
@@ -116,11 +122,11 @@ export const AdminProducts = () => {
       category: formData.category,
       subcategory: formData.subcategory,
       brand: formData.brand,
-      price: Number(formData.price),
-      discountPrice: Number(formData.discountPrice) || 0,
+      price: priceNum,
+      discountPrice: discountPriceNum,
       discountPercentage:
-        formData.discountPrice && Number(formData.discountPrice) < Number(formData.price)
-          ? Math.round(((Number(formData.price) - Number(formData.discountPrice)) / Number(formData.price)) * 100)
+        discountPriceNum > 0 && discountPriceNum < priceNum
+          ? Math.round(((priceNum - discountPriceNum) / priceNum) * 100)
           : 0,
       images: [{ url: formData.imageUrl, isPrimary: true }],
       sizes: formData.sizes.split(',').map((s) => s.trim()).filter(Boolean),

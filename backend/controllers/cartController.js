@@ -2,11 +2,27 @@ const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 const Coupon = require('../models/Coupon');
 
+// Helper to get true effective selling price (ensuring discountPrice < price)
+const getEffectivePrice = (product) => {
+  if (!product) return 0;
+  const price = Number(product.price) || 0;
+  const discountPrice = Number(product.discountPrice) || 0;
+  if (discountPrice > 0 && discountPrice < price) {
+    return discountPrice;
+  }
+  return price;
+};
+
 // Helper to calculate cart totals
 const calculateTotals = (cart) => {
   let subtotal = 0;
   cart.items.forEach((item) => {
-    subtotal += item.price * item.quantity;
+    let itemPrice = item.price;
+    if (item.product && typeof item.product === 'object' && item.product.price !== undefined) {
+      itemPrice = getEffectivePrice(item.product);
+      item.price = itemPrice;
+    }
+    subtotal += itemPrice * item.quantity;
   });
 
   let discountAmount = 0;
@@ -46,6 +62,41 @@ const getCart = async (req, res, next) => {
 
     if (!cart) {
       cart = await Cart.create({ user: req.user._id, items: [] });
+    }
+
+    let cartModified = false;
+    const validItems = [];
+
+    for (const item of cart.items) {
+      if (!item.product) {
+        // Product was removed from catalogue
+        cartModified = true;
+        continue;
+      }
+
+      const livePrice = getEffectivePrice(item.product);
+      if (item.price !== livePrice) {
+        item.price = livePrice;
+        cartModified = true;
+      }
+
+      if (item.product.name && item.name !== item.product.name) {
+        item.name = item.product.name;
+        cartModified = true;
+      }
+
+      const liveImg = item.product.images?.length > 0 ? item.product.images[0].url : '';
+      if (liveImg && item.image !== liveImg) {
+        item.image = liveImg;
+        cartModified = true;
+      }
+
+      validItems.push(item);
+    }
+
+    if (cartModified || validItems.length !== cart.items.length) {
+      cart.items = validItems;
+      await cart.save();
     }
 
     const totals = calculateTotals(cart);
@@ -88,7 +139,7 @@ const addToCart = async (req, res, next) => {
       cart = new Cart({ user: req.user._id, items: [] });
     }
 
-    const price = product.discountPrice > 0 ? product.discountPrice : product.price;
+    const price = getEffectivePrice(product);
     const primaryImg = product.images.length > 0 ? product.images[0].url : '';
 
     const existingIndex = cart.items.findIndex(
@@ -107,6 +158,10 @@ const addToCart = async (req, res, next) => {
         });
       }
       cart.items[existingIndex].quantity = newQty;
+      // Sync price, name, image to latest live product values
+      cart.items[existingIndex].price = price;
+      cart.items[existingIndex].name = product.name;
+      cart.items[existingIndex].image = primaryImg;
     } else {
       cart.items.push({
         product: product._id,
@@ -164,11 +219,16 @@ const updateCartItem = async (req, res, next) => {
       cart.items.pull(itemId);
     } else {
       const product = await Product.findById(item.product);
-      if (product && product.stock < quantity) {
-        return res.status(400).json({
-          success: false,
-          message: `Only ${product.stock} items available.`,
-        });
+      if (product) {
+        if (product.stock < quantity) {
+          return res.status(400).json({
+            success: false,
+            message: `Only ${product.stock} items available.`,
+          });
+        }
+        item.price = getEffectivePrice(product);
+        item.name = product.name;
+        if (product.images?.length > 0) item.image = product.images[0].url;
       }
       item.quantity = quantity;
     }
@@ -269,12 +329,20 @@ const applyCoupon = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Invalid coupon code.' });
     }
 
-    let cart = await Cart.findOne({ user: req.user._id });
+    let cart = await Cart.findOne({ user: req.user._id }).populate('items.product');
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({ success: false, message: 'Your bag is empty.' });
     }
 
-    let subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let subtotal = 0;
+    cart.items.forEach((item) => {
+      let itemPrice = item.price;
+      if (item.product && typeof item.product === 'object' && item.product.price !== undefined) {
+        itemPrice = getEffectivePrice(item.product);
+        item.price = itemPrice;
+      }
+      subtotal += itemPrice * item.quantity;
+    });
 
     const validation = coupon.isValid(subtotal);
     if (!validation.valid) {

@@ -20,9 +20,17 @@ const getPaymentKey = (req, res) => {
 // @access  Private
 const createRazorpayOrder = async (req, res, next) => {
   try {
-    const { amount, currency = 'INR', receipt } = req.body;
+    const { amount, currency = 'INR', receipt, orderId } = req.body;
 
-    if (!amount || amount <= 0) {
+    let finalAmount = Number(amount);
+    if (orderId) {
+      const order = await Order.findById(orderId);
+      if (order && order.totalPrice > 0) {
+        finalAmount = order.totalPrice;
+      }
+    }
+
+    if (!finalAmount || finalAmount <= 0) {
       return res.status(400).json({ success: false, message: 'Invalid payment amount' });
     }
 
@@ -30,7 +38,7 @@ const createRazorpayOrder = async (req, res, next) => {
 
     // Amount in paise
     const options = {
-      amount: Math.round(amount * 100),
+      amount: Math.round(finalAmount * 100),
       currency,
       receipt: receipt || `rcpt_${Date.now()}`,
     };

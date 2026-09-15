@@ -137,6 +137,19 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+// Pre-save validation: ensure discountPrice is strictly less than price
+productSchema.pre('save', function (next) {
+  if (this.price !== undefined) {
+    if (this.discountPrice >= this.price || this.discountPrice <= 0) {
+      this.discountPrice = 0;
+      this.discountPercentage = 0;
+    } else if (this.discountPrice > 0 && this.discountPrice < this.price) {
+      this.discountPercentage = Math.round(((this.price - this.discountPrice) / this.price) * 100);
+    }
+  }
+  next();
+});
+
 // Compound text index for search
 productSchema.index({
   name: 'text',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatters';
@@ -29,7 +29,14 @@ export const CartPage = () => {
     clearCart,
     applyCoupon,
     removeCoupon,
+    fetchCart,
   } = useCart();
+
+  useEffect(() => {
+    if (fetchCart) {
+      fetchCart();
+    }
+  }, []);
 
   const [couponCode, setCouponCode] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
