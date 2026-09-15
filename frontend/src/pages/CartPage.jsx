@@ -92,32 +92,32 @@ export const CartPage = () => {
             {items.map((item) => {
               const productId = item.product?._id || item.product;
               return (
-                <div key={item._id} className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="flex items-center space-x-4">
+                <div key={item._id} className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-20 h-24 object-cover rounded bg-gray-100 flex-shrink-0"
+                      className="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded bg-gray-100 flex-shrink-0"
                     />
-                    <div>
+                    <div className="min-w-0">
                       <Link
                         to={`/product/${productId}`}
-                        className="text-sm font-semibold text-luxury-950 hover:text-gold-700 transition"
+                        className="text-xs sm:text-sm font-semibold text-luxury-950 hover:text-gold-700 transition line-clamp-1"
                       >
                         {item.name}
                       </Link>
-                      <div className="text-xs text-gray-500 uppercase tracking-wider mt-1 flex space-x-3">
+                      <div className="text-[11px] sm:text-xs text-gray-500 uppercase tracking-wider mt-1 flex flex-wrap gap-2">
                         {item.size && <span>Size: <strong className="text-black">{item.size}</strong></span>}
                         {item.color && <span>Color: <strong className="text-black">{item.color}</strong></span>}
                       </div>
-                      <p className="text-xs font-semibold text-luxury-900 mt-2">
+                      <p className="text-xs font-semibold text-luxury-900 mt-1 sm:mt-2">
                         {formatCurrency(item.price)} each
                       </p>
                     </div>
                   </div>
 
                   {/* Stepper & Subtotal */}
-                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto space-x-6">
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto space-x-4 sm:space-x-6 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100">
                     <div className="flex items-center border border-gray-300 rounded bg-white">
                       <button
                         onClick={() => updateQty(item._id, item.quantity - 1)}
@@ -125,7 +125,7 @@ export const CartPage = () => {
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="px-3 text-xs font-semibold">{item.quantity}</span>
+                      <span className="px-2.5 sm:px-3 text-xs font-semibold">{item.quantity}</span>
                       <button
                         onClick={() => updateQty(item._id, item.quantity + 1)}
                         className="p-1.5 text-gray-600 hover:text-black"
@@ -134,13 +134,13 @@ export const CartPage = () => {
                       </button>
                     </div>
 
-                    <span className="text-sm font-bold text-luxury-950 min-w-[80px] text-right">
+                    <span className="text-xs sm:text-sm font-bold text-luxury-950 min-w-[70px] sm:min-w-[80px] text-right">
                       {formatCurrency(item.price * item.quantity)}
                     </span>
 
                     <button
                       onClick={() => removeFromCart(item._id)}
-                      className="p-2 text-gray-400 hover:text-red-600 transition"
+                      className="p-1.5 text-gray-400 hover:text-red-600 transition"
                       title="Remove item"
                     >
                       <Trash2 className="w-4 h-4" />

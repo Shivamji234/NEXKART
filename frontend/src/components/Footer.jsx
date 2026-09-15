@@ -20,46 +20,46 @@ export const Footer = () => {
   return (
     <footer className="bg-luxury-950 text-white border-t border-white/10 mt-20">
       {/* Value Proposition Bar */}
-      <div className="border-b border-white/10 py-10 bg-[#080808]">
+      <div className="border-b border-white/10 py-8 sm:py-10 bg-[#080808]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <div className="p-2.5 rounded bg-white/5 border border-white/10 text-gold-400">
-                <Sparkles className="w-5 h-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 sm:p-2.5 rounded bg-white/5 border border-white/10 text-gold-400 flex-shrink-0">
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold text-white">Artisanal Craftsmanship</h4>
-                <p className="text-[11px] text-gray-400 mt-0.5">Finest European & Asian textiles</p>
+                <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">Finest European & Asian textiles</p>
               </div>
             </div>
 
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <div className="p-2.5 rounded bg-white/5 border border-white/10 text-gold-400">
-                <Clock className="w-5 h-5" />
+            <div className="flex items-center space-x-3">
+              <div className="p-2 sm:p-2.5 rounded bg-white/5 border border-white/10 text-gold-400 flex-shrink-0">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold text-white">White-Glove Delivery</h4>
-                <p className="text-[11px] text-gray-400 mt-0.5">Express insured door-to-door transit</p>
+                <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">Express insured door-to-door transit</p>
               </div>
             </div>
 
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <div className="p-2.5 rounded bg-white/5 border border-white/10 text-gold-400">
-                <Shield className="w-5 h-5" />
+            <div className="flex items-center space-x-3">
+              <div className="p-2 sm:p-2.5 rounded bg-white/5 border border-white/10 text-gold-400 flex-shrink-0">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold text-white">Guaranteed Authenticity</h4>
-                <p className="text-[11px] text-gray-400 mt-0.5">100% verified certified provenance</p>
+                <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">100% verified certified provenance</p>
               </div>
             </div>
 
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <div className="p-2.5 rounded bg-white/5 border border-white/10 text-gold-400">
-                <Award className="w-5 h-5" />
+            <div className="flex items-center space-x-3">
+              <div className="p-2 sm:p-2.5 rounded bg-white/5 border border-white/10 text-gold-400 flex-shrink-0">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <h4 className="text-xs uppercase tracking-widest font-semibold text-white">14-Day Atelier Returns</h4>
-                <p className="text-[11px] text-gray-400 mt-0.5">Complimentary pick-up & exchange</p>
+                <p className="text-[10px] sm:text-[11px] text-gray-400 mt-0.5">Complimentary pick-up & exchange</p>
               </div>
             </div>
           </div>
@@ -67,10 +67,10 @@ export const Footer = () => {
       </div>
 
       {/* Main Footer Links & Newsletter */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand & Manifesto */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="sm:col-span-2 space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-7 h-7 rounded bg-white/5 border border-gold-500/40 flex items-center justify-center">
                 <span className="text-gold-400 font-serif font-bold text-sm">N</span>
@@ -79,13 +79,13 @@ export const Footer = () => {
                 NEXKART
               </span>
             </div>
-            <p className="text-xs text-gray-400 leading-relaxed pr-6">
+            <p className="text-xs text-gray-400 leading-relaxed pr-2 sm:pr-6">
               NexKart is a modern luxury e-commerce platform created to make premium online shopping simpler, faster and more enjoyable. Combining architectural aesthetics, trusted shopping experiences, and smart technology to discover exquisite products effortlessly.
             </p>
             <div className="pt-2 text-xs text-gray-400 space-y-1">
               <p><strong className="text-gray-200">Customer Support:</strong> nexkart2.0@gmail.com</p>
               <p><strong className="text-gray-200">Helpline / WhatsApp:</strong> +91 72689 27163</p>
-              <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh</p>
+              <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
               <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
             </div>
           </div>
@@ -152,9 +152,9 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar: Payments & Copyright */}
-        <div className="border-t border-white/10 mt-14 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 space-y-4 md:space-y-0">
+        <div className="border-t border-white/10 mt-12 sm:mt-14 pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4 text-center md:text-left">
           <p>&copy; {new Date().getFullYear()} NEXKART Private Limited. Crafted for luxury connoisseurs.</p>
-          <div className="flex items-center space-x-3 text-[10px] tracking-wider uppercase text-gray-400">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 text-[10px] tracking-wider uppercase text-gray-400">
             <span className="px-2 py-1 bg-white/5 border border-white/10 rounded">UPI</span>
             <span className="px-2 py-1 bg-white/5 border border-white/10 rounded">Razorpay</span>
             <span className="px-2 py-1 bg-white/5 border border-white/10 rounded">Visa</span>

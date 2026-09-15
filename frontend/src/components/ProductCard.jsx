@@ -52,19 +52,19 @@ export const ProductCard = ({ product, onQuickView }) => {
         </Link>
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 flex flex-col gap-1 z-10 pointer-events-none">
           {product.isNewArrival && (
-            <span className="px-2 py-0.5 bg-luxury-950 text-gold-400 text-[9px] font-bold uppercase tracking-widest rounded-sm shadow-sm">
+            <span className="px-1.5 sm:px-2 py-0.5 bg-luxury-950 text-gold-400 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider sm:tracking-widest rounded-sm shadow-sm">
               NEW
             </span>
           )}
           {product.isBestSeller && (
-            <span className="px-2 py-0.5 bg-gold-600 text-white text-[9px] font-bold uppercase tracking-widest rounded-sm shadow-sm">
+            <span className="px-1.5 sm:px-2 py-0.5 bg-gold-600 text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-wider sm:tracking-widest rounded-sm shadow-sm">
               BESTSELLER
             </span>
           )}
           {hasDiscount && (
-            <span className="px-2 py-0.5 bg-red-800 text-white text-[9px] font-bold uppercase tracking-widest rounded-sm shadow-sm">
+            <span className="px-1.5 sm:px-2 py-0.5 bg-red-800 text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-wider sm:tracking-widest rounded-sm shadow-sm">
               {product.discountPercentage}% OFF
             </span>
           )}
@@ -73,14 +73,14 @@ export const ProductCard = ({ product, onQuickView }) => {
         {/* Wishlist Heart Button */}
         <button
           onClick={handleWishlistToggle}
-          className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-colors z-10 ${
+          className={`absolute top-2 sm:top-3 right-2 sm:right-3 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-colors z-10 ${
             inWish
               ? 'bg-white text-red-600 shadow-md'
               : 'bg-white/80 text-luxury-900 hover:bg-white hover:text-red-500 shadow-sm'
           }`}
           aria-label="Toggle Wishlist"
         >
-          <Heart className={`w-4 h-4 ${inWish ? 'fill-current text-red-600' : ''}`} />
+          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${inWish ? 'fill-current text-red-600' : ''}`} />
         </button>
 
         {/* Hover Action Overlay */}
@@ -110,14 +110,14 @@ export const ProductCard = ({ product, onQuickView }) => {
       </div>
 
       {/* Product Information */}
-      <div className="p-4 flex flex-col flex-1 justify-between">
+      <div className="p-2.5 sm:p-4 flex flex-col flex-1 justify-between">
         <div>
-          <div className="flex items-center justify-between text-[11px] text-gray-400 uppercase tracking-widest mb-1">
-            <span>{product.brand}</span>
-            <div className="flex items-center text-gold-600 space-x-0.5">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-gray-400 uppercase tracking-wider sm:tracking-widest mb-1">
+            <span className="truncate max-w-[65%]">{product.brand}</span>
+            <div className="flex items-center text-gold-600 space-x-0.5 flex-shrink-0">
               <Star className="w-3 h-3 fill-current" />
               <span className="font-semibold text-[10px] text-gray-700">{product.rating || 5.0}</span>
-              <span className="text-gray-400 text-[10px]">({product.numReviews || 0})</span>
+              <span className="text-gray-400 text-[9px] sm:text-[10px]">({product.numReviews || 0})</span>
             </div>
           </div>
 
@@ -128,13 +128,13 @@ export const ProductCard = ({ product, onQuickView }) => {
           </Link>
         </div>
 
-        <div className="mt-2.5 flex items-center justify-between">
-          <div className="flex items-baseline space-x-2">
-            <span className="text-sm font-semibold text-luxury-950">
+        <div className="mt-2 sm:mt-2.5 flex items-center justify-between gap-1">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:space-x-1.5 min-w-0">
+            <span className="text-xs sm:text-sm font-semibold text-luxury-950 truncate">
               {formatCurrency(currentPrice)}
             </span>
             {hasDiscount && (
-              <span className="text-xs text-gray-400 line-through">
+              <span className="text-[10px] sm:text-xs text-gray-400 line-through truncate">
                 {formatCurrency(product.price)}
               </span>
             )}
@@ -143,10 +143,10 @@ export const ProductCard = ({ product, onQuickView }) => {
           <button
             onClick={handleQuickAdd}
             disabled={product.stock <= 0 || adding}
-            className="lg:hidden p-2 rounded bg-luxury-950 text-gold-400 hover:bg-black transition active:scale-95 disabled:opacity-40"
+            className="lg:hidden p-1.5 sm:p-2 rounded bg-luxury-950 text-gold-400 hover:bg-black transition active:scale-95 disabled:opacity-40 flex-shrink-0"
             aria-label="Add to bag"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
+            <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           </button>
         </div>
       </div>

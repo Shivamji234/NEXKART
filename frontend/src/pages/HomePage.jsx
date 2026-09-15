@@ -60,9 +60,9 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className="space-y-20 pb-16">
+    <div className="space-y-16 sm:space-y-20 pb-16 w-full overflow-hidden">
       {/* Hero Banner */}
-      <section className="relative h-[88vh] min-h-[580px] w-full overflow-hidden flex items-center justify-center">
+      <section className="relative h-[80vh] min-h-[480px] sm:min-h-[580px] w-full overflow-hidden flex items-center justify-center">
         {/* Background Editorial Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -74,30 +74,30 @@ export const HomePage = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-gold-400 text-[10px] uppercase tracking-[0.3em] font-semibold">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white space-y-4 sm:space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-gold-400 text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-[0.3em] font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Autumn / Winter Couture Collection</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[0.18em] uppercase font-serif text-white max-w-4xl mx-auto leading-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold tracking-wide sm:tracking-[0.18em] uppercase font-serif text-white max-w-4xl mx-auto leading-tight">
             The New Standard Of Everyday Luxury
           </h1>
 
-          <p className="text-xs sm:text-sm text-gray-200 tracking-[0.2em] uppercase max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-200 tracking-wider sm:tracking-[0.2em] uppercase max-w-2xl mx-auto font-light leading-relaxed">
             Impeccable Italian tailoring, featherlight cashmere, and horological masterpieces curated for connoisseurs.
           </p>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               to="/shop?category=Men"
-              className="w-full sm:w-auto px-8 py-3.5 bg-luxury-950 text-gold-400 border border-gold-500/40 text-xs font-semibold uppercase tracking-[0.2em] rounded hover:bg-black transition shadow-2xl"
+              className="w-full sm:w-auto px-8 py-3 sm:py-3.5 bg-luxury-950 text-gold-400 border border-gold-500/40 text-xs font-semibold uppercase tracking-wider sm:tracking-[0.2em] rounded hover:bg-black transition shadow-2xl"
             >
               Explore Men
             </Link>
             <Link
               to="/shop?category=Women"
-              className="w-full sm:w-auto px-8 py-3.5 bg-white text-luxury-950 text-xs font-semibold uppercase tracking-[0.2em] rounded hover:bg-gray-100 transition shadow-2xl"
+              className="w-full sm:w-auto px-8 py-3 sm:py-3.5 bg-white text-luxury-950 text-xs font-semibold uppercase tracking-wider sm:tracking-[0.2em] rounded hover:bg-gray-100 transition shadow-2xl"
             >
               Discover Women
             </Link>
@@ -107,7 +107,7 @@ export const HomePage = () => {
 
       {/* Featured Categories Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-12">
+        <div className="text-center space-y-2 mb-8 sm:mb-12">
           <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-600">
             Curated Maisons
           </span>
@@ -117,12 +117,12 @@ export const HomePage = () => {
           <div className="w-12 h-0.5 bg-gold-500 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {categories.map((cat) => (
             <Link
               key={cat.slug}
               to={`/shop?category=${encodeURIComponent(cat.name)}`}
-              className="group relative h-72 rounded overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+              className="group relative h-52 sm:h-72 rounded overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
             >
               <img
                 src={cat.image}
@@ -130,11 +130,11 @@ export const HomePage = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-4 text-center">
-                <h3 className="text-sm font-semibold tracking-widest uppercase text-white font-serif group-hover:text-gold-400 transition">
+              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-center">
+                <h3 className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-white font-serif group-hover:text-gold-400 transition">
                   {cat.name}
                 </h3>
-                <span className="text-[10px] text-gray-300 tracking-wider uppercase opacity-0 group-hover:opacity-100 transition duration-300">
+                <span className="text-[9px] sm:text-[10px] text-gray-300 tracking-wider uppercase opacity-0 group-hover:opacity-100 transition duration-300">
                   Discover &rarr;
                 </span>
               </div>
@@ -164,7 +164,7 @@ export const HomePage = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="animate-pulse space-y-3">
                 <div className="aspect-[3/4] bg-gray-200 rounded" />
@@ -174,7 +174,7 @@ export const HomePage = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {newArrivals.slice(0, 4).map((product) => (
               <ProductCard
                 key={product._id}
@@ -189,8 +189,8 @@ export const HomePage = () => {
       {/* Editorial Lookbook Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-xl overflow-hidden bg-luxury-950 text-white grid grid-cols-1 lg:grid-cols-2 shadow-2xl">
-          <div className="p-8 sm:p-14 lg:p-20 flex flex-col justify-center space-y-6">
-            <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gold-400">
+          <div className="p-6 sm:p-14 lg:p-20 flex flex-col justify-center space-y-4 sm:space-y-6">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-semibold text-gold-400">
               The Winter 2026 Lookbook
             </span>
             <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-wider font-serif leading-tight">
@@ -209,7 +209,7 @@ export const HomePage = () => {
               </Link>
             </div>
           </div>
-          <div className="relative min-h-[360px] lg:min-h-full">
+          <div className="relative min-h-[300px] sm:min-h-[360px] lg:min-h-full">
             <img
               src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=80"
               alt="Editorial model in cashmere"
@@ -239,7 +239,7 @@ export const HomePage = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           {bestSellers.slice(0, 4).map((product) => (
             <ProductCard
               key={product._id}
@@ -251,9 +251,9 @@ export const HomePage = () => {
       </section>
 
       {/* Limited Edition Drop Banner with Countdown */}
-      <section className="bg-luxury-950 text-white py-16">
-        <div className="max-w-5xl mx-auto px-4 text-center space-y-6">
-          <span className="px-3 py-1 bg-gold-500/20 text-gold-400 text-[10px] font-bold uppercase tracking-[0.3em] rounded-full border border-gold-500/30">
+      <section className="bg-luxury-950 text-white py-12 sm:py-16">
+        <div className="max-w-5xl mx-auto px-4 text-center space-y-5 sm:space-y-6">
+          <span className="px-3 py-1 bg-gold-500/20 text-gold-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] rounded-full border border-gold-500/30">
             Exclusive Collector Vault
           </span>
           <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-widest font-serif">
@@ -264,30 +264,30 @@ export const HomePage = () => {
           </p>
 
           {/* Countdown Clock */}
-          <div className="flex justify-center items-center space-x-4 pt-2">
-            <div className="w-16 sm:w-20 p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-xl sm:text-2xl font-bold font-mono text-gold-400">
+          <div className="flex justify-center items-center space-x-2 sm:space-x-4 pt-2">
+            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
+              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
                 {String(timeLeft.hours).padStart(2, '0')}
               </span>
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mt-1">Hours</p>
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Hours</p>
             </div>
-            <span className="text-xl font-bold text-gray-500">:</span>
-            <div className="w-16 sm:w-20 p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-xl sm:text-2xl font-bold font-mono text-gold-400">
+            <span className="text-lg sm:text-xl font-bold text-gray-500">:</span>
+            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
+              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
                 {String(timeLeft.minutes).padStart(2, '0')}
               </span>
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mt-1">Mins</p>
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Mins</p>
             </div>
-            <span className="text-xl font-bold text-gray-500">:</span>
-            <div className="w-16 sm:w-20 p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-xl sm:text-2xl font-bold font-mono text-gold-400">
+            <span className="text-lg sm:text-xl font-bold text-gray-500">:</span>
+            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
+              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
                 {String(timeLeft.seconds).padStart(2, '0')}
               </span>
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 mt-1">Secs</p>
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Secs</p>
             </div>
           </div>
 
-          <div className="pt-4">
+          <div className="pt-2 sm:pt-4">
             <Link
               to="/shop?category=Haute%20Horlogerie"
               className="inline-block px-8 py-3 bg-gold-600 hover:bg-gold-500 text-luxury-950 text-xs font-semibold uppercase tracking-widest rounded transition"
@@ -300,7 +300,7 @@ export const HomePage = () => {
 
       {/* Customer Reviews & Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-12">
+        <div className="text-center space-y-2 mb-8 sm:mb-12">
           <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-600">
             Client Voices
           </span>
@@ -310,8 +310,8 @@ export const HomePage = () => {
           <div className="w-12 h-0.5 bg-gold-500 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
             <div>
               <div className="flex text-gold-500 space-x-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -324,8 +324,8 @@ export const HomePage = () => {
             </div>
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Lady Victoria S.</p>
-                <p className="text-[10px] text-gray-500">London &bull; Verified Client</p>
+                <p className="text-xs font-bold text-luxury-950">Ananya Sharma</p>
+                <p className="text-[10px] text-gray-500">New Delhi &bull; Verified Client</p>
               </div>
               <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
                 Patron
@@ -333,7 +333,7 @@ export const HomePage = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
             <div>
               <div className="flex text-gold-500 space-x-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -346,8 +346,8 @@ export const HomePage = () => {
             </div>
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Vikramaditya R.</p>
-                <p className="text-[10px] text-gray-500">Mumbai &bull; Verified Client</p>
+                <p className="text-xs font-bold text-luxury-950">Vikramaditya Rathore</p>
+                <p className="text-[10px] text-gray-500">Varanasi &bull; Verified Client</p>
               </div>
               <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
                 Patron
@@ -355,7 +355,7 @@ export const HomePage = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
             <div>
               <div className="flex text-gold-500 space-x-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -363,13 +363,13 @@ export const HomePage = () => {
                 ))}
               </div>
               <p className="text-xs text-gray-700 italic leading-relaxed">
-                "The Vachetta weekender bag has already collected compliments on three transatlantic journeys. Exceptional leather quality that gets better with every trip."
+                "The Vachetta weekender bag has already collected compliments on three flights. Exceptional leather quality that gets better with every trip."
               </p>
             </div>
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Marcus Chen</p>
-                <p className="text-[10px] text-gray-500">Singapore &bull; Verified Client</p>
+                <p className="text-xs font-bold text-luxury-950">Rajesh Singhania</p>
+                <p className="text-[10px] text-gray-500">Bengaluru &bull; Verified Client</p>
               </div>
               <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
                 Patron

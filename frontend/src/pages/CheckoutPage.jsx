@@ -261,7 +261,7 @@ export const CheckoutPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Breadcrumb Steps Header */}
-      <div className="flex items-center justify-between pb-6 border-b border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-gray-200 gap-4">
         <div>
           <span className="text-[11px] uppercase tracking-[0.25em] text-gold-600 font-semibold">
             Atelier Checkout
@@ -271,7 +271,7 @@ export const CheckoutPage = () => {
           </h1>
         </div>
 
-        <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider">
           <button
             onClick={() => setCurrentStep(1)}
             className={`flex items-center space-x-1 ${
@@ -634,11 +634,11 @@ export const CheckoutPage = () => {
                 </p>
               </div>
 
-              <div className="pt-4 flex items-center justify-between border-t border-gray-100">
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setCurrentStep(1)}
-                  className="text-xs uppercase tracking-wider font-semibold text-gray-500 hover:text-black"
+                  className="w-full sm:w-auto text-center py-2 text-xs uppercase tracking-wider font-semibold text-gray-500 hover:text-black"
                 >
                   &larr; Back to Address
                 </button>
@@ -647,7 +647,7 @@ export const CheckoutPage = () => {
                   type="button"
                   onClick={handlePlaceOrder}
                   disabled={processingPayment}
-                  className="px-10 py-4 bg-luxury-950 text-gold-400 font-bold uppercase tracking-widest text-xs rounded hover:bg-black transition shadow-2xl disabled:opacity-50 flex items-center space-x-2"
+                  className="w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 bg-luxury-950 text-gold-400 font-bold uppercase tracking-wider sm:tracking-widest text-xs rounded hover:bg-black transition shadow-2xl disabled:opacity-50 flex items-center justify-center space-x-2"
                 >
                   <span>{processingPayment ? 'Authorizing Payment...' : `Complete Order &bull; ${formatCurrency(grandTotal)}`}</span>
                   <ArrowRight className="w-4 h-4" />

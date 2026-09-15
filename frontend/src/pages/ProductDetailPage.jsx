@@ -176,7 +176,7 @@ export const ProductDetailPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Breadcrumb */}
-      <nav className="text-[11px] uppercase tracking-wider text-gray-500 flex items-center space-x-2">
+      <nav className="text-[10px] sm:text-[11px] uppercase tracking-wider text-gray-500 flex flex-wrap items-center gap-1.5 sm:space-x-2">
         <Link to="/" className="hover:text-black">Home</Link>
         <span>/</span>
         <Link to="/shop" className="hover:text-black">Shop</Link>
@@ -189,7 +189,7 @@ export const ProductDetailPage = () => {
       </nav>
 
       {/* Main Product Showcase Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         {/* Left: Interactive Multi-Image Gallery */}
         <div className="space-y-4">
           <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-200 shadow-sm group">
@@ -199,7 +199,7 @@ export const ProductDetailPage = () => {
               className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 cursor-crosshair"
             />
             {hasDiscount && (
-              <span className="absolute top-4 left-4 px-2.5 py-1 bg-red-800 text-white text-[10px] uppercase tracking-widest font-bold rounded">
+              <span className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2 sm:px-2.5 py-1 bg-red-800 text-white text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest font-bold rounded">
                 {product.discountPercentage}% Privilege Saving
               </span>
             )}
@@ -207,12 +207,12 @@ export const ProductDetailPage = () => {
 
           {/* Thumbnails list */}
           {product.images?.length > 1 && (
-            <div className="flex space-x-3 overflow-x-auto pb-2">
+            <div className="flex space-x-2 sm:space-x-3 overflow-x-auto pb-2">
               {product.images.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImage(img.url)}
-                  className={`w-20 h-24 rounded border-2 overflow-hidden flex-shrink-0 transition ${
+                  className={`w-16 h-20 sm:w-20 sm:h-24 rounded border-2 overflow-hidden flex-shrink-0 transition ${
                     activeImage === img.url
                       ? 'border-luxury-950 ring-2 ring-gold-400/40'
                       : 'border-transparent opacity-70 hover:opacity-100'
@@ -229,13 +229,13 @@ export const ProductDetailPage = () => {
         <div className="space-y-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between text-xs text-gold-700 uppercase tracking-[0.2em] font-semibold">
-              <span>{product.brand} &bull; SKU: {product.sku}</span>
+              <span className="truncate max-w-[70%]">{product.brand} &bull; SKU: {product.sku}</span>
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
                   addToast('Shareable link copied to clipboard.');
                 }}
-                className="text-gray-400 hover:text-black flex items-center space-x-1"
+                className="text-gray-400 hover:text-black flex items-center space-x-1 flex-shrink-0"
                 title="Share"
               >
                 <Share2 className="w-3.5 h-3.5" />
@@ -243,39 +243,39 @@ export const ProductDetailPage = () => {
               </button>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold uppercase tracking-wider text-luxury-950 font-serif mt-2">
+            <h1 className="text-xl sm:text-3xl font-bold uppercase tracking-wider text-luxury-950 font-serif mt-2">
               {product.name}
             </h1>
 
             {/* Rating Stars */}
-            <div className="flex items-center space-x-3 mt-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 mt-3">
               <div className="flex text-gold-500">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`w-4 h-4 ${
+                    className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
                       i < Math.floor(product.rating || 5) ? 'fill-current' : 'text-gray-300'
                     }`}
                   />
                 ))}
               </div>
               <span className="text-xs text-gray-500">
-                {product.rating} &bull; {product.numReviews || 0} Atelier Reviews
+                {product.rating} &bull; {product.numReviews || 0} Reviews
               </span>
             </div>
 
             {/* Price Box */}
-            <div className="mt-6 flex items-baseline space-x-4 border-y border-gray-100 py-4">
-              <span className="text-3xl font-bold text-luxury-950">
+            <div className="mt-4 sm:mt-6 flex flex-wrap items-baseline gap-2 sm:gap-4 border-y border-gray-100 py-3 sm:py-4">
+              <span className="text-2xl sm:text-3xl font-bold text-luxury-950">
                 {formatCurrency(currentPrice)}
               </span>
               {hasDiscount && (
-                <span className="text-base text-gray-400 line-through">
+                <span className="text-sm sm:text-base text-gray-400 line-through">
                   {formatCurrency(product.price)}
                 </span>
               )}
               {hasDiscount && (
-                <span className="text-xs font-semibold text-red-700 bg-red-50 px-2.5 py-1 rounded">
+                <span className="text-[10px] sm:text-xs font-semibold text-red-700 bg-red-50 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded">
                   Save {formatCurrency(product.price - product.discountPrice)}
                 </span>
               )}
@@ -406,18 +406,18 @@ export const ProductDetailPage = () => {
           </div>
 
           {/* Value Assurance Badges */}
-          <div className="grid grid-cols-3 gap-2 pt-6 border-t border-gray-100 text-center">
-            <div className="p-2 space-y-1">
+          <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-6 border-t border-gray-100 text-center">
+            <div className="p-1 sm:p-2 space-y-1">
               <Truck className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[10px] uppercase font-bold text-luxury-950 tracking-wider">White-Glove Delivery</p>
+              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">White-Glove Delivery</p>
             </div>
-            <div className="p-2 space-y-1">
+            <div className="p-1 sm:p-2 space-y-1">
               <RotateCcw className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[10px] uppercase font-bold text-luxury-950 tracking-wider">14-Day Atelier Return</p>
+              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">14-Day Atelier Return</p>
             </div>
-            <div className="p-2 space-y-1">
+            <div className="p-1 sm:p-2 space-y-1">
               <ShieldCheck className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[10px] uppercase font-bold text-luxury-950 tracking-wider">Certified Provenance</p>
+              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">Certified Provenance</p>
             </div>
           </div>
         </div>
@@ -602,7 +602,7 @@ export const ProductDetailPage = () => {
               Related Creations
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {related.map((p) => (
               <ProductCard key={p._id} product={p} />
             ))}
@@ -621,7 +621,7 @@ export const ProductDetailPage = () => {
               Recently Viewed
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {recentlyViewed.map((p) => (
               <ProductCard key={p._id} product={p} />
             ))}

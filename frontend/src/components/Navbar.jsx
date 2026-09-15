@@ -109,39 +109,41 @@ export const Navbar = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="bg-luxury-950 text-gold-400 py-1.5 px-4 text-center text-[11px] tracking-[0.2em] uppercase font-medium border-b border-white/5">
-        <span>Complimentary White-Glove Delivery On Orders Above ₹2,999 &bull; Bespoke Packaging</span>
+      <div className="bg-luxury-950 text-gold-400 py-1.5 px-3 text-center text-[10px] sm:text-[11px] tracking-normal sm:tracking-[0.2em] uppercase font-medium border-b border-white/5 overflow-hidden">
+        <span className="inline-block truncate max-w-full">
+          Complimentary Delivery Above ₹2,999 &bull; Bespoke Packaging
+        </span>
       </div>
 
       {/* Main Sticky Header */}
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 z-40 transition-all duration-300 w-full ${
           isScrolled
-            ? 'glass-nav border-b border-gray-200/80 py-3.5 shadow-sm'
-            : 'bg-[#FAF9F6] border-b border-gray-100 py-5'
+            ? 'glass-nav border-b border-gray-200/80 py-2.5 sm:py-3.5 shadow-sm'
+            : 'bg-[#FAF9F6] border-b border-gray-100 py-3 sm:py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-luxury-900 hover:text-gold-600 transition"
+              className="lg:hidden p-1.5 text-luxury-900 hover:text-gold-600 transition"
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Brand Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="w-8 h-8 rounded bg-luxury-950 flex items-center justify-center border border-gold-500/40 shadow-sm group-hover:border-gold-400 transition">
-                <span className="text-gold-400 font-serif font-bold text-base tracking-tighter">N</span>
+            <Link to="/" className="flex items-center space-x-1.5 sm:space-x-2 group flex-shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-luxury-950 flex items-center justify-center border border-gold-500/40 shadow-sm group-hover:border-gold-400 transition">
+                <span className="text-gold-400 font-serif font-bold text-sm sm:text-base tracking-tighter">N</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-2xl font-bold tracking-[0.22em] text-luxury-950 uppercase leading-none">
+                <span className="font-serif text-lg sm:text-2xl font-bold tracking-[0.16em] sm:tracking-[0.22em] text-luxury-950 uppercase leading-none">
                   NEXKART
                 </span>
-                <span className="text-[8px] tracking-[0.35em] text-gold-600 uppercase font-medium mt-0.5">
+                <span className="text-[7px] sm:text-[8px] tracking-[0.28em] sm:tracking-[0.35em] text-gold-600 uppercase font-medium mt-0.5">
                   Maison de Luxe
                 </span>
               </div>
@@ -166,12 +168,12 @@ export const Navbar = () => {
             </nav>
 
             {/* Right Action Icons */}
-            <div className="flex items-center space-x-4 sm:space-x-5">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Search Toggle / Input */}
               <div className="relative" ref={searchRef}>
                 <button
                   onClick={() => setSearchOpen(!searchOpen)}
-                  className="p-1.5 text-luxury-800 hover:text-luxury-950 transition"
+                  className="p-1 sm:p-1.5 text-luxury-800 hover:text-luxury-950 transition"
                   aria-label="Search"
                 >
                   <Search className="w-5 h-5" />
@@ -179,7 +181,7 @@ export const Navbar = () => {
 
                 {/* Search Popup Dropdown */}
                 {searchOpen && (
-                  <div className="fixed inset-x-3 top-20 sm:absolute sm:inset-auto sm:right-0 sm:mt-3 sm:w-96 bg-white border border-gray-200 shadow-2xl p-4 rounded z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="fixed inset-x-2 top-16 sm:absolute sm:inset-auto sm:right-0 sm:mt-3 sm:w-96 bg-white border border-gray-200 shadow-2xl p-4 rounded z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <form onSubmit={handleSearchSubmit} className="relative">
                       <input
                         type="text"
