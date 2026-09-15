@@ -269,7 +269,7 @@ export const CartPage = () => {
               <div className="flex justify-between">
                 <span>White-Glove Courier Delivery</span>
                 <span className="font-semibold text-luxury-950">
-                  {shipping === 0 ? <span className="text-green-700">Complimentary</span> : formatCurrency(shipping)}
+                  {shipping === 0 ? <span className="text-green-700 font-bold">Complimentary (FREE)</span> : formatCurrency(shipping)}
                 </span>
               </div>
 
@@ -292,7 +292,7 @@ export const CartPage = () => {
           <div className="bg-gray-50 rounded-lg p-5 border border-gray-200 space-y-3 text-xs text-gray-600">
             <div className="flex items-center space-x-3">
               <Truck className="w-4 h-4 text-gold-600 flex-shrink-0" />
-              <span>Complimentary insured shipping on all orders ₹2,999+</span>
+              <span>Complimentary insured delivery on all orders (FREE)</span>
             </div>
             <div className="flex items-center space-x-3">
               <RotateCcw className="w-4 h-4 text-gold-600 flex-shrink-0" />

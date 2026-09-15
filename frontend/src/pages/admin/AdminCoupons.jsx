@@ -13,10 +13,10 @@ export const AdminCoupons = () => {
   const [formData, setFormData] = useState({
     code: '',
     description: '',
-    discountType: 'percentage',
-    discountValue: 15,
-    minOrderValue: 3000,
-    maxDiscount: 2000,
+    discountType: 'fixed',
+    discountValue: 250,
+    minOrderValue: 0,
+    maxDiscount: 250,
     expirationDate: '',
   });
 
@@ -39,12 +39,14 @@ export const AdminCoupons = () => {
   const handleCreateCoupon = async (e) => {
     e.preventDefault();
     try {
+      const isFixed = formData.discountType === 'fixed';
+      const discVal = Number(formData.discountValue);
       const payload = {
         ...formData,
         code: formData.code.toUpperCase().trim(),
-        discountValue: Number(formData.discountValue),
-        minOrderValue: Number(formData.minOrderValue),
-        maxDiscount: Number(formData.maxDiscount),
+        discountValue: discVal,
+        minOrderValue: Number(formData.minOrderValue) || 0,
+        maxDiscount: isFixed ? discVal : (Number(formData.maxDiscount) || 0),
         expirationDate: formData.expirationDate || new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
       };
 
@@ -120,7 +122,7 @@ export const AdminCoupons = () => {
                 <span>Min Order Spend:</span>
                 <span>{formatCurrency(c.minOrderValue)}</span>
               </div>
-              {c.maxDiscount > 0 && (
+              {c.discountType === 'percentage' && c.maxDiscount > 0 && (
                 <div className="flex justify-between">
                   <span>Max Cap:</span>
                   <span>{formatCurrency(c.maxDiscount)}</span>
@@ -186,44 +188,66 @@ export const AdminCoupons = () => {
                   <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Discount Type</label>
                   <select
                     value={formData.discountType}
-                    onChange={(e) => setFormData({ ...formData, discountType: e.target.value })}
-                    className="w-full px-3 py-2 border rounded bg-white"
+                    onChange={(e) => {
+                      const newType = e.target.value;
+                      setFormData({
+                        ...formData,
+                        discountType: newType,
+                        discountValue: newType === 'fixed' ? 250 : 15,
+                        maxDiscount: newType === 'fixed' ? 250 : 2000,
+                      });
+                    }}
+                    className="w-full px-3 py-2 border rounded bg-white font-medium"
                   >
-                    <option value="percentage">Percentage (%)</option>
-                    <option value="fixed">Fixed Amount (₹)</option>
+                    <option value="fixed">Fixed Amount (₹ Off)</option>
+                    <option value="percentage">Percentage (% Off)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Discount Value *</label>
+                  <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">
+                    {formData.discountType === 'percentage' ? 'Discount % *' : 'Flat Discount ₹ *'}
+                  </label>
                   <input
                     type="number"
                     required
                     min="1"
                     value={formData.discountValue}
                     onChange={(e) => setFormData({ ...formData, discountValue: e.target.value })}
-                    className="w-full px-3 py-2 border rounded"
+                    placeholder={formData.discountType === 'percentage' ? 'e.g. 15' : 'e.g. 250'}
+                    className="w-full px-3 py-2 border rounded font-bold"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Min Order Value (₹)</label>
+                  <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Min Order Spend (₹)</label>
                   <input
                     type="number"
                     value={formData.minOrderValue}
                     onChange={(e) => setFormData({ ...formData, minOrderValue: e.target.value })}
+                    placeholder="0 for any order"
                     className="w-full px-3 py-2 border rounded"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Max Cap Discount (₹)</label>
-                  <input
-                    type="number"
-                    value={formData.maxDiscount}
-                    onChange={(e) => setFormData({ ...formData, maxDiscount: e.target.value })}
-                    className="w-full px-3 py-2 border rounded"
-                  />
+                  {formData.discountType === 'percentage' ? (
+                    <>
+                      <label className="text-[10px] uppercase font-bold text-gray-700 block mb-1">Max Cap Discount (₹)</label>
+                      <input
+                        type="number"
+                        value={formData.maxDiscount}
+                        onChange={(e) => setFormData({ ...formData, maxDiscount: e.target.value })}
+                        placeholder="e.g. 2000"
+                        className="w-full px-3 py-2 border rounded"
+                      />
+                    </>
+                  ) : (
+                    <div className="bg-gold-50/60 p-2 rounded border border-gold-200 text-luxury-900 mt-1">
+                      <p className="text-[10px] font-bold text-gold-900 uppercase">Flat ₹{formData.discountValue || 0} Off</p>
+                      <p className="text-[9px] text-gray-500 leading-tight">Deducted directly from cart</p>
+                    </div>
+                  )}
                 </div>
               </div>
 

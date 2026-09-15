@@ -40,8 +40,8 @@ const calculateTotals = (cart) => {
   const taxableAmount = Math.max(0, subtotal - discountAmount);
   // 5% luxury goods tax / GST
   const tax = Math.round(taxableAmount * 0.05);
-  // Free luxury delivery above ₹2,999, else ₹250 standard
-  const shipping = subtotal >= 2999 || subtotal === 0 ? 0 : 250;
+  // Complimentary luxury delivery on all orders (₹0 Free Shipping)
+  const shipping = 0;
   const grandTotal = Math.max(0, taxableAmount + tax + shipping);
 
   return {

@@ -48,9 +48,7 @@ export const CartDrawer = () => {
 
   if (!isCartOpen) return null;
 
-  const freeShippingThreshold = 2999;
-  const shippingProgress = Math.min(100, Math.round((subtotal / freeShippingThreshold) * 100));
-  const amountNeededForFreeShipping = Math.max(0, freeShippingThreshold - subtotal);
+
 
   const handleApplyCoupon = async (e) => {
     e.preventDefault();
@@ -93,21 +91,16 @@ export const CartDrawer = () => {
             </button>
           </div>
 
-          {/* Free Shipping Progress */}
+          {/* Free Shipping Highlight */}
           <div className="px-5 py-3 bg-champagne-light border-b border-champagne-dark/30">
-            {amountNeededForFreeShipping > 0 ? (
-              <p className="text-[11px] text-luxury-800 tracking-wide">
-                Add <span className="font-bold text-luxury-950">{formatCurrency(amountNeededForFreeShipping)}</span> more to unlock <span className="font-semibold text-gold-700">Complimentary White-Glove Delivery</span>.
-              </p>
-            ) : (
-              <p className="text-[11px] text-green-800 font-medium tracking-wide">
-                You have unlocked <span className="font-bold">Complimentary White-Glove Delivery</span>!
-              </p>
-            )}
+            <p className="text-[11px] text-green-800 font-medium tracking-wide flex items-center space-x-1.5">
+              <span>✨</span>
+              <span><strong className="font-bold">Complimentary White-Glove Delivery (FREE)</strong> included on all orders!</span>
+            </p>
             <div className="w-full bg-gray-200 h-1.5 rounded-full mt-2 overflow-hidden">
               <div
                 className="bg-gold-600 h-full rounded-full transition-all duration-500"
-                style={{ width: `${shippingProgress}%` }}
+                style={{ width: '100%' }}
               />
             </div>
           </div>

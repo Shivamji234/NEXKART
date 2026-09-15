@@ -1132,7 +1132,7 @@ export const CheckoutPage = () => {
               <div className="flex justify-between">
                 <span>White-Glove Shipping</span>
                 <span className="font-semibold text-luxury-950">
-                  {shipping === 0 ? <span className="text-green-700">Complimentary</span> : formatCurrency(shipping)}
+                  {shipping === 0 ? <span className="text-green-700 font-bold">Complimentary (FREE)</span> : formatCurrency(shipping)}
                 </span>
               </div>
               <div className="flex justify-between text-base font-bold text-luxury-950 pt-3 border-t border-gray-200">

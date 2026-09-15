@@ -18,7 +18,7 @@ export const PolicyPages = () => {
             </p>
             <h3 className="text-xs font-bold uppercase text-luxury-950">Complimentary Tier</h3>
             <p>
-              All orders exceeding ₹2,999 qualify for complimentary white-glove transit across all metro and tier-1 Indian cities, with arrival scheduled within 2 to 4 business days.
+              All orders qualify for 100% complimentary white-glove insured transit across all Indian pin codes, with expedited arrival scheduled within 2 to 4 business days.
             </p>
             <h3 className="text-xs font-bold uppercase text-luxury-950">Packaging</h3>
             <p>

@@ -99,7 +99,7 @@ export const CartProvider = ({ children }) => {
 
     const taxable = Math.max(0, sub - disc);
     const calculatedTax = Math.round(taxable * 0.05);
-    const calculatedShipping = sub >= 2999 || sub === 0 ? 0 : 250;
+    const calculatedShipping = 0; // Complimentary delivery on all orders (₹0 Free Shipping)
     const total = Math.max(0, taxable + calculatedTax + calculatedShipping);
 
     setSubtotal(sub);

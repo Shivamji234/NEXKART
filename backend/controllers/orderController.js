@@ -100,7 +100,7 @@ const createOrder = async (req, res, next) => {
 
     const taxableAmount = Math.max(0, serverItemsPrice - serverDiscount);
     const serverTax = Math.round(taxableAmount * 0.05);
-    const serverShipping = serverItemsPrice >= 2999 || serverItemsPrice === 0 ? 0 : 250;
+    const serverShipping = 0; // Complimentary luxury delivery on all orders (₹0 Free Shipping)
     const serverTotalPrice = Math.max(0, taxableAmount + serverTax + serverShipping);
 
     // COD limit validation (maximum ₹50,000 for COD for security)
