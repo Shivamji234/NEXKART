@@ -12,6 +12,7 @@ const {
   updateUserStatus,
   getAdminCoupons,
   createCoupon,
+  updateCoupon,
   deleteCoupon,
   getAdminReviews,
   deleteReview,
@@ -41,6 +42,7 @@ router.put('/users/:id', updateUserStatus);
 // Coupons
 router.get('/coupons', getAdminCoupons);
 router.post('/coupons', createCoupon);
+router.put('/coupons/:id', updateCoupon);
 router.delete('/coupons/:id', deleteCoupon);
 
 // Reviews

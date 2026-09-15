@@ -387,6 +387,24 @@ const createCoupon = async (req, res, next) => {
   }
 };
 
+// @desc    Update coupon (e.g. expiration date/time, active status, discounts)
+// @route   PUT /api/admin/coupons/:id
+// @access  Private/Admin
+const updateCoupon = async (req, res, next) => {
+  try {
+    const coupon = await Coupon.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!coupon) {
+      return res.status(404).json({ success: false, message: 'Coupon not found' });
+    }
+    res.status(200).json({ success: true, message: 'Coupon updated successfully', coupon });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc    Delete coupon
 // @route   DELETE /api/admin/coupons/:id
 // @access  Private/Admin
@@ -441,6 +459,7 @@ module.exports = {
   updateUserStatus,
   getAdminCoupons,
   createCoupon,
+  updateCoupon,
   deleteCoupon,
   getAdminReviews,
   deleteReview,
