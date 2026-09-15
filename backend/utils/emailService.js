@@ -80,7 +80,7 @@ const sendOTPEmail = async (email, otp, purpose = 'Account Verification') => {
   `;
 
   return sendEmail({
-    to,
+    to: email,
     subject: `NEXKART Security Code: ${otp}`,
     text: `Your NEXKART verification code is: ${otp}. Valid for 10 minutes.`,
     html,
@@ -113,7 +113,7 @@ const sendOrderConfirmationEmail = async (email, order) => {
   `;
 
   return sendEmail({
-    to,
+    to: email,
     subject: `Order Confirmation - ${order.orderNumber} | NEXKART`,
     text: `Thank you for your order ${order.orderNumber}. Total: ₹${order.totalPrice}. Status: ${order.orderStatus}`,
     html,

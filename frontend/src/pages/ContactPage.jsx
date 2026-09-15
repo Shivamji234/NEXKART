@@ -128,7 +128,7 @@ export const ContactPage = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="patron@domain.com"
+                  placeholder="user@gmail.com"
                   className="w-full px-3 py-2.5 border border-gray-300 text-xs rounded focus:outline-none focus:border-luxury-950"
                 />
               </div>

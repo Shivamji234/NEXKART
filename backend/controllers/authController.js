@@ -43,7 +43,7 @@ const register = async (req, res, next) => {
           message: 'Account exists but unverified. A new verification OTP has been sent.',
           requiresVerification: true,
           email: existingUser.email,
-          devOtp: process.env.NODE_ENV !== 'production' ? plainOtp : undefined,
+          devOtp: (!process.env.EMAIL_PASSWORD || process.env.NODE_ENV !== 'production') ? plainOtp : undefined,
         });
       }
       return res.status(400).json({
@@ -68,7 +68,7 @@ const register = async (req, res, next) => {
       message: 'Registration successful. Please verify the OTP sent to your email.',
       requiresVerification: true,
       email: user.email,
-      devOtp: process.env.NODE_ENV !== 'production' ? plainOtp : undefined,
+      devOtp: (!process.env.EMAIL_PASSWORD || process.env.NODE_ENV !== 'production') ? plainOtp : undefined,
     });
   } catch (error) {
     next(error);

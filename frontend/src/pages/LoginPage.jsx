@@ -43,16 +43,6 @@ export const LoginPage = () => {
     }
   };
 
-  const fillDemoCustomer = () => {
-    setEmail('customer@nexkart.com');
-    setPassword('Customer@123456');
-  };
-
-  const fillDemoAdmin = () => {
-    setEmail('admin@nexkart.com');
-    setPassword('Admin@123456');
-  };
-
   return (
     <div className="min-h-[75vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-lg border border-gray-200 shadow-xl">
@@ -71,29 +61,6 @@ export const LoginPage = () => {
           </p>
         </div>
 
-        {/* Demo Fast-fill Buttons */}
-        <div className="bg-gold-50/50 border border-gold-200/60 p-3 rounded text-center space-y-2">
-          <p className="text-[10px] uppercase tracking-wider text-gold-900 font-bold">
-            1-Click Demo Profiles
-          </p>
-          <div className="flex space-x-2">
-            <button
-              type="button"
-              onClick={fillDemoCustomer}
-              className="flex-1 py-1.5 px-2 bg-white border border-gold-300 rounded text-[10px] uppercase tracking-wider font-semibold text-luxury-950 hover:bg-gold-50"
-            >
-              Demo Customer
-            </button>
-            <button
-              type="button"
-              onClick={fillDemoAdmin}
-              className="flex-1 py-1.5 px-2 bg-luxury-950 text-gold-400 rounded text-[10px] uppercase tracking-wider font-semibold hover:bg-black"
-            >
-              Demo Admin
-            </button>
-          </div>
-        </div>
-
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label className="text-[11px] uppercase tracking-wider font-semibold text-gray-700 block mb-1">
@@ -105,7 +72,7 @@ export const LoginPage = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="patron@domain.com"
+                placeholder="user@gmail.com"
                 className="w-full pl-9 pr-3 py-2.5 border border-gray-300 text-xs rounded focus:outline-none focus:border-luxury-950 tracking-wide"
               />
               <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />

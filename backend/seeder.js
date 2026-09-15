@@ -856,7 +856,7 @@ const seedData = async (exitProcess = true) => {
     console.log('[Seeder] Creating Demo Accounts...');
     // Create Admin User
     const adminUser = await User.create({
-      name: 'Alexander Vance',
+      name: 'Alexander Vance (Admin)',
       email: 'admin@nexkart.com',
       mobile: '+919876543210',
       password: 'Admin@123456',
@@ -864,54 +864,92 @@ const seedData = async (exitProcess = true) => {
       isVerified: true,
     });
 
-    // Create Customer User
+    // Create Customer User with user@gmail.com and Indian identity
     const customerUser = await User.create({
-      name: 'Evelyn St. Claire',
-      email: 'customer@nexkart.com',
-      mobile: '+919876543211',
-      password: 'Customer@123456',
+      name: 'Aarav Sharma',
+      email: 'user@gmail.com',
+      mobile: '+919876543210',
+      password: 'User@123456',
       role: 'customer',
       isVerified: true,
     });
 
-    // Create sample address for customer
+    // Create authentic Indian address for customer
     await Address.create({
       user: customerUser._id,
-      fullName: 'Evelyn St. Claire',
-      mobile: '+919876543211',
-      house: 'Penthouse 4B, The Grand Residences',
-      street: 'Marine Drive, Nariman Point',
+      fullName: 'Aarav Sharma',
+      mobile: '+919876543210',
+      house: 'Tower 4, 18th Floor, Imperial Heights',
+      street: 'Worli Sea Face Road',
       city: 'Mumbai',
       state: 'Maharashtra',
-      pincode: '400021',
-      landmark: 'Opposite Oberoi Trident',
+      pincode: '400018',
+      landmark: 'Near Worli Promenade',
       addressType: 'Home',
       isDefault: true,
     });
 
-    // Seed sample reviews
+    // Seed authentic Indian customer reviews across products
     if (createdProducts.length > 0) {
-      await Review.create({
-        user: customerUser._id,
-        userName: customerUser.name,
-        product: createdProducts[0]._id,
-        rating: 5,
-        title: 'Exquisite Drapery and Pure Cashmere Quality',
-        comment: 'The weight and softness of the cashmere is extraordinary. The pick stitching on the lapels reveals true Italian tailoring mastery. Delivery was white-glove and packaging was impeccably luxurious.',
-        verifiedPurchase: true,
-        isModerated: true,
-      });
+      const indianReviews = [
+        {
+          productIdx: 0,
+          userName: 'Aarav Sharma',
+          rating: 5,
+          title: 'Exquisite Drapery and Pure Cashmere Quality',
+          comment: 'The weight and softness of the cashmere is extraordinary. Handcrafted tailoring at its finest. Delivered across Mumbai in bespoke packaging.',
+        },
+        {
+          productIdx: 1,
+          userName: 'Priya Singhania',
+          rating: 5,
+          title: 'Bespoke fit right out of the box',
+          comment: 'Wore this ensemble to a wedding gala in New Delhi. The silk lapel has a glorious matte sheen and the wool breathes effortlessly. Truly royal quality.',
+        },
+        {
+          productIdx: 2,
+          userName: 'Vikramaditya Roy',
+          rating: 5,
+          title: 'Superior Italian leather comfort',
+          comment: 'These wholecut oxfords are pure elegance. Walked in them for hours at a Kolkata gathering without any fatigue. Outstanding craftsmanship.',
+        },
+        {
+          productIdx: 3,
+          userName: 'Ananya Iyer',
+          rating: 5,
+          title: 'Arrived in pristine condition in Bengaluru',
+          comment: 'The Chelsea boots have a magnificent silhouette. The crepe sole provides immense comfort. The concierge delivery in Bengaluru was prompt and courteous.',
+        },
+        {
+          productIdx: 4,
+          userName: 'Kabir Malhotra',
+          rating: 5,
+          title: 'Pure silk twill with vibrant screens',
+          comment: 'Gifted this scarf for an anniversary in Chandigarh. The hand-rolled edges and rich golden pigments are breathtaking in person.',
+        },
+        {
+          productIdx: 5,
+          userName: 'Meera Patel',
+          rating: 5,
+          title: 'A true collector’s acquisition',
+          comment: 'The caviar calfskin bag is divine. The craftsmanship rivals Parisian luxury houses. Extremely happy with the seamless experience.',
+        },
+      ];
 
-      await Review.create({
-        user: customerUser._id,
-        userName: 'Julian H.',
-        product: createdProducts[1]._id,
-        rating: 5,
-        title: 'Bespoke fit right out of the box',
-        comment: 'Wore this tuxedo to the annual gala in Monaco. The silk faille lapel has a glorious matte sheen and the wool breathes effortlessly. Truly exceptional value.',
-        verifiedPurchase: true,
-        isModerated: true,
-      });
+      for (const rev of indianReviews) {
+        if (createdProducts[rev.productIdx]) {
+          await Review.create({
+            user: customerUser._id,
+            userName: rev.userName,
+            product: createdProducts[rev.productIdx]._id,
+            rating: rev.rating,
+            title: rev.title,
+            comment: rev.comment,
+            verifiedPurchase: true,
+            isModerated: true,
+          });
+        }
+      }
     }
 
     console.log('\n======================================================');
@@ -919,13 +957,13 @@ const seedData = async (exitProcess = true) => {
     console.log(`  - Products created: ${createdProducts.length}`);
     console.log(`  - Categories created: ${categories.length}`);
     console.log(`  - Coupons created: ${sampleCoupons.length}`);
-    console.log('  DEMO ACCOUNTS:');
+    console.log('  ACCOUNTS:');
     console.log('  Admin Account:');
     console.log('    Email:    admin@nexkart.com');
     console.log('    Password: Admin@123456');
-    console.log('  Customer Account:');
-    console.log('    Email:    customer@nexkart.com');
-    console.log('    Password: Customer@123456');
+    console.log('  User Account:');
+    console.log('    Email:    user@gmail.com');
+    console.log('    Password: User@123456');
     console.log('======================================================\n');
 
     if (exitProcess) {
