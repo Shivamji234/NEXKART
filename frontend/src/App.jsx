@@ -37,6 +37,7 @@ import { AdminProducts } from './pages/admin/AdminProducts';
 import { AdminOrders } from './pages/admin/AdminOrders';
 import { AdminUsers } from './pages/admin/AdminUsers';
 import { AdminCoupons } from './pages/admin/AdminCoupons';
+import { AdminReturns } from './pages/admin/AdminReturns';
 // Components
 import { ScrollToTop } from './components/ScrollToTop';
 
