@@ -38,6 +38,7 @@ app.use(
 const allowedOrigins = [
   process.env.CLIENT_URL,
   process.env.FRONTEND_URL,
+  'https://nexkart-store.netlify.app',
   'https://nexkart.vercel.app',
   'https://www.nexkart.com',
   'http://localhost:5173',
@@ -51,7 +52,12 @@ app.use(
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps or curl)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      if (
+        allowedOrigins.includes('*') ||
+        allowedOrigins.indexOf(origin) !== -1 ||
+        origin.endsWith('.netlify.app') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
         callback(null, true);
       } else {
         callback(new Error(`Origin ${origin} not permitted by NEXKART CORS policy`));

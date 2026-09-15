@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Connect to HTTPS production backend if configured, or fallback to relative /api
-const baseURL = import.meta.env.VITE_API_URL || '/api';
+// Connect to HTTPS production backend if configured, or fallback to live Render backend
+const baseURL = import.meta.env.VITE_API_URL || 'https://nexkart-backend-px40.onrender.com/api';
 
 const api = axios.create({
   baseURL,
