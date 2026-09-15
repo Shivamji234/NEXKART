@@ -1,0 +1,14 @@
+{
+  "name": "nexkart-root",
+  "version": "1.0.0",
+  "description": "NEXKART Luxury Full-Stack E-Commerce Platform",
+  "scripts": {
+    "dev:backend": "cd backend && npm start",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": ["ecommerce", "luxury", "fashion", "mern", "react", "express", "mongodb", "razorpay"],
+  "author": "NEXKART Atelier",
+  "license": "ISC"
+}
