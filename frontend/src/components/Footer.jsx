@@ -116,36 +116,6 @@ export const Footer = () => {
               <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
               <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
             </div>
-
-            {/* Official Social Media Channels */}
-            <div className="pt-2">
-              <p className="text-[10px] uppercase font-bold text-gray-300 tracking-wider mb-2">
-                Official Channels
-              </p>
-              <div className="flex items-center space-x-3">
-                <a
-                  href="https://www.instagram.com/nexkartstore2.0?utm_source=qr&stkn=d3VpejdoZTcwaGdz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-orange-600/20 hover:from-pink-600/35 hover:via-purple-600/35 hover:to-orange-600/35 text-pink-300 hover:text-pink-200 border border-pink-500/30 rounded-md text-xs font-semibold transition"
-                  title="Follow NexKart on Instagram"
-                >
-                  <Instagram className="w-4 h-4 text-pink-400" />
-                  <span>Instagram</span>
-                </a>
-
-                <a
-                  href="https://www.youtube.com/@nexkart-store"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/35 text-red-300 hover:text-red-200 border border-red-500/30 rounded-md text-xs font-semibold transition"
-                  title="Subscribe to NexKart on YouTube"
-                >
-                  <Youtube className="w-4 h-4 text-red-500" />
-                  <span>YouTube</span>
-                </a>
-              </div>
-            </div>
           </div>
 
           {/* Maison Collections */}

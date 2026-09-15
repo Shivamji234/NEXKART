@@ -118,7 +118,7 @@ export const ContactPage = () => {
             <p>Orders dispatched with white-glove packaging across Varanasi and Pan-India.</p>
             <div className="pt-2 border-t border-white/10">
               <p className="text-[10px] uppercase font-bold text-gold-400 tracking-wider mb-2">
-                Official Social Channels
+                Follow Us
               </p>
               <div className="flex items-center space-x-2.5">
                 <a
