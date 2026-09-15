@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const res = await authAPI.login({ email, password });
     if (res.success) {
-      if (res.requiresVerification) {
+      if (res.requiresVerification || res.requiresOtp) {
         return res; // Prompt to verify OTP
       }
       localStorage.setItem('nexkart_token', res.token);
@@ -47,9 +47,9 @@ export const AuthProvider = ({ children }) => {
     return await authAPI.register(userData);
   };
 
-  const verifyOtp = async (email, otp) => {
-    const res = await authAPI.verifyOtp({ email, otp });
-    if (res.success) {
+  const verifyOtp = async (email, otp, purpose = 'verification') => {
+    const res = await authAPI.verifyOtp({ email, otp, purpose });
+    if (res.success && res.token) {
       localStorage.setItem('nexkart_token', res.token);
       setToken(res.token);
       setUser(res.user);

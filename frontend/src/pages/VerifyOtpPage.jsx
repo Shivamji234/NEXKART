@@ -12,7 +12,9 @@ export const VerifyOtpPage = () => {
   const { addToast } = useNotifications();
 
   const emailParam = searchParams.get('email') || '';
+  const purpose = searchParams.get('purpose') || 'verification';
   const devOtpPassed = location.state?.devOtp;
+  const redirect = location.state?.redirect || '/';
 
   const [otp, setOtp] = useState(devOtpPassed || '');
   const [loading, setLoading] = useState(false);
@@ -40,10 +42,10 @@ export const VerifyOtpPage = () => {
 
     try {
       setLoading(true);
-      const res = await verifyOtp(emailParam, otp);
+      const res = await verifyOtp(emailParam, otp, purpose);
       if (res.success) {
         addToast('Security verification confirmed. Welcome to NexKart.');
-        navigate('/');
+        navigate(redirect);
       }
     } catch (err) {
       addToast(err.message, 'error');
@@ -56,7 +58,7 @@ export const VerifyOtpPage = () => {
     if (!canResend) return;
 
     try {
-      const res = await resendOtp(emailParam, 'verification');
+      const res = await resendOtp(emailParam, purpose);
       if (res.success) {
         addToast(res.message);
         if (res.devOtp) setOtp(res.devOtp);
@@ -68,21 +70,23 @@ export const VerifyOtpPage = () => {
     }
   };
 
+  const isLoginFlow = purpose === 'login';
+
   return (
     <div className="min-h-[75vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-6 bg-white p-8 sm:p-10 rounded-lg border border-gray-200 shadow-xl">
+      <div className="max-w-md w-full space-y-6 bg-white p-6 sm:p-10 rounded-lg border border-gray-200 shadow-xl">
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-full bg-gold-50 border border-gold-400 flex items-center justify-center mx-auto text-gold-600">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <span className="text-[10px] uppercase tracking-[0.3em] text-gold-600 font-semibold">
-            Security Verification
+            {isLoginFlow ? 'Two-Factor Authentication' : 'Security Verification'}
           </span>
           <h2 className="text-2xl font-bold uppercase tracking-widest text-luxury-950 font-serif">
-            Verify Your Identity
+            {isLoginFlow ? 'Authenticate Sign-In' : 'Verify Your Identity'}
           </h2>
           <p className="text-xs text-gray-500 leading-relaxed">
-            A 6-digit authentication code has been transmitted to <strong className="text-luxury-950">{emailParam}</strong>.
+            A 6-digit security code has been transmitted via <strong className="text-luxury-950">Brevo</strong> to <strong className="text-luxury-950">{emailParam}</strong>.
           </p>
         </div>
 
@@ -108,7 +112,7 @@ export const VerifyOtpPage = () => {
               onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
               placeholder="••••••"
               autoFocus
-              className="w-full text-center text-2xl font-mono tracking-[0.6em] py-3 border-2 border-gray-300 rounded focus:outline-none focus:border-luxury-950 font-bold"
+              className="w-full text-center text-2xl font-mono tracking-[0.5em] sm:tracking-[0.6em] py-3 border-2 border-gray-300 rounded focus:outline-none focus:border-luxury-950 font-bold"
             />
           </div>
 
@@ -117,7 +121,7 @@ export const VerifyOtpPage = () => {
             disabled={loading || otp.length < 6}
             className="w-full py-3.5 bg-luxury-950 text-gold-400 text-xs font-bold uppercase tracking-widest rounded hover:bg-black transition flex items-center justify-center space-x-2 shadow-lg disabled:opacity-50"
           >
-            <span>{loading ? 'Validating...' : 'Activate Membership'}</span>
+            <span>{loading ? 'Validating...' : isLoginFlow ? 'Verify & Sign In' : 'Activate Membership'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
@@ -131,7 +135,7 @@ export const VerifyOtpPage = () => {
             className="text-xs font-semibold uppercase tracking-wider text-gold-700 hover:text-gold-900 disabled:text-gray-400 transition inline-flex items-center space-x-1"
           >
             <RotateCcw className="w-3.5 h-3.5 mr-1" />
-            <span>{canResend ? 'Resend Security Code' : `Resend available in ${cooldown}s`}</span>
+            <span>{canResend ? 'Resend Security Code via Brevo' : `Resend available in ${cooldown}s`}</span>
           </button>
         </div>
       </div>

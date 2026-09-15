@@ -75,21 +75,28 @@ const register = async (req, res, next) => {
   }
 };
 
-// @desc    Verify Registration OTP and activate account
+// @desc    Verify Registration / Login OTP and authenticate account
 // @route   POST /api/auth/verify-otp
 // @access  Public
 const verifyAccountOtp = async (req, res, next) => {
   try {
-    const { email, otp } = req.body;
+    const { email, otp, purpose = 'verification' } = req.body;
 
     if (!email || !otp) {
       return res.status(400).json({
         success: false,
-        message: 'Email and OTP are required.',
+        message: 'Email and authentication OTP are required.',
       });
     }
 
-    const verification = await verifyOTP(email, otp, 'verification');
+    // Support both 'login' and 'verification' purposes
+    let verification = await verifyOTP(email, otp, purpose);
+    if (!verification.success && purpose === 'verification') {
+      verification = await verifyOTP(email, otp, 'login');
+    } else if (!verification.success && purpose === 'login') {
+      verification = await verifyOTP(email, otp, 'verification');
+    }
+
     if (!verification.success) {
       return res.status(400).json(verification);
     }
@@ -105,11 +112,11 @@ const verifyAccountOtp = async (req, res, next) => {
     user.isVerified = true;
     await user.save();
 
-    // Create welcome notification
+    // Create welcome notification if first time
     await Notification.create({
       user: user._id,
-      title: 'Welcome to NEXKART Maison',
-      message: 'Your luxury membership has been verified. Discover our latest collections.',
+      title: 'Security Notice: Authentication Verified',
+      message: 'You have successfully signed in with two-factor security verification.',
       type: 'security',
     });
 
@@ -117,7 +124,7 @@ const verifyAccountOtp = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: 'Account verified successfully. Welcome to NexKart.',
+      message: 'Identity authenticated successfully. Welcome to NexKart.',
       token,
       user: {
         _id: user._id,
@@ -133,7 +140,7 @@ const verifyAccountOtp = async (req, res, next) => {
   }
 };
 
-// @desc    Resend OTP
+// @desc    Resend OTP via Brevo
 // @route   POST /api/auth/resend-otp
 // @access  Public
 const resendOTP = async (req, res, next) => {
@@ -156,19 +163,25 @@ const resendOTP = async (req, res, next) => {
     }
 
     const { plainOtp } = await createAndStoreOTP(email, purpose);
-    await sendOTPEmail(email, plainOtp, purpose === 'password_reset' ? 'Password Reset' : 'Account Verification');
+    const purposeTitle =
+      purpose === 'password_reset'
+        ? 'Password Reset'
+        : purpose === 'login'
+        ? 'Sign-In Authentication'
+        : 'Account Verification';
+    await sendOTPEmail(email, plainOtp, purposeTitle);
 
     res.status(200).json({
       success: true,
-      message: 'A fresh security OTP has been dispatched.',
-      devOtp: process.env.NODE_ENV !== 'production' ? plainOtp : undefined,
+      message: 'A fresh security OTP has been dispatched via Brevo.',
+      devOtp: (process.env.NODE_ENV !== 'production' || !process.env.BREVO_API_KEY) ? plainOtp : undefined,
     });
   } catch (error) {
     next(error);
   }
 };
 
-// @desc    Authenticate user & get token
+// @desc    Authenticate user credentials & trigger Brevo OTP
 // @route   POST /api/auth/login
 // @access  Public
 const login = async (req, res, next) => {
@@ -208,32 +221,21 @@ const login = async (req, res, next) => {
       });
     }
 
-    if (!user.isVerified) {
-      const { plainOtp } = await createAndStoreOTP(user.email, 'verification');
-      await sendOTPEmail(user.email, plainOtp, 'Account Verification');
-      return res.status(200).json({
-        success: true,
-        requiresVerification: true,
-        message: 'Your email has not been verified yet. An OTP has been sent to activate your account.',
-        email: user.email,
-        devOtp: process.env.NODE_ENV !== 'production' ? plainOtp : undefined,
-      });
+    // Generate login authentication OTP and dispatch via Brevo
+    const { plainOtp } = await createAndStoreOTP(user.email, 'login');
+    try {
+      await sendOTPEmail(user.email, plainOtp, 'Sign-In Authentication');
+    } catch (emailErr) {
+      console.error('[Auth] Failed to dispatch OTP email via Brevo:', emailErr.message);
     }
 
-    const token = generateToken(user._id);
-
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: 'Sign in successful.',
-      token,
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        mobile: user.mobile,
-        role: user.role,
-        isVerified: user.isVerified,
-      },
+      requiresOtp: true,
+      requiresVerification: true,
+      message: 'A 6-digit security code has been dispatched via Brevo to your email. Please verify to sign in.',
+      email: user.email,
+      devOtp: (process.env.NODE_ENV !== 'production' || !process.env.BREVO_API_KEY) ? plainOtp : undefined,
     });
   } catch (error) {
     next(error);

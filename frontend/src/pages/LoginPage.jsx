@@ -26,9 +26,11 @@ export const LoginPage = () => {
       setLoading(true);
       const res = await login(email, password);
 
-      if (res.requiresVerification) {
+      if (res.requiresVerification || res.requiresOtp) {
         addToast(res.message, 'info');
-        navigate(`/verify-otp?email=${encodeURIComponent(res.email)}`);
+        navigate(`/verify-otp?email=${encodeURIComponent(res.email)}&purpose=login`, {
+          state: { devOtp: res.devOtp, redirect },
+        });
         return;
       }
 
