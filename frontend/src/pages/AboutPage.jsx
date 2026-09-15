@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, ShieldCheck, Award, Clock, ArrowRight } from 'lucide-react';
+import { Sparkles, ShieldCheck, Award, Clock, ArrowRight, X, CheckCircle2, MapPin, Mail } from 'lucide-react';
+import founderImg from '../assets/founder.jpg';
 
 export const AboutPage = () => {
+  const [showFounderModal, setShowFounderModal] = useState(false);
+
+  // Close modal on Escape key press and prevent background scrolling
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setShowFounderModal(false);
+    };
+    if (showFounderModal) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [showFounderModal]);
+
   return (
     <div className="space-y-20 pb-16">
       {/* Editorial Header */}
@@ -33,9 +51,34 @@ export const AboutPage = () => {
         <blockquote className="font-serif text-xl sm:text-2xl text-luxury-950 leading-relaxed font-normal">
           &ldquo;NexKart is a modern luxury e-commerce platform created to make premium online shopping simpler, faster and more enjoyable. Our goal is to combine elegant design, trusted shopping experiences and smart technology so customers can discover products effortlessly while saving valuable time.&rdquo;
         </blockquote>
-        <p className="text-xs uppercase tracking-widest text-gold-700 font-semibold">
-          — The NexKart Founders & Concierge Atelier
-        </p>
+        <div className="space-y-3">
+          <p className="text-xs uppercase tracking-widest text-gold-700 font-semibold">
+            — The NexKart Founders & Concierge Atelier
+          </p>
+
+          {/* Interactive Founder Link / Button */}
+          <div className="pt-2 flex flex-col items-center justify-center space-y-1.5">
+            <button
+              type="button"
+              onClick={() => setShowFounderModal(true)}
+              className="group inline-flex items-center space-x-2.5 px-6 py-2.5 rounded-full border-2 border-gold-600 bg-luxury-950 hover:bg-gold-500 text-white hover:text-luxury-950 text-xs font-bold uppercase tracking-[0.25em] transition-all duration-300 shadow-lg hover:shadow-gold-500/30 hover:scale-105 cursor-pointer"
+              title="Click to view Founder Profile"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-gold-400 group-hover:text-luxury-950 transition" />
+              <span>FOUNDER</span>
+              <span className="opacity-40">&bull;</span>
+              <span className="font-serif tracking-widest text-gold-400 group-hover:text-luxury-950 transition">
+                SHIVAM PANDEY
+              </span>
+              <span className="text-[10px] bg-gold-600 text-luxury-950 px-1.5 py-0.5 rounded font-mono group-hover:bg-luxury-950 group-hover:text-gold-400 transition ml-1">
+                VIEW
+              </span>
+            </button>
+            <p className="text-[11px] text-gray-500 tracking-wider">
+              (Click above to view Founder Profile & Vision)
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Numerical Pillars */}
@@ -115,6 +158,102 @@ export const AboutPage = () => {
           </Link>
         </div>
       </section>
+
+      {/* Founder Pop-up Modal */}
+      {showFounderModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md transition-opacity duration-300"
+          onClick={() => setShowFounderModal(false)}
+        >
+          <div
+            className="relative w-full max-w-md bg-[#121212] border border-gold-500/50 rounded-2xl p-6 sm:p-8 text-white shadow-2xl shadow-gold-500/15 overflow-hidden transition-all duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Ambient Gold Glow Background */}
+            <div className="absolute -top-20 -right-20 w-44 h-44 bg-gold-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-44 h-44 bg-gold-500/15 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setShowFounderModal(false)}
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition cursor-pointer"
+              aria-label="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Modal Body */}
+            <div className="relative z-10 text-center space-y-5">
+              {/* Founder Photo */}
+              <div className="relative mx-auto w-36 h-36 sm:w-44 sm:h-44">
+                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-gold-600 via-amber-400 to-gold-700 p-0.5 shadow-xl">
+                  <div className="w-full h-full rounded-full bg-[#121212] p-1">
+                    <img
+                      src={founderImg}
+                      alt="Shivam Pandey - Founder of NexKart"
+                      className="w-full h-full object-cover rounded-full shadow-inner"
+                      onError={(e) => {
+                        e.currentTarget.src = '/shivam-pandey.jpg';
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="absolute bottom-1 right-2 bg-luxury-950 rounded-full p-1 border border-gold-500 shadow-md">
+                  <CheckCircle2 className="w-5 h-5 text-gold-400 fill-gold-400/20" />
+                </div>
+              </div>
+
+              {/* Founder Name & Designation */}
+              <div className="space-y-1 pt-1">
+                <div className="inline-flex items-center space-x-1.5 px-3 py-0.5 bg-gold-500/15 border border-gold-500/30 rounded-full text-[10px] uppercase font-bold tracking-[0.25em] text-gold-400">
+                  <Sparkles className="w-3 h-3 text-gold-400" />
+                  <span>Founder & Visionary</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-[0.18em] text-white pt-2 uppercase">
+                  SHIVAM PANDEY
+                </h2>
+                <p className="text-xs text-gold-400 font-medium tracking-wider uppercase">
+                  Founder & CEO &bull; NexKart
+                </p>
+                <p className="text-xs text-gray-400 flex items-center justify-center space-x-1 pt-0.5">
+                  <MapPin className="w-3.5 h-3.5 text-gold-500" />
+                  <span>Varanasi, Uttar Pradesh, India</span>
+                </p>
+              </div>
+
+              {/* Founder Note / Vision */}
+              <div className="p-4 bg-white/5 rounded-xl border border-white/10 text-left space-y-2">
+                <p className="text-xs text-gray-300 leading-relaxed font-serif italic">
+                  &ldquo;NexKart was envisioned to combine timeless luxury with modern simplicity. Every collection, every artisan partnership, and every order is treated with personal dedication and perfection.&rdquo;
+                </p>
+                <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[11px] text-gray-400">
+                  <span className="font-serif tracking-widest text-gold-400">— Shivam Pandey</span>
+                  <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Founder, NexKart</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                <a
+                  href="mailto:nexkart2.0@gmail.com?subject=Inquiry%20for%20Shivam%20Pandey%20-%20NexKart%20Founder"
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-5 py-2.5 bg-gold-500 hover:bg-gold-400 text-luxury-950 text-xs font-bold uppercase tracking-wider rounded-lg transition shadow-md"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Contact Founder Office</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setShowFounderModal(false)}
+                  className="w-full sm:w-auto px-5 py-2.5 bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-semibold uppercase tracking-wider rounded-lg border border-white/15 transition cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

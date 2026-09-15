@@ -71,6 +71,8 @@ export function App() {
 
         {/* Informational */}
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/the-nexkart-story" element={<AboutPage />} />
+        <Route path="/story" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/policies/:type" element={<PolicyPages />} />
       </Route>
