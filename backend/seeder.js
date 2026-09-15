@@ -253,8 +253,8 @@ const sampleProducts = [
     discountPrice: 24999,
     discountPercentage: 17,
     images: [
-      { url: 'https://images.unsplash.com/photo-1539533018447-63fcce667823?auto=format&fit=crop&w=1000&q=80', isPrimary: true, alt: 'Kensington Trench Coat' },
-      { url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80', isPrimary: false, alt: 'Trench coat lifestyle' },
+      { url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1000&q=80', isPrimary: true, alt: 'Kensington Trench Coat' },
+      { url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80', isPrimary: false, alt: 'Trench coat lifestyle' },
     ],
     sizes: ['UK 6', 'UK 8', 'UK 10', 'UK 12'],
     colors: [{ name: 'Honey Sand', hex: '#C2B280' }, { name: 'Midnight Navy', hex: '#000080' }],
@@ -693,7 +693,7 @@ const sampleProducts = [
     discountPrice: 39999,
     discountPercentage: 15,
     images: [
-      { url: 'https://images.unsplash.com/photo-1548624149-f9b1859aa9d0?auto=format&fit=crop&w=1000&q=80', isPrimary: true, alt: 'Cashmere Wrap Coat' },
+      { url: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=80', isPrimary: true, alt: 'Cashmere Wrap Coat' },
     ],
     sizes: ['UK 8', 'UK 10', 'UK 12', 'UK 14'],
     colors: [{ name: 'Alabaster White', hex: '#F2F0EB' }, { name: 'Vicuna Camel', hex: '#A75D35' }],

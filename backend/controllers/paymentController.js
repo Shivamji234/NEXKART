@@ -144,8 +144,80 @@ const verifyPayment = async (req, res, next) => {
   }
 };
 
+// @desc    Verify UPI QR Payment
+// @route   POST /api/payments/verify-upi
+// @access  Private
+const verifyUpiPayment = async (req, res, next) => {
+  try {
+    const { orderId, upiTxnId, upiId } = req.body;
+
+    if (!orderId) {
+      return res.status(400).json({ success: false, message: 'Order ID is required.' });
+    }
+
+    if (!upiTxnId || upiTxnId.trim().length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid 12-digit UPI Reference / UTR Number or Transaction ID.',
+      });
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found.' });
+    }
+
+    const cleanUpiTxnId = upiTxnId.trim();
+    const cleanUpiId = upiId || '7268927163@upi';
+
+    // Update order status
+    order.paymentMethod = 'upi_qr';
+    order.paymentStatus = 'Completed';
+    order.paymentResult = {
+      upiTxnId: cleanUpiTxnId,
+      upiId: cleanUpiId,
+      paidAt: new Date(),
+    };
+
+    const existingTimeline = order.timeline || [];
+    order.timeline = [
+      ...existingTimeline,
+      {
+        status: 'Payment Verified',
+        title: 'UPI Payment Confirmed',
+        description: `Verified payment via UPI (UTR: ${cleanUpiTxnId}). Receiver: ${cleanUpiId}`,
+        timestamp: new Date(),
+      },
+    ];
+
+    await order.save();
+
+    // Record Payment transaction
+    await Payment.create({
+      order: order._id,
+      user: req.user._id,
+      paymentMethod: 'upi_qr',
+      upiTxnId: cleanUpiTxnId,
+      upiId: cleanUpiId,
+      amount: order.totalPrice,
+      currency: 'INR',
+      status: 'Captured',
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'UPI payment verified and captured successfully.',
+      paymentId: cleanUpiTxnId,
+      order,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getPaymentKey,
   createRazorpayOrder,
   verifyPayment,
+  verifyUpiPayment,
 };

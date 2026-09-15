@@ -48,6 +48,10 @@ export const ProductCard = ({ product, onQuickView }) => {
             alt={product.name}
             className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80';
+            }}
           />
         </Link>
 

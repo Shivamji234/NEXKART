@@ -197,6 +197,10 @@ export const ProductDetailPage = () => {
               src={activeImage || product.images?.[0]?.url}
               alt={product.name}
               className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 cursor-crosshair"
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80';
+              }}
             />
             {hasDiscount && (
               <span className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2 sm:px-2.5 py-1 bg-red-800 text-white text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest font-bold rounded">
@@ -218,7 +222,15 @@ export const ProductDetailPage = () => {
                       : 'border-transparent opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={img.url} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={img.url}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80';
+                    }}
+                  />
                 </button>
               ))}
             </div>

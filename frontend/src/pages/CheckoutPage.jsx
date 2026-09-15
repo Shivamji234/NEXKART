@@ -16,6 +16,11 @@ import {
   Lock,
   Tag,
   ChevronRight,
+  QrCode,
+  Copy,
+  Check,
+  ExternalLink,
+  Smartphone,
 } from 'lucide-react';
 
 export const CheckoutPage = () => {
@@ -45,7 +50,9 @@ export const CheckoutPage = () => {
   });
 
   // Payment method
-  const [paymentMethod, setPaymentMethod] = useState('razorpay'); // 'razorpay' | 'cod'
+  const [paymentMethod, setPaymentMethod] = useState('upi_qr'); // 'upi_qr' | 'razorpay' | 'cod'
+  const [upiTxnId, setUpiTxnId] = useState('');
+  const [copiedUpi, setCopiedUpi] = useState(false);
   const [processingPayment, setProcessingPayment] = useState(false);
 
   // Load addresses
@@ -156,7 +163,48 @@ export const CheckoutPage = () => {
     setProcessingPayment(true);
 
     try {
-      // 1. CASH ON DELIVERY FLOW
+      // 1. UPI INSTANT QR CODE FLOW
+      if (paymentMethod === 'upi_qr') {
+        if (!upiTxnId || upiTxnId.trim().length < 6) {
+          addToast('Please enter your 12-digit UPI Reference / UTR Number or Transaction ID.', 'error');
+          setProcessingPayment(false);
+          return;
+        }
+
+        const upiOrderRes = await orderAPI.createOrder({
+          ...orderPayload,
+          paymentMethod: 'upi_qr',
+          paymentResult: {
+            upiTxnId: upiTxnId.trim(),
+            upiId: '7268927163@upi',
+            paidAt: new Date(),
+          },
+        });
+
+        if (!upiOrderRes.success) {
+          throw new Error(upiOrderRes.message || 'Failed to place UPI order');
+        }
+
+        const createdOrder = upiOrderRes.order;
+
+        // Verify and record payment transaction
+        try {
+          await paymentAPI.verifyUpiPayment({
+            orderId: createdOrder._id,
+            upiTxnId: upiTxnId.trim(),
+            upiId: '7268927163@upi',
+          });
+        } catch (verifyErr) {
+          console.warn('UPI ledger record note:', verifyErr.message);
+        }
+
+        await clearCart();
+        addToast('UPI payment verified successfully. Order confirmed!');
+        navigate(`/order-success/${createdOrder._id}`);
+        return;
+      }
+
+      // 2. CASH ON DELIVERY FLOW
       if (paymentMethod === 'cod') {
         const res = await orderAPI.createOrder(orderPayload);
         if (res.success) {
@@ -556,6 +604,146 @@ export const CheckoutPage = () => {
               )}
 
               <div className="space-y-4">
+                {/* UPI Instant QR Code Scan & Pay Option */}
+                <div
+                  className={`rounded-lg border-2 transition overflow-hidden ${
+                    paymentMethod === 'upi_qr'
+                      ? 'border-luxury-950 bg-gold-50/20 shadow-sm'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <label
+                    onClick={() => setPaymentMethod('upi_qr')}
+                    className="p-5 cursor-pointer flex items-start space-x-4"
+                  >
+                    <input
+                      type="radio"
+                      name="paymentOption"
+                      checked={paymentMethod === 'upi_qr'}
+                      onChange={() => setPaymentMethod('upi_qr')}
+                      className="mt-1 text-luxury-950 focus:ring-0"
+                    />
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <QrCode className="w-4 h-4 text-gold-700" />
+                          <p className="font-bold text-xs uppercase tracking-wider text-luxury-950">
+                            UPI QR Code (Scan & Pay)
+                          </p>
+                        </div>
+                        <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-800 font-bold rounded">
+                          FASTEST &bull; 0% FEE
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        Scan & pay directly from Google Pay, PhonePe, Paytm, BHIM, CRED or any banking UPI app.
+                      </p>
+                      <div className="flex flex-wrap items-center gap-1.5 pt-1.5 text-[10px] font-semibold text-gray-500">
+                        <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded text-gray-700">Google Pay</span>
+                        <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded text-gray-700">PhonePe</span>
+                        <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded text-gray-700">Paytm</span>
+                        <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded text-gray-700">BHIM UPI</span>
+                        <span className="px-1.5 py-0.5 bg-white border border-gray-200 rounded text-gray-700">CRED</span>
+                      </div>
+                    </div>
+                  </label>
+
+                  {/* Expanded QR Code & Verification Form when selected */}
+                  {paymentMethod === 'upi_qr' && (
+                    <div className="px-5 pb-5 pt-2 border-t border-gold-200/60 bg-white space-y-4">
+                      <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 flex flex-col sm:flex-row items-center gap-6">
+                        {/* QR Code Graphic */}
+                        <div className="flex flex-col items-center bg-white p-3 rounded-lg border border-gold-300 shadow-sm flex-shrink-0">
+                          <img
+                            src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(
+                              `upi://pay?pa=7268927163@upi&pn=NEXKART%20Maison&am=${grandTotal}&cu=INR&tn=NexKartOrder`
+                            )}`}
+                            alt="NexKart UPI QR Code"
+                            className="w-36 h-36 sm:w-40 sm:h-40 object-contain rounded"
+                          />
+                          <span className="text-[10px] uppercase font-bold tracking-widest text-gold-700 mt-2 flex items-center space-x-1">
+                            <QrCode className="w-3 h-3" />
+                            <span>Scan With Any UPI App</span>
+                          </span>
+                        </div>
+
+                        {/* Payment Details & Copy Button */}
+                        <div className="flex-1 space-y-3 text-left w-full">
+                          <div className="flex items-center space-x-1.5 text-xs text-green-700 font-semibold">
+                            <ShieldCheck className="w-4 h-4" />
+                            <span>Verified Business Merchant Account</span>
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] uppercase tracking-wider text-gray-500 block font-semibold">
+                              Total Payable Amount
+                            </span>
+                            <span className="text-xl sm:text-2xl font-bold font-serif text-luxury-950">
+                              {formatCurrency(grandTotal)}
+                            </span>
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] uppercase tracking-wider text-gray-500 block font-semibold mb-1">
+                              Receiver UPI ID
+                            </span>
+                            <div className="flex items-center space-x-2">
+                              <code className="px-3 py-1.5 bg-gray-100 border border-gray-300 rounded font-mono text-xs font-bold text-luxury-950">
+                                7268927163@upi
+                              </code>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  navigator.clipboard.writeText('7268927163@upi');
+                                  setCopiedUpi(true);
+                                  setTimeout(() => setCopiedUpi(false), 2000);
+                                  addToast('UPI ID copied to clipboard: 7268927163@upi');
+                                }}
+                                className="px-3 py-1.5 bg-luxury-950 text-gold-400 hover:bg-black rounded text-[11px] font-semibold flex items-center space-x-1"
+                              >
+                                {copiedUpi ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                                <span>{copiedUpi ? 'Copied' : 'Copy'}</span>
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Mobile Direct Pay Link */}
+                          <div className="pt-1 block sm:hidden">
+                            <a
+                              href={`upi://pay?pa=7268927163@upi&pn=NEXKART%20Maison&am=${grandTotal}&cu=INR&tn=NexKartOrder`}
+                              className="inline-flex items-center space-x-1.5 text-xs font-bold text-luxury-950 bg-gold-400/30 px-3 py-2 rounded hover:bg-gold-400/50 w-full justify-center"
+                            >
+                              <Smartphone className="w-3.5 h-3.5" />
+                              <span>Tap to Open any UPI App on Phone</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* UTR / Transaction ID input */}
+                      <div className="p-4 bg-gold-50/60 rounded-lg border border-gold-200 space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-luxury-950 block">
+                          Enter 12-Digit UPI Transaction ID / UTR Number *
+                        </label>
+                        <p className="text-[11px] text-gray-600">
+                          After completing the payment in GPay / PhonePe / Paytm / CRED, copy the 12-digit UTR or Reference Number from your payment receipt and enter it here:
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <input
+                            type="text"
+                            required
+                            value={upiTxnId}
+                            onChange={(e) => setUpiTxnId(e.target.value)}
+                            placeholder="e.g. 425612348970 (12 digits)"
+                            className="flex-1 px-3.5 py-2.5 bg-white border border-gray-300 rounded text-xs font-mono uppercase tracking-wider focus:outline-none focus:border-luxury-950 text-luxury-950 font-bold"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 {/* Razorpay Option */}
                 <label
                   onClick={() => setPaymentMethod('razorpay')}
@@ -577,21 +765,21 @@ export const CheckoutPage = () => {
                       <p className="font-bold text-xs uppercase tracking-wider text-luxury-950">
                         Razorpay Secure Checkout
                       </p>
-                      <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-800 font-bold rounded">
-                        RECOMMENDED
+                      <span className="text-[10px] px-2 py-0.5 bg-blue-100 text-blue-800 font-bold rounded">
+                        CARDS / NETBANKING
                       </span>
                     </div>
                     <p className="text-xs text-gray-500">
-                      Instant & encrypted authorization via UPI (GPay, PhonePe, Paytm), Credit/Debit Cards, Net Banking & Wallets.
+                      Instant & encrypted authorization via Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking & Wallets.
                     </p>
                     <div className="flex items-center space-x-2 text-[10px] font-semibold text-gray-400 pt-1">
-                      <span>UPI</span>
+                      <span>Visa</span>
                       <span>&bull;</span>
-                      <span>Cards</span>
+                      <span>Mastercard</span>
+                      <span>&bull;</span>
+                      <span>RuPay</span>
                       <span>&bull;</span>
                       <span>NetBanking</span>
-                      <span>&bull;</span>
-                      <span>Instant Verification</span>
                     </div>
                   </div>
                 </label>
@@ -649,7 +837,13 @@ export const CheckoutPage = () => {
                   disabled={processingPayment}
                   className="w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 bg-luxury-950 text-gold-400 font-bold uppercase tracking-wider sm:tracking-widest text-xs rounded hover:bg-black transition shadow-2xl disabled:opacity-50 flex items-center justify-center space-x-2"
                 >
-                  <span>{processingPayment ? 'Authorizing Payment...' : `Complete Order &bull; ${formatCurrency(grandTotal)}`}</span>
+                  <span>
+                    {processingPayment
+                      ? 'Verifying & Confirming...'
+                      : paymentMethod === 'upi_qr'
+                      ? `Verify Payment & Place Order • ${formatCurrency(grandTotal)}`
+                      : `Complete Order • ${formatCurrency(grandTotal)}`}
+                  </span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

@@ -37,12 +37,15 @@ import { AdminProducts } from './pages/admin/AdminProducts';
 import { AdminOrders } from './pages/admin/AdminOrders';
 import { AdminUsers } from './pages/admin/AdminUsers';
 import { AdminCoupons } from './pages/admin/AdminCoupons';
-import { AdminReturns } from './pages/admin/AdminReturns';
+// Components
+import { ScrollToTop } from './components/ScrollToTop';
 
 export function App() {
   return (
-    <Routes>
-      {/* Client Storefront Layout */}
+    <>
+      <ScrollToTop />
+      <Routes>
+        {/* Client Storefront Layout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
@@ -85,6 +88,7 @@ export function App() {
       {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
 

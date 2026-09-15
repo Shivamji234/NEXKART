@@ -86,6 +86,7 @@ export const paymentAPI = {
   getKey: () => api.get('/payments/key'),
   createRazorpayOrder: (data) => api.post('/payments/create-order', data),
   verifyPayment: (data) => api.post('/payments/verify', data),
+  verifyUpiPayment: (data) => api.post('/payments/verify-upi', data),
 };
 
 export const couponAPI = {

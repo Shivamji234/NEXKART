@@ -16,7 +16,7 @@ const paymentSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ['razorpay', 'cod'],
+      enum: ['razorpay', 'cod', 'upi_qr'],
       required: true,
     },
     razorpayOrderId: {
@@ -28,6 +28,13 @@ const paymentSchema = new mongoose.Schema(
       index: true,
     },
     razorpaySignature: {
+      type: String,
+    },
+    upiTxnId: {
+      type: String,
+      index: true,
+    },
+    upiId: {
       type: String,
     },
     amount: {
