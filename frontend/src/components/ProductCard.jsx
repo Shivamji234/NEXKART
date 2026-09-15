@@ -128,15 +128,26 @@ export const ProductCard = ({ product, onQuickView }) => {
           </Link>
         </div>
 
-        <div className="mt-2.5 flex items-baseline space-x-2">
-          <span className="text-sm font-semibold text-luxury-950">
-            {formatCurrency(currentPrice)}
-          </span>
-          {hasDiscount && (
-            <span className="text-xs text-gray-400 line-through">
-              {formatCurrency(product.price)}
+        <div className="mt-2.5 flex items-center justify-between">
+          <div className="flex items-baseline space-x-2">
+            <span className="text-sm font-semibold text-luxury-950">
+              {formatCurrency(currentPrice)}
             </span>
-          )}
+            {hasDiscount && (
+              <span className="text-xs text-gray-400 line-through">
+                {formatCurrency(product.price)}
+              </span>
+            )}
+          </div>
+
+          <button
+            onClick={handleQuickAdd}
+            disabled={product.stock <= 0 || adding}
+            className="lg:hidden p-2 rounded bg-luxury-950 text-gold-400 hover:bg-black transition active:scale-95 disabled:opacity-40"
+            aria-label="Add to bag"
+          >
+            <ShoppingBag className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
     </div>

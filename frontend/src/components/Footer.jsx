@@ -83,8 +83,10 @@ export const Footer = () => {
               NexKart is a modern luxury e-commerce platform created to make premium online shopping simpler, faster and more enjoyable. Combining architectural aesthetics, trusted shopping experiences, and smart technology to discover exquisite products effortlessly.
             </p>
             <div className="pt-2 text-xs text-gray-400 space-y-1">
-              <p><strong className="text-gray-200">Concierge Desk:</strong> concierge@nexkart.com</p>
-              <p><strong className="text-gray-200">Private Client Services:</strong> +91 (0) 22 4580 9000</p>
+              <p><strong className="text-gray-200">Customer Support:</strong> nexkart2.0@gmail.com</p>
+              <p><strong className="text-gray-200">Helpline / WhatsApp:</strong> +91 72689 27163</p>
+              <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh</p>
+              <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
             </div>
           </div>
 

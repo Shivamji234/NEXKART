@@ -179,7 +179,7 @@ export const Navbar = () => {
 
                 {/* Search Popup Dropdown */}
                 {searchOpen && (
-                  <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white border border-gray-200 shadow-2xl p-4 rounded z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="fixed inset-x-3 top-20 sm:absolute sm:inset-auto sm:right-0 sm:mt-3 sm:w-96 bg-white border border-gray-200 shadow-2xl p-4 rounded z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <form onSubmit={handleSearchSubmit} className="relative">
                       <input
                         type="text"

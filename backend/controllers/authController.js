@@ -353,6 +353,14 @@ const updateProfile = async (req, res, next) => {
 
     user.name = req.body.name || user.name;
     user.mobile = req.body.mobile || user.mobile;
+    if (req.body.email && req.body.email.trim().toLowerCase() !== user.email) {
+      const cleanEmail = req.body.email.trim().toLowerCase();
+      const exists = await User.findOne({ email: cleanEmail, _id: { $ne: user._id } });
+      if (exists) {
+        return res.status(400).json({ success: false, message: 'This email address is already in use by another account.' });
+      }
+      user.email = cleanEmail;
+    }
     if (req.body.avatar) user.avatar = req.body.avatar;
 
     const updatedUser = await user.save();

@@ -10,6 +10,7 @@ export const ProfilePage = () => {
 
   // Personal Info State
   const [name, setName] = useState(user?.name || '');
+  const [email, setEmail] = useState(user?.email || '');
   const [mobile, setMobile] = useState(user?.mobile || '');
   const [updatingProfile, setUpdatingProfile] = useState(false);
 
@@ -38,6 +39,7 @@ export const ProfilePage = () => {
   useEffect(() => {
     if (user) {
       setName(user.name);
+      setEmail(user.email);
       setMobile(user.mobile);
     }
     loadAddresses();
@@ -56,8 +58,8 @@ export const ProfilePage = () => {
     e.preventDefault();
     try {
       setUpdatingProfile(true);
-      await updateProfile({ name, mobile });
-      addToast('Personal information updated successfully.');
+      await updateProfile({ name, email, mobile });
+      addToast('Personal information & email updated successfully.');
     } catch (err) {
       addToast(err.message, 'error');
     } finally {
@@ -177,13 +179,14 @@ export const ProfilePage = () => {
 
               <div>
                 <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-700 block mb-1">
-                  Email (Verified)
+                  Email Address
                 </label>
                 <input
                   type="email"
-                  disabled
-                  value={user?.email || ''}
-                  className="w-full px-3 py-2 border border-gray-200 bg-gray-50 text-xs text-gray-500 rounded cursor-not-allowed"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 text-xs rounded focus:outline-none focus:border-luxury-950"
                 />
               </div>
 
