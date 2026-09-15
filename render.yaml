@@ -1,4 +1,4 @@
-﻿services:
+services:
   - type: web
     name: nexkart-backend
     env: node
@@ -10,13 +10,13 @@
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 5000
       - key: MONGODB_URI
-        sync: false
+        value: mongodb+srv://shivamji3444_db_user:nexkart_newb_kaja@nexkart.thi8ozt.mongodb.net/NEXKART?retryWrites=true&w=majority&appName=NEXKART
       - key: JWT_SECRET
-        generateValue: true
+        value: nexkart_luxury_jwt_super_secret_key_2026_fashion_grade
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: CLIENT_URL
         value: "*"
+      - key: SEPARATE_API_HOST
+        value: "true"
