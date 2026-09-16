@@ -138,7 +138,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const addToCart = async (product, quantity = 1, size = '', color = '') => {
+  const addToCart = async (product, quantity = 1, size = '', color = '', openDrawer = true) => {
     const selectedSize = size || (product.sizes?.length > 0 ? product.sizes[0] : '');
     const selectedColor = color || (product.colors?.length > 0 ? product.colors[0].name : '');
     const price = (product.discountPrice > 0 && product.discountPrice < product.price)
@@ -164,7 +164,9 @@ export const CartProvider = ({ children }) => {
           setGrandTotal(res.cart.grandTotal);
           setCoupon(res.cart.coupon);
           addToast(`${product.name} added to your luxury bag.`);
-          setIsCartOpen(true);
+          if (openDrawer) {
+            setIsCartOpen(true);
+          }
         }
       } catch (err) {
         addToast(err.message, 'error');
@@ -197,7 +199,9 @@ export const CartProvider = ({ children }) => {
       setItems(updated);
       calculateGuestTotals(updated, coupon);
       addToast(`${product.name} added to your bag.`);
-      setIsCartOpen(true);
+      if (openDrawer) {
+        setIsCartOpen(true);
+      }
     }
   };
 

@@ -38,7 +38,7 @@ export const CheckoutPage = () => {
     applyCoupon,
     removeCoupon,
   } = useCart();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
   const { addToast } = useNotifications();
   const navigate = useNavigate();
 
@@ -127,6 +127,7 @@ export const CheckoutPage = () => {
 
   // Load addresses
   useEffect(() => {
+    if (authLoading) return;
     if (!isAuthenticated) {
       navigate('/login?redirect=/checkout');
       return;
@@ -148,7 +149,18 @@ export const CheckoutPage = () => {
     };
 
     loadAddresses();
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, authLoading, navigate]);
+
+  if (authLoading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-24 text-center space-y-4">
+        <div className="w-10 h-10 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs uppercase tracking-[0.2em] text-stone-500 font-medium">
+          Verifying Client Atelier Privileges...
+        </p>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

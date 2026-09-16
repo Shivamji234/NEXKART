@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { formatCurrency } from '../utils/formatters';
-import { Heart, ShoppingBag, Star, MessageSquare } from 'lucide-react';
+import { Heart, ShoppingBag, Star } from 'lucide-react';
 
 export const ProductCard = ({ product, onQuickView }) => {
   const { addToCart } = useCart();
@@ -80,8 +80,8 @@ export const ProductCard = ({ product, onQuickView }) => {
           <Heart className={`w-3.5 h-3.5 ${inWish ? 'fill-current text-rose-600' : ''}`} strokeWidth={1.3} />
         </button>
 
-        {/* Hover Action Bar - Luxepolis Quick Concierge Integration */}
-        <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/75 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-1.5">
+        {/* Hover Action Bar */}
+        <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
           {onQuickView && (
             <button
               onClick={(e) => {
@@ -89,7 +89,7 @@ export const ProductCard = ({ product, onQuickView }) => {
                 e.stopPropagation();
                 onQuickView(product);
               }}
-              className="py-1.5 px-2.5 bg-white/95 hover:bg-white text-stone-900 text-[9.5px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm text-center"
+              className="py-2 px-3 bg-white/95 hover:bg-white text-stone-900 text-[10px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm text-center"
             >
               Quick View
             </button>
@@ -97,20 +97,10 @@ export const ProductCard = ({ product, onQuickView }) => {
           <button
             onClick={handleQuickAdd}
             disabled={product.stock <= 0 || adding}
-            className="flex-1 py-1.5 px-2.5 bg-[#171615] hover:bg-black text-[#FAF8F5] text-[9.5px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm disabled:opacity-50 text-center"
+            className="flex-1 py-2 px-3 bg-[#171615] hover:bg-black text-[#FAF8F5] text-[10px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm disabled:opacity-50 text-center"
           >
-            {product.stock <= 0 ? 'Sold Out' : adding ? 'Adding...' : '+ Bag'}
+            {product.stock <= 0 ? 'Sold Out' : adding ? 'Adding...' : '+ Add to Bag'}
           </button>
-          <a
-            href={`https://wa.me/917268927163?text=${encodeURIComponent(`Hello NexKart Concierge, I am inquiring about ${product.name} (Ref: ${product._id}) listed for ${formatCurrency(currentPrice)}.`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="p-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-xs transition shadow-sm flex-shrink-0"
-            title="Ask Concierge on WhatsApp"
-          >
-            <MessageSquare className="w-3.5 h-3.5" strokeWidth={1.4} />
-          </a>
         </div>
       </div>
 

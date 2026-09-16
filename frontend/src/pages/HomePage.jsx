@@ -201,19 +201,11 @@ export const HomePage = () => {
                   Certified chronographs with 2-year movement warranty, physical appraisal, & original papers.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?keyword=watch" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Watches &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?keyword=watch" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Watches</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20discuss%20buying%20or%20selling%20luxury%20watches."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>
@@ -239,19 +231,11 @@ export const HomePage = () => {
                   18K hallmarked bangles, pavé diamond rings, and precious gemstone creations.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?subcategory=Jewelry" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Jewelry &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?subcategory=Jewelry" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Jewelry</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20interested%20in%20certified%20fine%20jewelry%20and%20gold%20pieces."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>
@@ -277,19 +261,11 @@ export const HomePage = () => {
                   Beta-titanium aviators, handcrafted Italian acetate frames, & polarized Carl Zeiss optics.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?subcategory=Glasses" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Eyewear &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?subcategory=Glasses" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Eyewear</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20designer%20eyewear%20and%20sunglasses."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>
@@ -315,19 +291,11 @@ export const HomePage = () => {
                   Handcrafted aftershave balms, rare oud wood oils, & artisanal Millésime scents.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?subcategory=Grooming" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Grooming &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?subcategory=Grooming" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Grooming</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20inquiring%20about%20luxury%20grooming%20and%20fragrances."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>
@@ -353,19 +321,11 @@ export const HomePage = () => {
                   Regenerating Rose de Granville elixirs, couture lip pairings, & revitalizing crèmes.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?subcategory=Beauty%20%26%20Makeup" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Beauty &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?subcategory=Beauty%20%26%20Makeup" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Beauty & Skincare</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20details%20on%20luxury%20beauty%20and%20skincare."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>
@@ -391,19 +351,11 @@ export const HomePage = () => {
                   Full-grain Tuscan weekender bags, totes, and cross-body silhouettes.
                 </p>
               </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?category=Accessories" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore Handbags &rarr;
+              <div className="pt-2.5 border-t border-stone-100">
+                <Link to="/shop?category=Accessories" className="w-full py-2 bg-stone-50 hover:bg-[#171615] text-stone-900 hover:text-amber-200 border border-stone-200 hover:border-black text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs transition-colors flex items-center justify-center space-x-1">
+                  <span>Explore Handbags & Leather</span>
+                  <span>&rarr;</span>
                 </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20interested%20in%20luxury%20handbags%20and%20leather%20goods."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
               </div>
             </div>
           </div>

@@ -131,7 +131,7 @@ export const ProductDetailPage = () => {
 
   const handleAddToCart = async (goToCheckout = false) => {
     setAdding(true);
-    await addToCart(product, quantity, selectedSize, selectedColor);
+    await addToCart(product, quantity, selectedSize, selectedColor, !goToCheckout);
     setAdding(false);
     if (goToCheckout) {
       navigate('/checkout');

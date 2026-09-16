@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { couponAPI } from '../services/api';
 import { formatCurrency } from '../utils/formatters';
 import { X, Trash2, ShoppingBag, ArrowRight, Minus, Plus, Tag } from 'lucide-react';
 
