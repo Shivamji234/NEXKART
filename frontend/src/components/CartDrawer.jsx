@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { formatCurrency } from '../utils/formatters';
-import { couponAPI } from '../services/api';
-import { X, Trash2, ShoppingBag, ArrowRight, Minus, Plus, Tag, Sparkles } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Minus, Plus, Tag } from 'lucide-react';
 
 export const CartDrawer = () => {
   const {
@@ -75,27 +74,27 @@ export const CartDrawer = () => {
       <div className="fixed inset-y-0 right-0 max-w-full flex sm:pl-10">
         <div className="w-screen max-w-md bg-[#FAF9F6] shadow-2xl flex flex-col border-l border-gray-200">
           {/* Header */}
-          <div className="p-5 border-b border-gray-200 flex items-center justify-between bg-white">
+          <div className="p-5 border-b border-stone-200 flex items-center justify-between bg-white">
             <div className="flex items-center space-x-2">
-              <ShoppingBag className="w-5 h-5 text-luxury-950" />
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-luxury-950">
+              <ShoppingBag className="w-5 h-5 text-stone-950" strokeWidth={1.3} />
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-stone-950">
                 Shopping Bag ({totalItemsCount})
               </h2>
             </div>
             <button
               onClick={closeCartDrawer}
-              className="p-1.5 text-gray-400 hover:text-black rounded-full hover:bg-gray-100 transition"
+              className="p-1.5 text-stone-400 hover:text-stone-900 rounded-full hover:bg-stone-100 transition"
               aria-label="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" strokeWidth={1.3} />
             </button>
           </div>
 
           {/* Free Shipping Highlight */}
-          <div className="px-5 py-3 bg-champagne-light border-b border-champagne-dark/30">
-            <p className="text-[11px] text-green-800 font-medium tracking-wide flex items-center space-x-1.5">
-              <span>✨</span>
-              <span><strong className="font-bold">Complimentary White-Glove Delivery (FREE)</strong> included on all orders!</span>
+          <div className="px-5 py-3 bg-[#F5F2EB] border-b border-stone-200/80">
+            <p className="text-[11px] text-stone-800 font-medium tracking-wide flex items-center space-x-1.5">
+              <span className="text-amber-800">✦</span>
+              <span><strong className="font-semibold">Complimentary White-Glove Delivery (FREE)</strong> included on all orders!</span>
             </p>
             <div className="w-full bg-gray-200 h-1.5 rounded-full mt-2 overflow-hidden">
               <div
@@ -150,10 +149,10 @@ export const CartDrawer = () => {
                           </Link>
                           <button
                             onClick={() => removeFromCart(item._id)}
-                            className="text-gray-400 hover:text-red-600 p-1 transition"
+                            className="text-stone-400 hover:text-stone-950 p-1 transition"
                             title="Remove"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-3.5 h-3.5" strokeWidth={1.3} />
                           </button>
                         </div>
 
@@ -166,19 +165,19 @@ export const CartDrawer = () => {
 
                       <div className="flex items-center justify-between mt-2">
                         {/* Stepper */}
-                        <div className="flex items-center border border-gray-300 rounded bg-white">
+                        <div className="flex items-center border border-stone-200 rounded-xs bg-white">
                           <button
                             onClick={() => updateQty(item._id, item.quantity - 1)}
-                            className="p-1 text-gray-600 hover:text-black"
+                            className="p-1 text-stone-600 hover:text-stone-950"
                           >
-                            <Minus className="w-3 h-3" />
+                            <Minus className="w-3 h-3" strokeWidth={1.3} />
                           </button>
                           <span className="px-2.5 text-[11px] font-semibold">{item.quantity}</span>
                           <button
                             onClick={() => updateQty(item._id, item.quantity + 1)}
-                            className="p-1 text-gray-600 hover:text-black"
+                            className="p-1 text-stone-600 hover:text-stone-950"
                           >
-                            <Plus className="w-3 h-3" />
+                            <Plus className="w-3 h-3" strokeWidth={1.3} />
                           </button>
                         </div>
 
@@ -284,10 +283,10 @@ export const CartDrawer = () => {
               {/* Checkout CTA */}
               <button
                 onClick={handleCheckout}
-                className="w-full py-3 bg-luxury-950 text-gold-400 font-semibold uppercase tracking-widest text-xs rounded hover:bg-luxury-800 transition flex items-center justify-center space-x-2 shadow-lg"
+                className="w-full py-3 bg-[#171615] text-[#FAF8F5] font-medium uppercase tracking-[0.18em] text-xs rounded-xs hover:bg-black transition flex items-center justify-center space-x-2 shadow-lg"
               >
                 <span>Proceed to Checkout</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4" strokeWidth={1.3} />
               </button>
 
               <button

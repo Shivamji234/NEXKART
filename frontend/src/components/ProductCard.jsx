@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { formatCurrency } from '../utils/formatters';
-import { Heart, Eye, ShoppingBag, Star } from 'lucide-react';
+import { Heart, ShoppingBag, Star } from 'lucide-react';
 
 export const ProductCard = ({ product, onQuickView }) => {
   const { addToCart } = useCart();
@@ -84,10 +84,10 @@ export const ProductCard = ({ product, onQuickView }) => {
           }`}
           aria-label="Toggle Wishlist"
         >
-          <Heart className={`w-3.5 h-3.5 ${inWish ? 'fill-current text-rose-600' : ''}`} />
+          <Heart className={`w-3.5 h-3.5 ${inWish ? 'fill-current text-rose-600' : ''}`} strokeWidth={1.3} />
         </button>
 
-        {/* Hover Action Bar */}
+        {/* Hover Action Bar - Clean Uncluttered Typography (Human Luxury) */}
         <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/60 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
           {onQuickView && (
             <button
@@ -96,19 +96,17 @@ export const ProductCard = ({ product, onQuickView }) => {
                 e.stopPropagation();
                 onQuickView(product);
               }}
-              className="flex-1 py-2 px-3 bg-white text-stone-900 text-[10.5px] font-medium tracking-[0.14em] uppercase rounded-xs hover:bg-stone-100 transition flex items-center justify-center space-x-1 shadow-sm"
+              className="flex-1 py-2 px-3 bg-white/95 hover:bg-white text-stone-900 text-[10px] font-medium tracking-[0.16em] uppercase rounded-xs transition shadow-sm text-center"
             >
-              <Eye className="w-3.5 h-3.5 text-stone-600" />
-              <span>Preview</span>
+              Quick View
             </button>
           )}
           <button
             onClick={handleQuickAdd}
             disabled={product.stock <= 0 || adding}
-            className="flex-1 py-2 px-3 bg-[#1C1A18] text-[#EFEBE4] text-[10.5px] font-medium tracking-[0.14em] uppercase rounded-xs hover:bg-[#2C2926] transition flex items-center justify-center space-x-1 shadow-sm disabled:opacity-50"
+            className="flex-1 py-2 px-3 bg-[#171615] hover:bg-black text-[#FAF8F5] text-[10px] font-medium tracking-[0.16em] uppercase rounded-xs transition shadow-sm disabled:opacity-50 text-center"
           >
-            <ShoppingBag className="w-3.5 h-3.5 text-amber-300" />
-            <span>{product.stock <= 0 ? 'Sold Out' : adding ? 'Adding...' : 'Add to Bag'}</span>
+            {product.stock <= 0 ? 'Sold Out' : adding ? 'Adding...' : '+ Bag'}
           </button>
         </div>
       </div>
@@ -118,8 +116,8 @@ export const ProductCard = ({ product, onQuickView }) => {
         <div>
           <div className="flex items-center justify-between text-[10px] text-stone-500 uppercase tracking-[0.16em] mb-1.5">
             <span className="truncate max-w-[65%] font-medium">{product.brand || 'NexKart Atelier'}</span>
-            <div className="flex items-center text-amber-600 space-x-0.5 flex-shrink-0">
-              <Star className="w-3 h-3 fill-current text-amber-500" />
+            <div className="flex items-center text-amber-700/90 space-x-0.5 flex-shrink-0">
+              <Star className="w-2.5 h-2.5 fill-current text-amber-500" strokeWidth={1.2} />
               <span className="font-medium text-[10px] text-stone-800">{product.rating || 5.0}</span>
               <span className="text-stone-400 text-[9px]">({product.numReviews || 0})</span>
             </div>
@@ -147,10 +145,10 @@ export const ProductCard = ({ product, onQuickView }) => {
           <button
             onClick={handleQuickAdd}
             disabled={product.stock <= 0 || adding}
-            className="lg:hidden p-2 rounded-xs bg-[#1C1A18] text-[#EFEBE4] hover:bg-black transition active:scale-95 disabled:opacity-40 flex-shrink-0"
+            className="lg:hidden p-2 rounded-xs bg-[#171615] text-[#FAF8F5] hover:bg-black transition active:scale-95 disabled:opacity-40 flex-shrink-0"
             aria-label="Add to bag"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
+            <ShoppingBag className="w-3.5 h-3.5" strokeWidth={1.3} />
           </button>
         </div>
       </div>

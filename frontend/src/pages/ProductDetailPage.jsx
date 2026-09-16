@@ -418,18 +418,18 @@ export const ProductDetailPage = () => {
           </div>
 
           {/* Value Assurance Badges */}
-          <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-6 border-t border-gray-100 text-center">
+          <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-6 border-t border-stone-200/80 text-center">
             <div className="p-1 sm:p-2 space-y-1">
-              <Truck className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">White-Glove Delivery</p>
+              <Truck className="w-4 h-4 mx-auto text-stone-700" strokeWidth={1.25} />
+              <p className="text-[9px] sm:text-[10px] uppercase font-medium text-stone-900 tracking-wider leading-tight">White-Glove Delivery</p>
             </div>
             <div className="p-1 sm:p-2 space-y-1">
-              <RotateCcw className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">14-Day Atelier Return</p>
+              <RotateCcw className="w-4 h-4 mx-auto text-stone-700" strokeWidth={1.25} />
+              <p className="text-[9px] sm:text-[10px] uppercase font-medium text-stone-900 tracking-wider leading-tight">14-Day Atelier Return</p>
             </div>
             <div className="p-1 sm:p-2 space-y-1">
-              <ShieldCheck className="w-4 h-4 mx-auto text-gold-600" />
-              <p className="text-[9px] sm:text-[10px] uppercase font-bold text-luxury-950 tracking-wider leading-tight">Certified Provenance</p>
+              <ShieldCheck className="w-4 h-4 mx-auto text-stone-700" strokeWidth={1.25} />
+              <p className="text-[9px] sm:text-[10px] uppercase font-medium text-stone-900 tracking-wider leading-tight">Certified Provenance</p>
             </div>
           </div>
         </div>

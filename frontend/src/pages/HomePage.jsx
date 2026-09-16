@@ -6,12 +6,8 @@ import { QuickViewModal } from '../components/QuickViewModal';
 import { formatCurrency } from '../utils/formatters';
 import {
   ArrowRight,
-  Shield,
-  Sparkles,
-  Award,
   ChevronRight,
   Star,
-  Quote,
 } from 'lucide-react';
 
 export const HomePage = () => {
@@ -183,7 +179,7 @@ export const HomePage = () => {
             className="text-xs font-medium uppercase tracking-[0.15em] text-stone-800 hover:text-amber-800 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
           >
             <span>View Full Selection</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" strokeWidth={1.3} />
           </Link>
         </div>
 
@@ -229,7 +225,7 @@ export const HomePage = () => {
                 className="inline-flex items-center space-x-2 px-7 py-3.5 bg-[#EAE4DC] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full transition shadow-md"
               >
                 <span>Explore The Lookbook</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4" strokeWidth={1.3} />
               </Link>
             </div>
           </div>
@@ -259,7 +255,7 @@ export const HomePage = () => {
             className="text-xs font-medium uppercase tracking-[0.15em] text-stone-800 hover:text-amber-800 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
           >
             <span>View All Favorites</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" strokeWidth={1.3} />
           </Link>
         </div>
 
@@ -339,7 +335,7 @@ export const HomePage = () => {
             <div className="space-y-3">
               <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
               <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
@@ -361,7 +357,7 @@ export const HomePage = () => {
             <div className="space-y-3">
               <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
               <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
@@ -383,7 +379,7 @@ export const HomePage = () => {
             <div className="space-y-3">
               <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
               <p className="text-xs text-stone-700 italic font-serif leading-relaxed">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, ShieldCheck, Award, Clock, ArrowRight, X, CheckCircle2, MapPin, Mail } from 'lucide-react';
+import { ArrowRight, X, MapPin, Mail } from 'lucide-react';
 import founderImg from '../assets/founder.jpg';
 
 export const AboutPage = () => {
@@ -57,24 +57,23 @@ export const AboutPage = () => {
           </p>
 
           {/* Interactive Founder Link / Button */}
-          <div className="pt-2 flex flex-col items-center justify-center space-y-1.5">
+          <div className="pt-3 flex flex-col items-center justify-center space-y-2">
             <button
               type="button"
               onClick={() => setShowFounderModal(true)}
-              className="group inline-flex items-center space-x-2.5 px-6 py-2.5 rounded-full border-2 border-gold-600 bg-luxury-950 hover:bg-gold-500 text-white hover:text-luxury-950 text-xs font-bold uppercase tracking-[0.25em] transition-all duration-300 shadow-lg hover:shadow-gold-500/30 hover:scale-105 cursor-pointer"
-              title="Click to view Founder Profile"
+              className="group inline-flex items-center space-x-3 px-6 py-2.5 rounded-full border border-stone-800 bg-[#171615] hover:bg-stone-900 text-[#FAF8F5] text-xs font-medium uppercase tracking-[0.22em] transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer"
+              title="Click to view Founder Profile & Vision"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-400 group-hover:text-luxury-950 transition" />
-              <span>FOUNDER</span>
-              <span className="opacity-40">&bull;</span>
-              <span className="font-serif tracking-widest text-gold-400 group-hover:text-luxury-950 transition">
+              <span className="text-amber-300/90 font-serif italic text-xs">Atelier Founder</span>
+              <span className="text-stone-600">&bull;</span>
+              <span className="font-serif tracking-[0.24em] text-white font-normal">
                 SHIVAM PANDEY
               </span>
-              <span className="text-[10px] bg-gold-600 text-luxury-950 px-1.5 py-0.5 rounded font-mono group-hover:bg-luxury-950 group-hover:text-gold-400 transition ml-1">
-                VIEW
+              <span className="text-[9.5px] uppercase tracking-wider text-amber-300 border-b border-amber-400/40 pb-0.5 group-hover:border-amber-300 transition ml-1">
+                View Dossier &rarr;
               </span>
             </button>
-            <p className="text-[11px] text-gray-500 tracking-wider">
+            <p className="text-[11px] text-stone-500 tracking-wider">
               (Click above to view Founder Profile & Vision)
             </p>
           </div>
@@ -108,41 +107,42 @@ export const AboutPage = () => {
       {/* Values Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-12">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-gold-600 font-semibold">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-amber-800 font-medium">
             Our Commitments
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-luxury-950 font-serif">
+          <h2 className="text-2xl sm:text-3xl font-serif font-normal uppercase tracking-widest text-stone-900">
             The NexKart Promise
           </h2>
+          <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded border border-gray-200 shadow-sm space-y-3">
-            <Sparkles className="w-6 h-6 text-gold-600" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-luxury-950 font-serif">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+          <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
+            <span className="font-serif text-3xl font-light text-stone-400/90 italic">01</span>
+            <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
               Masterful Materiality
             </h3>
-            <p className="text-xs text-gray-600 leading-relaxed font-light">
+            <p className="text-xs text-stone-600 leading-relaxed font-light">
               We exclusively commission Mongolian double-faced cashmere, French vegetable-tanned boxcalf leather, and Swiss-certified movements crafted to endure across generations.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded border border-gray-200 shadow-sm space-y-3">
-            <ShieldCheck className="w-6 h-6 text-gold-600" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-luxury-950 font-serif">
+          <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
+            <span className="font-serif text-3xl font-light text-stone-400/90 italic">02</span>
+            <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
               Certified Provenance
             </h3>
-            <p className="text-xs text-gray-600 leading-relaxed font-light">
+            <p className="text-xs text-stone-600 leading-relaxed font-light">
               Every creation undergoes multi-stage cryptographic and physical authentication before receiving its bespoke NexKart seal of verification.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded border border-gray-200 shadow-sm space-y-3">
-            <Clock className="w-6 h-6 text-gold-600" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-luxury-950 font-serif">
+          <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
+            <span className="font-serif text-3xl font-light text-stone-400/90 italic">03</span>
+            <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
               White-Glove Care
             </h3>
-            <p className="text-xs text-gray-600 leading-relaxed font-light">
+            <p className="text-xs text-stone-600 leading-relaxed font-light">
               Enjoy tailored delivery scheduling, 14-day doorstep collection for exchanges, and round-the-clock client concierge consultation.
             </p>
           </div>
@@ -177,17 +177,17 @@ export const AboutPage = () => {
             <button
               type="button"
               onClick={() => setShowFounderModal(false)}
-              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition cursor-pointer"
+              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition cursor-pointer"
               aria-label="Close"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" strokeWidth={1.3} />
             </button>
 
             {/* Modal Body */}
             <div className="relative z-10 text-center space-y-5">
               {/* Founder Photo */}
               <div className="relative mx-auto w-36 h-36 sm:w-44 sm:h-44">
-                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-gold-600 via-amber-400 to-gold-700 p-0.5 shadow-xl">
+                <div className="w-full h-full rounded-full p-1 bg-gradient-to-tr from-amber-700/80 via-stone-400 to-amber-600/80 shadow-2xl">
                   <div className="w-full h-full rounded-full bg-[#121212] p-1">
                     <img
                       src={founderImg}
@@ -199,37 +199,33 @@ export const AboutPage = () => {
                     />
                   </div>
                 </div>
-                <div className="absolute bottom-1 right-2 bg-luxury-950 rounded-full p-1 border border-gold-500 shadow-md">
-                  <CheckCircle2 className="w-5 h-5 text-gold-400 fill-gold-400/20" />
-                </div>
               </div>
 
               {/* Founder Name & Designation */}
-              <div className="space-y-1 pt-1">
-                <div className="inline-flex items-center space-x-1.5 px-3 py-0.5 bg-gold-500/15 border border-gold-500/30 rounded-full text-[10px] uppercase font-bold tracking-[0.25em] text-gold-400">
-                  <Sparkles className="w-3 h-3 text-gold-400" />
-                  <span>Founder & Visionary</span>
+              <div className="space-y-1.5 pt-1">
+                <div className="inline-flex items-center px-3.5 py-1 bg-stone-900/90 border border-stone-700 rounded-full text-[9px] uppercase font-medium tracking-[0.28em] text-amber-200">
+                  <span>Founder &bull; Atelier Director</span>
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-[0.18em] text-white pt-2 uppercase">
+                <h2 className="font-serif text-2xl sm:text-3xl font-normal tracking-[0.2em] text-[#FAF8F5] pt-2 uppercase">
                   SHIVAM PANDEY
                 </h2>
-                <p className="text-xs text-gold-400 font-medium tracking-wider uppercase">
+                <p className="text-xs text-amber-300/90 font-light tracking-widest uppercase">
                   Founder & CEO &bull; NexKart
                 </p>
-                <p className="text-xs text-gray-400 flex items-center justify-center space-x-1 pt-0.5">
-                  <MapPin className="w-3.5 h-3.5 text-gold-500" />
+                <p className="text-xs text-stone-400 flex items-center justify-center space-x-1.5 pt-0.5 font-light">
+                  <MapPin className="w-3.5 h-3.5 text-amber-500" strokeWidth={1.3} />
                   <span>Varanasi, Uttar Pradesh, India</span>
                 </p>
               </div>
 
               {/* Founder Note / Vision */}
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10 text-left space-y-2">
-                <p className="text-xs text-gray-300 leading-relaxed font-serif italic">
+              <div className="p-4 bg-white/5 rounded-xs border border-white/10 text-left space-y-2">
+                <p className="text-xs text-stone-300 leading-relaxed font-serif italic">
                   &ldquo;NexKart was envisioned to combine timeless luxury with modern simplicity. Every collection, every artisan partnership, and every order is treated with personal dedication and perfection.&rdquo;
                 </p>
-                <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[11px] text-gray-400">
-                  <span className="font-serif tracking-widest text-gold-400">— Shivam Pandey</span>
-                  <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">Founder, NexKart</span>
+                <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[11px] text-stone-400">
+                  <span className="font-serif tracking-widest text-amber-300">— Shivam Pandey</span>
+                  <span className="text-[10px] uppercase tracking-wider text-stone-400 font-medium">Founder, NexKart</span>
                 </div>
               </div>
 
@@ -237,15 +233,15 @@ export const AboutPage = () => {
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                 <a
                   href="mailto:nexkart2.0@gmail.com?subject=Inquiry%20for%20Shivam%20Pandey%20-%20NexKart%20Founder"
-                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-5 py-2.5 bg-gold-500 hover:bg-gold-400 text-luxury-950 text-xs font-bold uppercase tracking-wider rounded-lg transition shadow-md"
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-[#FAF8F5] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.16em] rounded-xs transition shadow-md"
                 >
-                  <Mail className="w-3.5 h-3.5" />
+                  <Mail className="w-3.5 h-3.5 text-stone-800" strokeWidth={1.3} />
                   <span>Contact Founder Office</span>
                 </a>
                 <button
                   type="button"
                   onClick={() => setShowFounderModal(false)}
-                  className="w-full sm:w-auto px-5 py-2.5 bg-white/10 hover:bg-white/20 text-gray-200 text-xs font-semibold uppercase tracking-wider rounded-lg border border-white/15 transition cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 bg-white/5 hover:bg-white/10 text-stone-300 hover:text-white text-xs font-medium uppercase tracking-[0.16em] rounded-xs border border-white/15 transition cursor-pointer"
                 >
                   Close
                 </button>

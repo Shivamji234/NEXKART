@@ -289,18 +289,18 @@ export const CartPage = () => {
           </div>
 
           {/* Guarantees */}
-          <div className="bg-gray-50 rounded-lg p-5 border border-gray-200 space-y-3 text-xs text-gray-600">
+          <div className="bg-[#FAF8F5] rounded-xs p-5 border border-stone-200/80 space-y-3 text-xs text-stone-700">
             <div className="flex items-center space-x-3">
-              <Truck className="w-4 h-4 text-gold-600 flex-shrink-0" />
-              <span>Complimentary insured delivery on all orders (FREE)</span>
+              <Truck className="w-4 h-4 text-stone-800 flex-shrink-0" strokeWidth={1.25} />
+              <span className="font-light">Complimentary insured delivery on all orders</span>
             </div>
             <div className="flex items-center space-x-3">
-              <RotateCcw className="w-4 h-4 text-gold-600 flex-shrink-0" />
-              <span>14-day seamless concierge returns & exchanges</span>
+              <RotateCcw className="w-4 h-4 text-stone-800 flex-shrink-0" strokeWidth={1.25} />
+              <span className="font-light">14-day seamless concierge returns & exchanges</span>
             </div>
             <div className="flex items-center space-x-3">
-              <ShieldCheck className="w-4 h-4 text-gold-600 flex-shrink-0" />
-              <span>Secure 256-bit encrypted payment authorization</span>
+              <ShieldCheck className="w-4 h-4 text-stone-800 flex-shrink-0" strokeWidth={1.25} />
+              <span className="font-light">Secure 256-bit encrypted payment authorization</span>
             </div>
           </div>
         </div>
