@@ -62,45 +62,69 @@ export const HomePage = () => {
   return (
     <div className="space-y-16 sm:space-y-20 pb-16 w-full overflow-hidden">
       {/* Hero Banner */}
-      <section className="relative h-[80vh] min-h-[480px] sm:min-h-[580px] w-full overflow-hidden flex items-center justify-center">
+      <section className="relative h-[82vh] min-h-[500px] sm:min-h-[600px] w-full overflow-hidden flex items-center justify-center">
         {/* Background Editorial Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=2000&q=85"
             alt="NexKart Haute Campaign"
-            className="w-full h-full object-cover object-top filter brightness-[0.78]"
+            className="w-full h-full object-cover object-top filter brightness-[0.74]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-luxury-950/80 via-black/30 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#141312]/85 via-black/35 to-black/40" />
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white space-y-4 sm:space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-gold-400 text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-[0.3em] font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Autumn / Winter Couture Collection</span>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white space-y-4 sm:space-y-6">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[#EBD9BE] text-[10px] tracking-[0.22em] uppercase font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span>Autumn / Winter 2026 &bull; Atelier Edit</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold tracking-wide sm:tracking-[0.18em] uppercase font-serif text-white max-w-4xl mx-auto leading-tight">
-            The New Standard Of Everyday Luxury
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-normal text-white max-w-4xl mx-auto leading-[1.08] tracking-tight">
+            The Art of <span className="italic font-serif text-[#F0DECB]">Everyday Luxury</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-gray-200 tracking-wider sm:tracking-[0.2em] uppercase max-w-2xl mx-auto font-light leading-relaxed">
-            Impeccable Italian tailoring, featherlight cashmere, and horological masterpieces curated for connoisseurs.
+          <p className="text-xs sm:text-sm text-stone-200 tracking-wide max-w-xl mx-auto font-light leading-relaxed">
+            Hand-finished cashmere, Italian cordwainery, and certified horology — meticulously curated for those who value quiet craftsmanship over loud logos.
           </p>
 
-          <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
+          <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
             <Link
               to="/shop?category=Men"
-              className="w-full sm:w-auto px-8 py-3 sm:py-3.5 bg-luxury-950 text-gold-400 border border-gold-500/40 text-xs font-semibold uppercase tracking-wider sm:tracking-[0.2em] rounded hover:bg-black transition shadow-2xl"
+              className="w-full sm:w-auto px-8 py-3.5 bg-[#171615] text-[#FAF8F5] border border-stone-600/70 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-black transition shadow-2xl hover:scale-105"
             >
-              Explore Men
+              Explore Men's Edit &rarr;
             </Link>
             <Link
               to="/shop?category=Women"
-              className="w-full sm:w-auto px-8 py-3 sm:py-3.5 bg-white text-luxury-950 text-xs font-semibold uppercase tracking-wider sm:tracking-[0.2em] rounded hover:bg-gray-100 transition shadow-2xl"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-stone-100 transition shadow-2xl hover:scale-105"
             >
-              Discover Women
+              Discover Women &rarr;
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Human Concierge & Atelier Trust Strip */}
+      <section className="border-y border-stone-200/80 bg-white/70 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="space-y-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Artisan Provenance</span>
+              <p className="text-[11px] text-stone-500 font-light">Small batch craftsmanship from certified master ateliers</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">White-Glove Delivery</span>
+              <p className="text-[11px] text-stone-500 font-light">100% complimentary insured express transit pan-India</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">14-Day Doorstep Returns</span>
+              <p className="text-[11px] text-stone-500 font-light">Complimentary return pickup directly from your residence</p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Personal Concierge</span>
+              <p className="text-[11px] text-stone-500 font-light">Direct styling & sizing guidance via phone & WhatsApp</p>
+            </div>
           </div>
         </div>
       </section>
@@ -108,13 +132,13 @@ export const HomePage = () => {
       {/* Featured Categories Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-8 sm:mb-12">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-600">
-            Curated Maisons
+          <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-amber-800">
+            Curated Wardrobe
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-luxury-950 font-serif">
-            Signature Categories
+          <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900">
+            Signature Collections
           </h2>
-          <div className="w-12 h-0.5 bg-gold-500 mx-auto mt-2" />
+          <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
@@ -145,20 +169,20 @@ export const HomePage = () => {
 
       {/* New Arrivals Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-gray-200 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-stone-200/80 pb-4">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold-600">
-              Fresh From The Atelier
+            <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-800">
+              Direct from the Atelier
             </span>
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-luxury-950 font-serif mt-1">
-              New Arrivals
+            <h2 className="text-2xl sm:text-3xl font-serif font-normal text-stone-900 mt-1">
+              Fresh Seasonal Arrivals
             </h2>
           </div>
           <Link
             to="/shop?newArrival=true"
-            className="text-xs font-semibold uppercase tracking-wider text-luxury-900 hover:text-gold-700 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
+            className="text-xs font-medium uppercase tracking-[0.15em] text-stone-800 hover:text-amber-800 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
           >
-            <span>View All New Releases</span>
+            <span>View Full Selection</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -167,9 +191,9 @@ export const HomePage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="animate-pulse space-y-3">
-                <div className="aspect-[3/4] bg-gray-200 rounded" />
-                <div className="h-4 bg-gray-200 rounded w-3/4" />
-                <div className="h-4 bg-gray-200 rounded w-1/2" />
+                <div className="aspect-[3/4] bg-stone-200/70 rounded-xs" />
+                <div className="h-4 bg-stone-200/70 rounded-xs w-3/4" />
+                <div className="h-4 bg-stone-200/70 rounded-xs w-1/2" />
               </div>
             ))}
           </div>
@@ -188,32 +212,32 @@ export const HomePage = () => {
 
       {/* Editorial Lookbook Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-xl overflow-hidden bg-luxury-950 text-white grid grid-cols-1 lg:grid-cols-2 shadow-2xl">
-          <div className="p-6 sm:p-14 lg:p-20 flex flex-col justify-center space-y-4 sm:space-y-6">
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-semibold text-gold-400">
+        <div className="relative rounded-xs overflow-hidden bg-[#171615] text-white grid grid-cols-1 lg:grid-cols-2 shadow-xl border border-stone-800">
+          <div className="p-8 sm:p-14 lg:p-18 flex flex-col justify-center space-y-4 sm:space-y-6">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-medium text-amber-300">
               The Winter 2026 Lookbook
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-wider font-serif leading-tight">
-              Quiet Elegance, Uncompromised Quality.
+            <h2 className="text-2xl sm:text-4xl font-serif font-normal leading-tight text-[#FAF8F5]">
+              Quiet Confidence, Handcrafted Precision.
             </h2>
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-light">
-              Crafted in limited runs across heritage ateliers in Biella, Northampton, and Geneva. Each piece reflects decades of mastery, timeless proportion, and discreet luxury.
+            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-light">
+              Commissioned in finite, numbered batches across master workshops. Every creation honors decades of tailoring heritage, bespoke proportions, and authentic provenance.
             </p>
             <div className="pt-2">
               <Link
-                to="/shop?category=Men"
-                className="inline-flex items-center space-x-2 px-6 py-3 bg-gold-600 hover:bg-gold-500 text-luxury-950 text-xs font-semibold uppercase tracking-widest rounded transition"
+                to="/shop"
+                className="inline-flex items-center space-x-2 px-7 py-3.5 bg-[#EAE4DC] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full transition shadow-md"
               >
-                <span>Explore The Collection</span>
+                <span>Explore The Lookbook</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
-          <div className="relative min-h-[300px] sm:min-h-[360px] lg:min-h-full">
+          <div className="relative min-h-[300px] sm:min-h-[380px] lg:min-h-full bg-stone-900">
             <img
               src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=80"
               alt="Editorial model in cashmere"
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover object-center filter brightness-95"
             />
           </div>
         </div>
@@ -221,20 +245,20 @@ export const HomePage = () => {
 
       {/* Best Sellers Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-gray-200 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-stone-200/80 pb-4">
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-gold-600">
-              Most Coveted
+            <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-800">
+              Client Favorites
             </span>
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-luxury-950 font-serif mt-1">
-              Best Sellers
+            <h2 className="text-2xl sm:text-3xl font-serif font-normal text-stone-900 mt-1">
+              Most Desired Pieces
             </h2>
           </div>
           <Link
             to="/shop?bestSeller=true"
-            className="text-xs font-semibold uppercase tracking-wider text-luxury-900 hover:text-gold-700 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
+            className="text-xs font-medium uppercase tracking-[0.15em] text-stone-800 hover:text-amber-800 inline-flex items-center space-x-1 mt-2 sm:mt-0 transition"
           >
-            <span>View All Bestsellers</span>
+            <span>View All Favorites</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -251,48 +275,48 @@ export const HomePage = () => {
       </section>
 
       {/* Limited Edition Drop Banner with Countdown */}
-      <section className="bg-luxury-950 text-white py-12 sm:py-16">
-        <div className="max-w-5xl mx-auto px-4 text-center space-y-5 sm:space-y-6">
-          <span className="px-3 py-1 bg-gold-500/20 text-gold-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] rounded-full border border-gold-500/30">
-            Exclusive Collector Vault
+      <section className="bg-[#171615] text-white py-14 sm:py-18 border-y border-stone-800">
+        <div className="max-w-4xl mx-auto px-4 text-center space-y-5 sm:space-y-6">
+          <span className="px-3.5 py-1 bg-amber-400/10 text-amber-300 text-[10px] font-medium uppercase tracking-[0.25em] rounded-full border border-amber-400/20">
+            The Private Vault
           </span>
-          <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-widest font-serif">
-            Limited Edition Drops
+          <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#FAF8F5]">
+            Limited Studio Releases
           </h2>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto font-light">
-            Individually numbered timepieces and hand-embossed leather creations available in finite quantities. Once retired, never reproduced.
+          <p className="text-xs sm:text-sm text-stone-300 max-w-lg mx-auto font-light leading-relaxed">
+            Individually numbered timepieces and hand-embossed leather creations commissioned in finite quantities. Once an edition is retired, it is never reissued.
           </p>
 
-          {/* Countdown Clock */}
-          <div className="flex justify-center items-center space-x-2 sm:space-x-4 pt-2">
-            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
+          {/* Countdown Clock in refined ivory & brass */}
+          <div className="flex justify-center items-center space-x-3 sm:space-x-5 pt-2">
+            <div className="w-16 sm:w-20 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-xs">
+              <span className="text-xl sm:text-2xl font-mono font-medium text-amber-300">
                 {String(timeLeft.hours).padStart(2, '0')}
               </span>
-              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Hours</p>
+              <p className="text-[9px] uppercase tracking-wider text-stone-400 mt-1">Hours</p>
             </div>
-            <span className="text-lg sm:text-xl font-bold text-gray-500">:</span>
-            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
+            <span className="text-lg font-light text-stone-500">:</span>
+            <div className="w-16 sm:w-20 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-xs">
+              <span className="text-xl sm:text-2xl font-mono font-medium text-amber-300">
                 {String(timeLeft.minutes).padStart(2, '0')}
               </span>
-              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Mins</p>
+              <p className="text-[9px] uppercase tracking-wider text-stone-400 mt-1">Mins</p>
             </div>
-            <span className="text-lg sm:text-xl font-bold text-gray-500">:</span>
-            <div className="w-14 sm:w-20 p-2 sm:p-3 bg-white/5 border border-white/10 rounded">
-              <span className="text-lg sm:text-2xl font-bold font-mono text-gold-400">
+            <span className="text-lg font-light text-stone-500">:</span>
+            <div className="w-16 sm:w-20 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-xs">
+              <span className="text-xl sm:text-2xl font-mono font-medium text-amber-300">
                 {String(timeLeft.seconds).padStart(2, '0')}
               </span>
-              <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-400 mt-0.5 sm:mt-1">Secs</p>
+              <p className="text-[9px] uppercase tracking-wider text-stone-400 mt-1">Secs</p>
             </div>
           </div>
 
           <div className="pt-2 sm:pt-4">
             <Link
               to="/shop?category=Haute%20Horlogerie"
-              className="inline-block px-8 py-3 bg-gold-600 hover:bg-gold-500 text-luxury-950 text-xs font-semibold uppercase tracking-widest rounded transition"
+              className="inline-block px-8 py-3.5 bg-[#EAE4DC] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full transition shadow-lg hover:scale-105"
             >
-              Access The Vault
+              Access Limited Editions &rarr;
             </Link>
           </div>
         </div>
@@ -301,78 +325,78 @@ export const HomePage = () => {
       {/* Customer Reviews & Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-8 sm:mb-12">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-600">
-            Client Voices
+          <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-amber-800">
+            Patron Experiences
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-luxury-950 font-serif">
-            Distinguished Patrons
+          <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900">
+            Words from Our Patrons
           </h2>
-          <div className="w-12 h-0.5 bg-gold-500 mx-auto mt-2" />
+          <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex text-gold-500 space-x-1 mb-4">
+          <div className="bg-white p-7 sm:p-8 rounded-xs border border-stone-200/80 shadow-xs flex flex-col justify-between space-y-5">
+            <div className="space-y-3">
+              <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
                 ))}
               </div>
-              <p className="text-xs text-gray-700 italic leading-relaxed">
-                "The Cashmere Overcoat is unmatched in its drape and thermal comfort. The white-glove packaging and handwritten note made unboxing feel like a personal couture fitting."
+              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
+                "The Cashmere Overcoat has an exquisite drape and natural warmth. The packaging felt like a bespoke salon delivery — complete with a handwritten care note."
               </p>
             </div>
-            <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Ananya Sharma</p>
-                <p className="text-[10px] text-gray-500">New Delhi &bull; Verified Client</p>
+                <p className="text-xs font-semibold text-stone-900">Ananya Sharma</p>
+                <p className="text-[10px] text-stone-500">New Delhi &bull; Verified Patron</p>
               </div>
-              <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
-                Patron
+              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
+                Verified
               </span>
             </div>
           </div>
 
-          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex text-gold-500 space-x-1 mb-4">
+          <div className="bg-white p-7 sm:p-8 rounded-xs border border-stone-200/80 shadow-xs flex flex-col justify-between space-y-5">
+            <div className="space-y-3">
+              <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
                 ))}
               </div>
-              <p className="text-xs text-gray-700 italic leading-relaxed">
-                "Ordered the Chronos skeleton watch. Horological precision is flawless, keeping within COSC standards. NexKart is revolutionizing high-end luxury shopping in India."
+              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
+                "Ordered the Chronos skeleton timepiece. The horological finish is stunning and the movement runs with Swiss-grade precision. NexKart is setting a genuine benchmark."
               </p>
             </div>
-            <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Vikramaditya Rathore</p>
-                <p className="text-[10px] text-gray-500">Varanasi &bull; Verified Client</p>
+                <p className="text-xs font-semibold text-stone-900">Vikramaditya Rathore</p>
+                <p className="text-[10px] text-stone-500">Varanasi &bull; Verified Patron</p>
               </div>
-              <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
-                Patron
+              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
+                Verified
               </span>
             </div>
           </div>
 
-          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex text-gold-500 space-x-1 mb-4">
+          <div className="bg-white p-7 sm:p-8 rounded-xs border border-stone-200/80 shadow-xs flex flex-col justify-between space-y-5">
+            <div className="space-y-3">
+              <div className="flex text-amber-500 space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
                 ))}
               </div>
-              <p className="text-xs text-gray-700 italic leading-relaxed">
-                "The Vachetta weekender bag has already collected compliments on three flights. Exceptional leather quality that gets better with every trip."
+              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
+                "The Vachetta weekender bag has already collected compliments across three flights. The leather develops a rich, personal patina with every journey."
               </p>
             </div>
-            <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-luxury-950">Rajesh Singhania</p>
-                <p className="text-[10px] text-gray-500">Bengaluru &bull; Verified Client</p>
+                <p className="text-xs font-semibold text-stone-900">Rajesh Singhania</p>
+                <p className="text-[10px] text-stone-500">Bengaluru &bull; Verified Patron</p>
               </div>
-              <span className="text-[10px] px-2 py-0.5 bg-gold-100 text-gold-800 font-semibold rounded">
-                Patron
+              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
+                Verified
               </span>
             </div>
           </div>

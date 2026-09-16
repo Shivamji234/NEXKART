@@ -109,18 +109,20 @@ export const Navbar = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="bg-luxury-950 text-gold-400 py-1.5 px-3 text-center text-[10px] sm:text-[11px] tracking-normal sm:tracking-widest uppercase font-medium border-b border-white/5 overflow-hidden">
+      {/* Top Announcement Bar */}
+      <div className="bg-[#171615] text-[#E7D9C3] py-2 px-3 text-center text-[10.5px] sm:text-[11px] tracking-wide uppercase font-medium border-b border-stone-800 overflow-hidden">
         <span className="inline-flex items-center space-x-2 truncate max-w-full justify-center">
-          <span>Complimentary Delivery On All Orders</span>
-          <span className="text-gold-600">&bull;</span>
+          <span className="text-amber-300">✦</span>
+          <span>Complimentary Insured Delivery Across India</span>
+          <span className="text-stone-600">&bull;</span>
           <span>Support:{' '}
-            <a href="mailto:nexkart2.0@gmail.com" className="hover:text-white underline transition">
+            <a href="mailto:nexkart2.0@gmail.com" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
               nexkart2.0@gmail.com
             </a>
           </span>
-          <span className="hidden md:inline text-gold-600">&bull;</span>
-          <span className="hidden md:inline">Helpline:{' '}
-            <a href="tel:+917268927163" className="hover:text-white underline transition">
+          <span className="hidden md:inline text-stone-600">&bull;</span>
+          <span className="hidden md:inline">Concierge:{' '}
+            <a href="tel:+917268927163" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
               +91 72689 27163
             </a>
           </span>
@@ -131,8 +133,8 @@ export const Navbar = () => {
       <header
         className={`sticky top-0 z-40 transition-all duration-300 w-full ${
           isScrolled
-            ? 'glass-nav border-b border-gray-200/80 py-2.5 sm:py-3.5 shadow-sm'
-            : 'bg-[#FAF9F6] border-b border-gray-100 py-3 sm:py-5'
+            ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200/85 py-2.5 sm:py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
+            : 'bg-[#FAF8F5] border-b border-stone-200/60 py-3.5 sm:py-4.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -140,23 +142,23 @@ export const Navbar = () => {
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-1.5 text-luxury-900 hover:text-gold-600 transition"
+              className="lg:hidden p-1.5 text-stone-900 hover:text-amber-800 transition"
               aria-label="Open menu"
             >
               <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Brand Logo */}
-            <Link to="/" className="flex items-center space-x-1.5 sm:space-x-2 group flex-shrink-0">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded bg-luxury-950 flex items-center justify-center border border-gold-500/40 shadow-sm group-hover:border-gold-400 transition">
-                <span className="text-gold-400 font-serif font-bold text-sm sm:text-base tracking-tighter">N</span>
+            <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xs bg-[#171615] flex items-center justify-center border border-stone-700/60 shadow-xs group-hover:border-amber-600/70 transition">
+                <span className="text-[#E7D9C3] font-serif font-bold text-sm sm:text-base">N</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-lg sm:text-2xl font-bold tracking-[0.16em] sm:tracking-[0.22em] text-luxury-950 uppercase leading-none">
+                <span className="font-serif text-lg sm:text-2xl font-normal tracking-[0.24em] text-stone-950 uppercase leading-none">
                   NEXKART
                 </span>
-                <span className="text-[7px] sm:text-[8px] tracking-[0.28em] sm:tracking-[0.35em] text-gold-600 uppercase font-medium mt-0.5">
-                  Maison de Luxe
+                <span className="text-[7.5px] sm:text-[8px] tracking-[0.32em] text-stone-500 uppercase font-medium mt-0.5">
+                  Atelier &bull; Est. 2026
                 </span>
               </div>
             </Link>
@@ -167,14 +169,14 @@ export const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-[12px] tracking-[0.14em] uppercase font-medium transition-colors duration-200 relative group py-1 ${
+                  className={`text-[11.5px] tracking-[0.16em] uppercase font-medium transition-colors duration-200 relative group py-1 ${
                     link.highlight
-                      ? 'text-gold-600 hover:text-gold-700'
-                      : 'text-luxury-800 hover:text-luxury-950'
+                      ? 'text-amber-800 hover:text-amber-900 font-semibold'
+                      : 'text-stone-800 hover:text-stone-950'
                   }`}
                 >
                   {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-gold-500 transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-amber-700 transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </nav>

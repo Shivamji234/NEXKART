@@ -72,78 +72,78 @@ export const Footer = () => {
           {/* Brand & Manifesto */}
           <div className="sm:col-span-2 space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-7 h-7 rounded bg-white/5 border border-gold-500/40 flex items-center justify-center">
-                <span className="text-gold-400 font-serif font-bold text-sm">N</span>
+              <div className="w-7 h-7 rounded-xs bg-[#1F1D1B] border border-stone-700/60 flex items-center justify-center">
+                <span className="text-[#E7D9C3] font-serif font-bold text-sm">N</span>
               </div>
-              <span className="font-serif text-2xl font-bold tracking-[0.25em] text-white uppercase">
+              <span className="font-serif text-2xl font-normal tracking-[0.24em] text-white uppercase">
                 NEXKART
               </span>
             </div>
-            <p className="text-xs text-gray-400 leading-relaxed pr-2 sm:pr-6">
-              NexKart is a modern luxury e-commerce platform created to make premium online shopping simpler, faster and more enjoyable. Combining architectural aesthetics, trusted shopping experiences, and smart technology to discover exquisite products effortlessly.
+            <p className="text-xs text-stone-300 leading-relaxed pr-2 sm:pr-6 font-light">
+              NexKart was founded with an artisan spirit: uniting understated luxury, verified provenance, and attentive personal concierge care to make fine online shopping effortless and deeply rewarding.
             </p>
-            <div className="pt-2 text-xs text-gray-400 space-y-1.5">
+            <div className="pt-2 text-xs text-stone-300 space-y-1.5 font-light">
               <p>
-                <strong className="text-gray-200">Customer Support:</strong>{' '}
+                <strong className="text-stone-100 font-medium">Client Concierge:</strong>{' '}
                 <a
                   href="mailto:nexkart2.0@gmail.com"
-                  className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2"
+                  className="text-amber-300 hover:text-white transition underline decoration-amber-400/40 underline-offset-2"
                   title="Send email to NexKart Customer Support"
                 >
                   nexkart2.0@gmail.com
                 </a>
               </p>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <strong className="text-gray-200">Helpline / WhatsApp:</strong>
+                <strong className="text-stone-100 font-medium">Helpline &bull; WhatsApp:</strong>
                 <a
                   href="tel:+917268927163"
-                  className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2 font-medium"
+                  className="text-amber-300 hover:text-white transition underline decoration-amber-400/40 underline-offset-2 font-medium"
                   title="Call NexKart Helpline"
                 >
                   +91 72689 27163
                 </a>
-                <span className="text-gray-600">&bull;</span>
+                <span className="text-stone-600">&bull;</span>
                 <a
                   href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-green-400 hover:text-green-300 font-semibold transition hover:underline"
+                  className="inline-flex items-center space-x-1 text-emerald-400 hover:text-emerald-300 font-medium transition hover:underline"
                   title="Chat directly on WhatsApp"
                 >
-                  <span>WhatsApp Chat ↗</span>
+                  <span>WhatsApp Concierge ↗</span>
                 </a>
               </div>
-              <p><strong className="text-gray-200">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
-              <p className="text-[11px] text-gray-500">Mon - Sat: 9:00 AM – 8:00 PM IST (All India Support)</p>
+              <p><strong className="text-stone-100 font-medium">Studio:</strong> Near Mohansarai, Varanasi, Uttar Pradesh — 221302</p>
+              <p className="text-[11px] text-stone-400">Mon - Sat: 9:00 AM – 8:00 PM IST (Pan-India Support)</p>
             </div>
           </div>
 
           {/* Maison Collections */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400 mb-4">
-              Maison
+            <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300 mb-4 font-serif">
+              Collections
             </h3>
-            <ul className="space-y-2.5 text-xs text-gray-400">
+            <ul className="space-y-2.5 text-xs text-stone-300 font-light">
               <li><Link to="/shop?category=Men" className="hover:text-white transition">Men's Wardrobe</Link></li>
               <li><Link to="/shop?category=Women" className="hover:text-white transition">Women's Couture</Link></li>
               <li><Link to="/shop?category=Footwear" className="hover:text-white transition">Footwear & Cordwainery</Link></li>
               <li><Link to="/shop?category=Accessories" className="hover:text-white transition">Leather Goods & Bags</Link></li>
               <li><Link to="/shop?category=Haute Horlogerie" className="hover:text-white transition">Haute Horlogerie</Link></li>
-              <li><Link to="/shop?newArrival=true" className="hover:text-white transition">New Arrivals</Link></li>
+              <li><Link to="/shop?newArrival=true" className="hover:text-white transition">New Seasonal Releases</Link></li>
             </ul>
           </div>
 
           {/* Client Concierge */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400 mb-4">
-              Client Care
+            <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300 mb-4 font-serif">
+              Client Services
             </h3>
-            <ul className="space-y-2.5 text-xs text-gray-400">
+            <ul className="space-y-2.5 text-xs text-stone-300 font-light">
               <li><Link to="/contact" className="hover:text-white transition">Contact Concierge</Link></li>
               <li><Link to="/about" className="hover:text-white transition">The NexKart Story</Link></li>
               <li><Link to="/policies/faq" className="hover:text-white transition">Client FAQ</Link></li>
-              <li><Link to="/policies/shipping" className="hover:text-white transition">Shipping Policy</Link></li>
-              <li><Link to="/policies/returns" className="hover:text-white transition">Return & Exchange</Link></li>
+              <li><Link to="/policies/shipping" className="hover:text-white transition">Shipping & Delivery</Link></li>
+              <li><Link to="/policies/returns" className="hover:text-white transition">Returns & Doorstep Exchange</Link></li>
               <li><Link to="/policies/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
               <li><Link to="/policies/terms" className="hover:text-white transition">Terms of Service</Link></li>
             </ul>
@@ -151,11 +151,11 @@ export const Footer = () => {
 
           {/* Newsletter Box */}
           <div className="space-y-4">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400">
-              Maison Gazette
+            <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300 font-serif">
+              The Atelier Gazette
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Subscribe to receive private invitations to runway debuts, limited editions, and private collector trunk shows.
+            <p className="text-xs text-stone-300 leading-relaxed font-light">
+              Receive private invitations to seasonal previews, limited collector drops, and private salon trunk shows.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
               <div className="relative">

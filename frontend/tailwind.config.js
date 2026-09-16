@@ -32,7 +32,8 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['"Cinzel"', '"Playfair Display"', 'serif'],
+        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+        display: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
       },
       letterSpacing: {
