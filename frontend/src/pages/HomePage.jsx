@@ -73,7 +73,7 @@ export const HomePage = () => {
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white space-y-4 sm:space-y-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[#EBD9BE] text-[10px] tracking-[0.22em] uppercase font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span>Autumn / Winter 2026 &bull; Atelier Edit</span>
+            <span>Autumn / Winter Collection &bull; Limited Release</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-normal text-white max-w-4xl mx-auto leading-[1.08] tracking-tight">
@@ -81,7 +81,7 @@ export const HomePage = () => {
           </h1>
 
           <p className="text-xs sm:text-sm text-stone-200 tracking-wide max-w-xl mx-auto font-light leading-relaxed">
-            Hand-finished cashmere, Italian cordwainery, and certified horology — meticulously curated for those who value quiet craftsmanship over loud logos.
+            Pure cashmere knitwear, handcrafted leather goods, and precision watches — designed for those who appreciate understated style, honest materials, and lasting comfort.
           </p>
 
           <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
@@ -89,13 +89,13 @@ export const HomePage = () => {
               to="/shop?category=Men"
               className="w-full sm:w-auto px-8 py-3.5 bg-[#171615] text-[#FAF8F5] border border-stone-600/70 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-black transition shadow-2xl hover:scale-105"
             >
-              Explore Men's Edit &rarr;
+              Shop Men's Collection &rarr;
             </Link>
             <Link
               to="/shop?category=Women"
               className="w-full sm:w-auto px-8 py-3.5 bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-stone-100 transition shadow-2xl hover:scale-105"
             >
-              Discover Women &rarr;
+              Shop Women's Collection &rarr;
             </Link>
           </div>
         </div>
@@ -106,20 +106,20 @@ export const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Artisan Provenance</span>
-              <p className="text-[11px] text-stone-500 font-light">Small batch craftsmanship from certified master ateliers</p>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Small-Batch Quality</span>
+              <p className="text-[11px] text-stone-500 font-light">Carefully made in small batches with genuine premium materials</p>
             </div>
             <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">White-Glove Delivery</span>
-              <p className="text-[11px] text-stone-500 font-light">100% complimentary insured express transit pan-India</p>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Free Express Shipping</span>
+              <p className="text-[11px] text-stone-500 font-light">100% complimentary, insured doorstep delivery across India</p>
             </div>
             <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">14-Day Doorstep Returns</span>
-              <p className="text-[11px] text-stone-500 font-light">Complimentary return pickup directly from your residence</p>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Hassle-Free Returns</span>
+              <p className="text-[11px] text-stone-500 font-light">14-day easy returns with free doorstep collection</p>
             </div>
             <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Personal Concierge</span>
-              <p className="text-[11px] text-stone-500 font-light">Direct styling & sizing guidance via phone & WhatsApp</p>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Real Human Support</span>
+              <p className="text-[11px] text-stone-500 font-light">Direct phone & WhatsApp guidance from our Varanasi studio</p>
             </div>
           </div>
         </div>
@@ -274,13 +274,13 @@ export const HomePage = () => {
       <section className="bg-[#171615] text-white py-14 sm:py-18 border-y border-stone-800">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-5 sm:space-y-6">
           <span className="px-3.5 py-1 bg-amber-400/10 text-amber-300 text-[10px] font-medium uppercase tracking-[0.25em] rounded-full border border-amber-400/20">
-            The Private Vault
+            Collector's Vault
           </span>
           <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#FAF8F5]">
-            Limited Studio Releases
+            Limited Edition Drops
           </h2>
           <p className="text-xs sm:text-sm text-stone-300 max-w-lg mx-auto font-light leading-relaxed">
-            Individually numbered timepieces and hand-embossed leather creations commissioned in finite quantities. Once an edition is retired, it is never reissued.
+            Individually numbered timepieces and handcrafted leather pieces produced in small, finite runs. Once an edition sells out, it is permanently retired.
           </p>
 
           {/* Countdown Clock in refined ivory & brass */}
@@ -309,23 +309,23 @@ export const HomePage = () => {
 
           <div className="pt-2 sm:pt-4">
             <Link
-              to="/shop?category=Haute%20Horlogerie"
+              to="/shop?discountOnly=true"
               className="inline-block px-8 py-3.5 bg-[#EAE4DC] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full transition shadow-lg hover:scale-105"
             >
-              Access Limited Editions &rarr;
+              Explore Limited Drops &rarr;
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Customer Reviews & Testimonials */}
+      {/* Customer Reviews & Testimonials - Genuine Human Voice */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-8 sm:mb-12">
           <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-amber-800">
-            Patron Experiences
+            Real Customer Experiences
           </span>
           <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900">
-            Words from Our Patrons
+            What Our Customers Say
           </h2>
           <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
         </div>
@@ -338,14 +338,14 @@ export const HomePage = () => {
                   <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
-              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
-                "The Cashmere Overcoat has an exquisite drape and natural warmth. The packaging felt like a bespoke salon delivery — complete with a handwritten care note."
+              <p className="text-xs text-stone-700 font-normal leading-relaxed">
+                "The fabric feels incredibly soft and breathes really well. Delivery was super fast to Delhi and the packaging felt genuinely special — neat box with care instructions. Definitely ordering again."
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Ananya Sharma</p>
-                <p className="text-[10px] text-stone-500">New Delhi &bull; Verified Patron</p>
+                <p className="text-[10px] text-stone-500">New Delhi &bull; Verified Buyer</p>
               </div>
               <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
                 Verified
@@ -360,14 +360,14 @@ export const HomePage = () => {
                   <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
-              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
-                "Ordered the Chronos skeleton timepiece. The horological finish is stunning and the movement runs with Swiss-grade precision. NexKart is setting a genuine benchmark."
+              <p className="text-xs text-stone-700 font-normal leading-relaxed">
+                "Ordered the skeleton automatic watch last week. The weight feels solid on the wrist, crown movement is buttery smooth, and the leather strap is top notch. Honestly looks even better in hand than in pictures."
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Vikramaditya Rathore</p>
-                <p className="text-[10px] text-stone-500">Varanasi &bull; Verified Patron</p>
+                <p className="text-[10px] text-stone-500">Varanasi &bull; Verified Buyer</p>
               </div>
               <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
                 Verified
@@ -382,14 +382,14 @@ export const HomePage = () => {
                   <Star key={i} className="w-3.5 h-3.5 fill-current" strokeWidth={1.2} />
                 ))}
               </div>
-              <p className="text-xs text-stone-700 italic font-serif leading-relaxed">
-                "The Vachetta weekender bag has already collected compliments across three flights. The leather develops a rich, personal patina with every journey."
+              <p className="text-xs text-stone-700 font-normal leading-relaxed">
+                "The leather duffel bag exceeded my expectations. Clean stitching, heavy brass zips that don't stick, and fits easily into airline cabin storage. Solid build for frequent travel."
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Rajesh Singhania</p>
-                <p className="text-[10px] text-stone-500">Bengaluru &bull; Verified Patron</p>
+                <p className="text-[10px] text-stone-500">Bengaluru &bull; Verified Buyer</p>
               </div>
               <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
                 Verified

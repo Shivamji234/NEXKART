@@ -34,13 +34,13 @@ export const AboutPage = () => {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto space-y-4">
           <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gold-400">
-            The Maison Philosophy
+            Our Philosophy
           </span>
-          <h1 className="text-3xl sm:text-5xl font-bold uppercase tracking-widest font-serif leading-tight">
-            Crafting The Standard Of Everyday Luxury
+          <h1 className="text-3xl sm:text-5xl font-normal uppercase tracking-widest font-serif leading-tight">
+            Everyday Luxury, Thoughtfully Designed
           </h1>
-          <p className="text-xs sm:text-sm text-gray-300 tracking-wider uppercase font-light max-w-2xl mx-auto">
-            Simplicity &bull; Architectural Proportion &bull; Unyielding Quality
+          <p className="text-xs sm:text-sm text-stone-300 tracking-wider uppercase font-light max-w-2xl mx-auto">
+            Timeless Design &bull; Premium Comfort &bull; Honest Craftsmanship
           </p>
         </div>
       </section>
@@ -120,30 +120,30 @@ export const AboutPage = () => {
           <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
             <span className="font-serif text-3xl font-light text-stone-400/90 italic">01</span>
             <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
-              Masterful Materiality
+              Authentic Materials
             </h3>
             <p className="text-xs text-stone-600 leading-relaxed font-light">
-              We exclusively commission Mongolian double-faced cashmere, French vegetable-tanned boxcalf leather, and Swiss-certified movements crafted to endure across generations.
+              We exclusively commission double-faced cashmere, genuine Italian vegetable-tanned leather, and reliable Swiss-certified movements built to last for generations.
             </p>
           </div>
 
           <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
             <span className="font-serif text-3xl font-light text-stone-400/90 italic">02</span>
             <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
-              Certified Provenance
+              Verified Genuine
             </h3>
             <p className="text-xs text-stone-600 leading-relaxed font-light">
-              Every creation undergoes multi-stage cryptographic and physical authentication before receiving its bespoke NexKart seal of verification.
+              Every single product undergoes multi-stage physical inspection and authentic certification before receiving its bespoke NexKart seal of approval.
             </p>
           </div>
 
           <div className="relative pl-6 border-l-2 border-stone-200 hover:border-amber-700/80 transition-colors space-y-3">
             <span className="font-serif text-3xl font-light text-stone-400/90 italic">03</span>
             <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-stone-900 font-serif">
-              White-Glove Care
+              Doorstep Service
             </h3>
             <p className="text-xs text-stone-600 leading-relaxed font-light">
-              Enjoy tailored delivery scheduling, 14-day doorstep collection for exchanges, and round-the-clock client concierge consultation.
+              Enjoy tailored delivery scheduling, 14-day doorstep collection for easy exchanges, and friendly client concierge consultation whenever you need help.
             </p>
           </div>
         </div>
@@ -232,7 +232,7 @@ export const AboutPage = () => {
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                 <a
-                  href="mailto:nexkart2.0@gmail.com?subject=Inquiry%20for%20Shivam%20Pandey%20-%20NexKart%20Founder"
+                  href="mailto:concierge@nexkart.com?subject=Inquiry%20for%20Shivam%20Pandey%20-%20NexKart%20Founder"
                   className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-2.5 bg-[#FAF8F5] hover:bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.16em] rounded-xs transition shadow-md"
                 >
                   <Mail className="w-3.5 h-3.5 text-stone-800" strokeWidth={1.3} />

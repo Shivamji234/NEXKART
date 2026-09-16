@@ -131,10 +131,10 @@ export const PolicyPages = () => {
                 </p>
                 <div className="mt-2.5 flex flex-wrap items-center gap-2">
                   <a
-                    href="mailto:nexkart2.0@gmail.com"
+                    href="mailto:concierge@nexkart.com"
                     className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-gray-300 text-luxury-950 hover:border-gold-500 rounded text-xs font-semibold transition shadow-2xs"
                   >
-                    <span>✉️ nexkart2.0@gmail.com</span>
+                    <span>concierge@nexkart.com</span>
                   </a>
                   <a
                     href="tel:+917268927163"

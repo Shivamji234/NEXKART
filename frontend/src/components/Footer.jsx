@@ -19,32 +19,32 @@ export const Footer = () => {
 
   return (
     <footer className="bg-luxury-950 text-white border-t border-white/10 mt-20">
-      {/* Value Proposition Bar - Architectural Editorial Layout (Human Luxury) */}
+      {/* Value Proposition Bar - Natural Human Luxury Copy */}
       <div className="border-b border-stone-800/80 py-8 sm:py-10 bg-[#0c0b0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-left">
             <div className="border-l border-stone-800 pl-4 space-y-1">
-              <span className="font-serif text-xs italic text-amber-300/70">01 &bull; Atelier Standard</span>
-              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Artisanal Craftsmanship</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Finest European cashmere & Italian cordwainery</p>
+              <span className="font-serif text-xs italic text-amber-300/70">01 &bull; Premium Quality</span>
+              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Authentic Materials</h4>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Pure double-faced cashmere, genuine Italian leather & precision movements</p>
             </div>
 
             <div className="border-l border-stone-800 pl-4 space-y-1">
-              <span className="font-serif text-xs italic text-amber-300/70">02 &bull; Direct Transit</span>
-              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">White-Glove Delivery</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Complimentary insured express transit pan-India</p>
+              <span className="font-serif text-xs italic text-amber-300/70">02 &bull; Express Shipping</span>
+              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Free Insured Delivery</h4>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">100% complimentary, insured doorstep delivery anywhere in India</p>
             </div>
 
             <div className="border-l border-stone-800 pl-4 space-y-1">
-              <span className="font-serif text-xs italic text-amber-300/70">03 &bull; Cryptographic Trust</span>
-              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Guaranteed Authenticity</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">100% verified certified provenance</p>
+              <span className="font-serif text-xs italic text-amber-300/70">03 &bull; Genuine Guarantee</span>
+              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Verified Authenticity</h4>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Every creation is hand-inspected for quality and certified before dispatch</p>
             </div>
 
             <div className="border-l border-stone-800 pl-4 space-y-1">
-              <span className="font-serif text-xs italic text-amber-300/70">04 &bull; Client Privilege</span>
-              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">14-Day Atelier Returns</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Complimentary doorstep collection & exchange</p>
+              <span className="font-serif text-xs italic text-amber-300/70">04 &bull; Easy Exchanges</span>
+              <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">14-Day Doorstep Returns</h4>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Complimentary doorstep pickup if you ever need a size or style exchange</p>
             </div>
           </div>
         </div>
@@ -70,11 +70,11 @@ export const Footer = () => {
               <p>
                 <strong className="text-stone-100 font-medium">Client Concierge:</strong>{' '}
                 <a
-                  href="mailto:nexkart2.0@gmail.com"
+                  href="mailto:concierge@nexkart.com"
                   className="text-amber-300 hover:text-white transition underline decoration-amber-400/40 underline-offset-2"
                   title="Send email to NexKart Customer Support"
                 >
-                  nexkart2.0@gmail.com
+                  concierge@nexkart.com
                 </a>
               </p>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -110,9 +110,9 @@ export const Footer = () => {
             <ul className="space-y-2.5 text-xs text-stone-300 font-light">
               <li><Link to="/shop?category=Men" className="hover:text-white transition">Men's Wardrobe</Link></li>
               <li><Link to="/shop?category=Women" className="hover:text-white transition">Women's Couture</Link></li>
-              <li><Link to="/shop?category=Footwear" className="hover:text-white transition">Footwear & Cordwainery</Link></li>
+              <li><Link to="/shop?category=Footwear" className="hover:text-white transition">Footwear & Loafers</Link></li>
               <li><Link to="/shop?category=Accessories" className="hover:text-white transition">Leather Goods & Bags</Link></li>
-              <li><Link to="/shop?category=Haute Horlogerie" className="hover:text-white transition">Haute Horlogerie</Link></li>
+              <li><Link to="/shop?category=Haute%20Horlogerie" className="hover:text-white transition">Luxury Watches</Link></li>
               <li><Link to="/shop?newArrival=true" className="hover:text-white transition">New Seasonal Releases</Link></li>
             </ul>
           </div>
@@ -136,10 +136,10 @@ export const Footer = () => {
           {/* Newsletter Box */}
           <div className="space-y-4">
             <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-amber-300 font-serif">
-              The Atelier Gazette
+              Newsletter & Private Drops
             </h3>
             <p className="text-xs text-stone-300 leading-relaxed font-light">
-              Receive private invitations to seasonal previews, limited collector drops, and private salon trunk shows.
+              Subscribe for early access to seasonal releases, limited edition drops, and member-only privileges.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
               <div className="relative">

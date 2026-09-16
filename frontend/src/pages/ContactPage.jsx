@@ -60,54 +60,54 @@ export const ContactPage = () => {
 
             <div className="space-y-5 text-xs text-gray-300">
               <div className="flex items-start space-x-3">
-                <Mail className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" strokeWidth={1.3} />
                 <div>
-                  <p className="font-bold text-white uppercase tracking-wider">Email Support</p>
+                  <p className="font-semibold text-white uppercase tracking-wider">Email Concierge</p>
                   <a
-                    href="mailto:nexkart2.0@gmail.com"
-                    className="text-gold-400 hover:text-white transition underline decoration-gold-500/50 underline-offset-2 block mt-0.5 text-sm font-medium"
+                    href="mailto:concierge@nexkart.com"
+                    className="text-amber-300 hover:text-white transition underline decoration-amber-400/40 underline-offset-2 block mt-0.5 text-sm font-medium"
                     title="Click to send email"
                   >
-                    nexkart2.0@gmail.com
+                    concierge@nexkart.com
                   </a>
-                  <p className="text-[10px] text-gray-400 mt-0.5">Click to email customer support</p>
+                  <p className="text-[10px] text-stone-400 mt-0.5">Official Client Support: support@nexkart.com</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
-                <Phone className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
+                <Phone className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" strokeWidth={1.3} />
                 <div>
-                  <p className="font-bold text-white uppercase tracking-wider">Helpline & WhatsApp</p>
+                  <p className="font-semibold text-white uppercase tracking-wider">Helpline & WhatsApp</p>
                   <div className="flex flex-wrap items-center gap-2 mt-1.5">
                     <a
                       href="tel:+917268927163"
                       className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded font-mono text-xs flex items-center space-x-1.5 transition border border-white/15 shadow-sm"
                       title="Click to call helpline"
                     >
-                      <Phone className="w-3 h-3 text-gold-400" />
-                      <span>Call: +91 72689 27163</span>
+                      <Phone className="w-3 h-3 text-amber-300" strokeWidth={1.3} />
+                      <span>+91 72689 27163</span>
                     </a>
                     <a
                       href="https://wa.me/917268927163?text=Hello%20NexKart%20Support"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-green-600/30 hover:bg-green-600/40 text-green-300 hover:text-green-200 rounded text-xs flex items-center space-x-1.5 transition border border-green-500/35 shadow-sm font-medium"
+                      className="px-3 py-1.5 bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 hover:text-emerald-200 rounded text-xs flex items-center space-x-1.5 transition border border-emerald-500/35 shadow-sm font-medium"
                       title="Click to open WhatsApp chat"
                     >
-                      <span>💬 Chat on WhatsApp</span>
+                      <span>WhatsApp Concierge ↗</span>
                     </a>
                   </div>
-                  <p className="text-[10px] text-gray-400 mt-1.5">Mon - Sat: 9:00 AM – 8:00 PM IST (Click to call or chat)</p>
+                  <p className="text-[10px] text-stone-400 mt-1.5">Mon - Sat: 9:00 AM – 8:00 PM IST (Pan-India Support)</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" strokeWidth={1.3} />
                 <div>
-                  <p className="font-bold text-white uppercase tracking-wider">Office & Studio</p>
-                  <p className="text-gray-400 mt-0.5 leading-relaxed">
-                    Near Mohansarai, Varanasi<br />
-                    Uttar Pradesh — 221302, India
+                  <p className="font-semibold text-white uppercase tracking-wider">Corporate Studio</p>
+                  <p className="text-stone-300 mt-0.5 leading-relaxed">
+                    NexKart Atelier, Near Mohansarai<br />
+                    Varanasi, Uttar Pradesh — 221302, India
                   </p>
                 </div>
               </div>
@@ -217,14 +217,57 @@ export const ContactPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="px-8 py-3.5 bg-luxury-950 text-gold-400 text-xs font-semibold uppercase tracking-widest rounded hover:bg-black transition flex items-center space-x-2 shadow-lg disabled:opacity-50"
+              className="px-8 py-3.5 bg-stone-950 text-[#FAF8F5] text-xs font-medium uppercase tracking-[0.18em] rounded-xs hover:bg-black transition flex items-center space-x-2 shadow-lg disabled:opacity-50"
             >
-              <span>{loading ? 'Transmitting...' : 'Dispatch Inquiry'}</span>
-              <Send className="w-3.5 h-3.5" />
+              <span>{loading ? 'Sending...' : 'Send Message'}</span>
+              <Send className="w-3.5 h-3.5" strokeWidth={1.3} />
             </button>
           </form>
         </div>
       </div>
+
+      {/* Corporate Studio & Interactive Map Section */}
+      <section className="border-t border-stone-200 pt-12 space-y-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-1">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-amber-800 font-medium">
+              Headquarters & Atelier
+            </span>
+            <h2 className="text-2xl font-serif font-normal text-stone-900">
+              Varanasi Corporate Studio
+            </h2>
+            <p className="text-xs text-stone-500 font-light max-w-xl">
+              Our central studio and fulfillment atelier is located near Mohansarai, Varanasi. For private styling visits or commercial inquiries, please schedule in advance.
+            </p>
+          </div>
+          <div className="flex items-center space-x-3">
+            <a
+              href="https://maps.google.com/?q=Mohansarai,+Varanasi,+Uttar+Pradesh+221302"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 bg-white border border-stone-300 hover:border-stone-900 text-stone-900 text-xs font-medium uppercase tracking-wider rounded-xs transition shadow-xs"
+            >
+              <MapPin className="w-3.5 h-3.5 text-amber-600" strokeWidth={1.3} />
+              <span>Open in Google Maps ↗</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Embedded Google Map */}
+        <div className="relative w-full h-80 sm:h-96 rounded-xs overflow-hidden border border-stone-200 shadow-sm bg-stone-100">
+          <iframe
+            title="NexKart Varanasi Studio Location"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14436.467888789528!2d82.90998634999999!3d25.266687299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dbff811f5d7%3A0xe54bb3f7a637bf32!2sMohansarai%2C%20Varanasi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="filter contrast-[0.95] saturate-[0.85]"
+          />
+        </div>
+      </section>
     </div>
   );
 };

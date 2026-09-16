@@ -119,8 +119,8 @@ export const Navbar = () => {
           <span>Complimentary Insured Delivery Across India</span>
           <span className="text-stone-600">&bull;</span>
           <span>Support:{' '}
-            <a href="mailto:nexkart2.0@gmail.com" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
-              nexkart2.0@gmail.com
+            <a href="mailto:concierge@nexkart.com" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
+              concierge@nexkart.com
             </a>
           </span>
           <span className="hidden md:inline text-stone-600">&bull;</span>
@@ -498,11 +498,11 @@ export const Navbar = () => {
                 <p className="text-[10px] uppercase font-semibold text-stone-400 tracking-[0.18em]">Client Support & Concierge</p>
                 <div>
                   <a
-                    href="mailto:nexkart2.0@gmail.com"
+                    href="mailto:concierge@nexkart.com"
                     className="text-stone-900 font-medium hover:text-amber-800 flex items-center space-x-2"
                   >
                     <Mail className="w-3.5 h-3.5 text-stone-500" strokeWidth={1.3} />
-                    <span>nexkart2.0@gmail.com</span>
+                    <span>concierge@nexkart.com</span>
                   </a>
                 </div>
                 <div className="flex items-center space-x-3 pt-1">
