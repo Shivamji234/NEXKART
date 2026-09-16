@@ -135,11 +135,12 @@ export const Navbar = () => {
 
   const navLinks = [
     { name: 'Watches', path: '/shop?keyword=watch' },
+    { name: 'Jewelry', path: '/shop?subcategory=Jewelry' },
+    { name: 'Glasses', path: '/shop?subcategory=Glasses' },
+    { name: 'Grooming & Beauty', path: '/shop?subcategory=Grooming' },
     { name: 'Men', path: '/shop?category=Men' },
     { name: 'Women', path: '/shop?category=Women' },
-    { name: 'Handbags & Leather', path: '/shop?category=Accessories' },
-    { name: 'Footwear', path: '/shop?category=Footwear' },
-    { name: 'New In', path: '/shop?newArrival=true' },
+    { name: 'Handbags', path: '/shop?category=Accessories' },
     { name: 'Vault Sale', path: '/shop?discountOnly=true', highlight: true },
   ];
 

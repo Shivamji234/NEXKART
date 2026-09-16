@@ -31,6 +31,7 @@ export const ShopPage = () => {
   // URL state
   const keywordParam = searchParams.get('keyword') || '';
   const categoryParam = searchParams.get('category') || 'All';
+  const subcategoryParam = searchParams.get('subcategory') || '';
   const newArrivalParam = searchParams.get('newArrival') === 'true';
   const bestSellerParam = searchParams.get('bestSeller') === 'true';
   const discountOnlyParam = searchParams.get('discountOnly') === 'true';
@@ -38,6 +39,7 @@ export const ShopPage = () => {
   // Filters State
   const [keyword, setKeyword] = useState(keywordParam);
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(subcategoryParam);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -60,6 +62,7 @@ export const ShopPage = () => {
   // Synchronize when searchParams change (e.g. clicking Men from nav)
   useEffect(() => {
     setSelectedCategory(searchParams.get('category') || 'All');
+    setSelectedSubcategory(searchParams.get('subcategory') || '');
     setKeyword(searchParams.get('keyword') || '');
     if (searchParams.get('discountOnly') === 'true') setDiscountOnly(true);
     setPage(1);
@@ -78,6 +81,7 @@ export const ShopPage = () => {
 
         if (keyword) params.keyword = keyword;
         if (selectedCategory && selectedCategory !== 'All') params.category = selectedCategory;
+        if (selectedSubcategory) params.subcategory = selectedSubcategory;
         if (selectedBrand) params.brand = selectedBrand;
         if (minPrice) params.minPrice = minPrice;
         if (maxPrice) params.maxPrice = maxPrice;
@@ -108,6 +112,7 @@ export const ShopPage = () => {
     page,
     sortBy,
     selectedCategory,
+    selectedSubcategory,
     selectedBrand,
     minPrice,
     maxPrice,
@@ -122,6 +127,7 @@ export const ShopPage = () => {
 
   const handleResetFilters = () => {
     setSelectedCategory('All');
+    setSelectedSubcategory('');
     setSelectedBrand('');
     setMinPrice('');
     setMaxPrice('');
@@ -137,6 +143,7 @@ export const ShopPage = () => {
 
   const hasActiveFilters =
     selectedCategory !== 'All' ||
+    selectedSubcategory ||
     selectedBrand ||
     minPrice ||
     maxPrice ||
@@ -151,14 +158,18 @@ export const ShopPage = () => {
       {/* Title & Banner Header */}
       <div className="border-b border-gray-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span className="text-[11px] uppercase tracking-[0.25em] text-gold-600 font-semibold">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-amber-800 font-semibold">
             The Complete Atelier
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-luxury-950 font-serif mt-1">
-            {selectedCategory === 'All' ? 'All Luxury Creations' : `${selectedCategory} Collection`}
+          <h1 className="text-2xl sm:text-3xl font-normal uppercase tracking-widest text-stone-950 font-serif mt-1">
+            {selectedSubcategory
+              ? `${selectedSubcategory} Curation`
+              : selectedCategory === 'All'
+              ? 'All Luxury Creations'
+              : `${selectedCategory} Collection`}
           </h1>
-          <p className="text-xs text-gray-500 mt-1">
-            Showing {products.length} of {total} pieces
+          <p className="text-xs text-stone-500 mt-1">
+            Showing {products.length} of {total} authenticated pieces
           </p>
         </div>
 
@@ -166,21 +177,21 @@ export const ShopPage = () => {
         <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto justify-between sm:justify-start">
           <button
             onClick={() => setMobileFilterOpen(true)}
-            className="lg:hidden px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded text-xs font-semibold uppercase tracking-wider text-luxury-950 flex items-center space-x-1.5 shadow-sm"
+            className="lg:hidden px-3 sm:px-4 py-2 bg-white border border-stone-300 rounded-xs text-xs font-semibold uppercase tracking-wider text-stone-950 flex items-center space-x-1.5 shadow-xs"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>Filters</span>
           </button>
 
           {/* Sort Dropdown */}
-          <div className="relative flex items-center bg-white border border-gray-300 rounded px-2.5 sm:px-3 py-2 shadow-sm flex-1 sm:flex-initial">
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-gray-400 mr-1.5 font-medium flex-shrink-0">
+          <div className="relative flex items-center bg-white border border-stone-300 rounded-xs px-2.5 sm:px-3 py-2 shadow-xs flex-1 sm:flex-initial">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-stone-400 mr-1.5 font-medium flex-shrink-0">
               Sort:
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-transparent text-xs font-semibold text-luxury-950 focus:outline-none cursor-pointer tracking-wide w-full"
+              className="bg-transparent text-xs font-semibold text-stone-950 focus:outline-none cursor-pointer tracking-wide w-full"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -192,15 +203,67 @@ export const ShopPage = () => {
         </div>
       </div>
 
+      {/* Quick Curations Filter Bar */}
+      <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+        {[
+          { label: 'All Pieces', subcategory: '', category: 'All', keyword: '' },
+          { label: 'Fine Jewelry', subcategory: 'Jewelry' },
+          { label: 'Glasses & Eyewear', subcategory: 'Glasses' },
+          { label: 'Grooming', subcategory: 'Grooming' },
+          { label: 'Beauty & Makeup', subcategory: 'Beauty & Makeup' },
+          { label: 'Pre-Owned Watches', keyword: 'watch' },
+          { label: 'Luxury Handbags', category: 'Accessories' },
+        ].map((item) => {
+          const isActive =
+            (item.subcategory && selectedSubcategory === item.subcategory) ||
+            (item.keyword && keyword.toLowerCase() === item.keyword) ||
+            (item.category && item.category !== 'All' && selectedCategory === item.category && !selectedSubcategory) ||
+            (!item.subcategory && !item.keyword && (!item.category || item.category === 'All') && !selectedSubcategory && selectedCategory === 'All' && !keyword);
+
+          return (
+            <button
+              key={item.label}
+              onClick={() => {
+                const newParams = new URLSearchParams();
+                if (item.subcategory) {
+                  setSelectedSubcategory(item.subcategory);
+                  newParams.set('subcategory', item.subcategory);
+                } else {
+                  setSelectedSubcategory('');
+                }
+                if (item.keyword) {
+                  setKeyword(item.keyword);
+                  newParams.set('keyword', item.keyword);
+                } else if (!item.subcategory && !item.category) {
+                  setKeyword('');
+                }
+                if (item.category) {
+                  setSelectedCategory(item.category);
+                  if (item.category !== 'All') newParams.set('category', item.category);
+                }
+                setSearchParams(newParams);
+              }}
+              className={`px-4 py-2 text-[11px] uppercase tracking-[0.14em] font-medium rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                isActive
+                  ? 'bg-[#1C1917] text-amber-200 border border-amber-500/40 shadow-xs'
+                  : 'bg-white border border-stone-200 text-stone-600 hover:text-stone-950 hover:border-stone-400'
+              }`}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
+
       {/* Active Filter Pills Bar */}
       {hasActiveFilters && (
         <div className="flex flex-wrap items-center gap-2 pt-1">
-          <span className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mr-1">
+          <span className="text-[11px] uppercase tracking-wider text-stone-400 font-semibold mr-1">
             Active:
           </span>
 
           {keyword && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-gray-100 text-xs text-gray-800">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-stone-100 text-xs text-stone-800">
               "{keyword}"
               <button onClick={() => setKeyword('')} className="ml-1.5 hover:text-black">
                 <X className="w-3 h-3" />
@@ -208,9 +271,26 @@ export const ShopPage = () => {
             </span>
           )}
 
+          {selectedSubcategory && (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-[#1C1917] text-amber-200 border border-amber-500/30 text-xs">
+              Curation: {selectedSubcategory}
+              <button
+                onClick={() => {
+                  setSelectedSubcategory('');
+                  const newParams = new URLSearchParams(searchParams);
+                  newParams.delete('subcategory');
+                  setSearchParams(newParams);
+                }}
+                className="ml-1.5 hover:text-white"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
           {selectedCategory !== 'All' && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-gray-100 text-xs text-gray-800">
-              {selectedCategory}
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-stone-100 text-xs text-stone-800">
+              Category: {selectedCategory}
               <button onClick={() => setSelectedCategory('All')} className="ml-1.5 hover:text-black">
                 <X className="w-3 h-3" />
               </button>
@@ -218,7 +298,7 @@ export const ShopPage = () => {
           )}
 
           {selectedBrand && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-gray-100 text-xs text-gray-800">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-stone-100 text-xs text-stone-800">
               Brand: {selectedBrand}
               <button onClick={() => setSelectedBrand('')} className="ml-1.5 hover:text-black">
                 <X className="w-3 h-3" />
@@ -227,7 +307,7 @@ export const ShopPage = () => {
           )}
 
           {selectedSize && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-gray-100 text-xs text-gray-800">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-stone-100 text-xs text-stone-800">
               Size: {selectedSize}
               <button onClick={() => setSelectedSize('')} className="ml-1.5 hover:text-black">
                 <X className="w-3 h-3" />
@@ -236,7 +316,7 @@ export const ShopPage = () => {
           )}
 
           {selectedColor && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-gray-100 text-xs text-gray-800">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-stone-100 text-xs text-stone-800">
               Color: {selectedColor}
               <button onClick={() => setSelectedColor('')} className="ml-1.5 hover:text-black">
                 <X className="w-3 h-3" />
@@ -245,7 +325,7 @@ export const ShopPage = () => {
           )}
 
           {discountOnly && (
-            <span className="inline-flex items-center px-2.5 py-1 rounded bg-red-100 text-xs text-red-800">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-xs bg-red-100 text-xs text-red-800">
               Privilege Discounts
               <button onClick={() => setDiscountOnly(false)} className="ml-1.5 hover:text-red-900">
                 <X className="w-3 h-3" />
@@ -255,7 +335,7 @@ export const ShopPage = () => {
 
           <button
             onClick={handleResetFilters}
-            className="text-[11px] uppercase tracking-wider font-semibold text-gold-700 hover:text-gold-900 ml-2 flex items-center space-x-1"
+            className="text-[11px] uppercase tracking-wider font-semibold text-amber-800 hover:text-amber-950 ml-2 flex items-center space-x-1"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Reset All</span>
@@ -284,6 +364,40 @@ export const ShopPage = () => {
                   }`}
                 >
                   {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Specialty Curations */}
+          <div className="space-y-3 pt-6 border-t border-gray-100">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-luxury-950">
+              Specialty Curations
+            </h3>
+            <div className="space-y-1.5">
+              {[
+                { label: 'All Curations', value: '' },
+                { label: 'Fine Jewelry', value: 'Jewelry' },
+                { label: 'Glasses & Eyewear', value: 'Glasses' },
+                { label: 'Grooming & Fragrance', value: 'Grooming' },
+                { label: 'Beauty & Makeup', value: 'Beauty & Makeup' },
+              ].map((dep) => (
+                <button
+                  key={dep.label}
+                  onClick={() => {
+                    setSelectedSubcategory(dep.value);
+                    const newParams = new URLSearchParams(searchParams);
+                    if (dep.value) newParams.set('subcategory', dep.value);
+                    else newParams.delete('subcategory');
+                    setSearchParams(newParams);
+                  }}
+                  className={`block w-full text-left text-xs py-1 transition ${
+                    selectedSubcategory === dep.value
+                      ? 'font-bold text-amber-900 underline decoration-amber-600 decoration-2 underline-offset-4'
+                      : 'text-gray-600 hover:text-black'
+                  }`}
+                >
+                  {dep.label}
                 </button>
               ))}
             </div>
@@ -519,6 +633,37 @@ export const ShopPage = () => {
                     }`}
                   >
                     {c}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Specialty Curations */}
+            <div className="space-y-2 pt-4 border-t">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-stone-700">Specialty Curations</h4>
+              <div className="space-y-1">
+                {[
+                  { label: 'All Curations', value: '' },
+                  { label: 'Fine Jewelry', value: 'Jewelry' },
+                  { label: 'Glasses & Eyewear', value: 'Glasses' },
+                  { label: 'Grooming & Fragrance', value: 'Grooming' },
+                  { label: 'Beauty & Makeup', value: 'Beauty & Makeup' },
+                ].map((dep) => (
+                  <button
+                    key={dep.label}
+                    onClick={() => {
+                      setSelectedSubcategory(dep.value);
+                      const newParams = new URLSearchParams(searchParams);
+                      if (dep.value) newParams.set('subcategory', dep.value);
+                      else newParams.delete('subcategory');
+                      setSearchParams(newParams);
+                      setMobileFilterOpen(false);
+                    }}
+                    className={`block w-full text-left text-xs py-1 ${
+                      selectedSubcategory === dep.value ? 'font-bold text-amber-900 underline' : 'text-stone-600'
+                    }`}
+                  >
+                    {dep.label}
                   </button>
                 ))}
               </div>

@@ -58,7 +58,7 @@ export const HomePage = () => {
       try {
         setLoading(true);
         const [arrivalsRes, bestRes, catsRes] = await Promise.all([
-          productAPI.getNewArrivals(),
+          productAPI.getProducts({ limit: 40, sort: 'newest' }),
           productAPI.getBestSellers(),
           productAPI.getCategories(),
         ]);
@@ -179,7 +179,7 @@ export const HomePage = () => {
           <div className="w-12 h-0.5 bg-amber-700/50 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Tile 1: Watches */}
           <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
             <Link to="/shop?keyword=watch" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
@@ -198,12 +198,12 @@ export const HomePage = () => {
                   Pre-Owned & Fine Watches
                 </h3>
                 <p className="text-[11px] text-stone-500 font-light mt-1">
-                  Certified chronographs with 2-year movement warranty & original papers.
+                  Certified chronographs with 2-year movement warranty, physical appraisal, & original papers.
                 </p>
               </div>
               <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
                 <Link to="/shop?keyword=watch" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore &rarr;
+                  Explore Watches &rarr;
                 </Link>
                 <a
                   href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20discuss%20buying%20or%20selling%20luxury%20watches."
@@ -218,12 +218,164 @@ export const HomePage = () => {
             </div>
           </div>
 
-          {/* Tile 2: Handbags */}
+          {/* Tile 2: Fine Jewelry & Gold */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?subcategory=Jewelry" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80"
+                alt="Fine Jewelry & Gold"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Cartier &bull; Bvlgari &bull; 18K Gold
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Fine Jewelry & Gold
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  18K hallmarked bangles, pavé diamond rings, and precious gemstone creations.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?subcategory=Jewelry" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore Jewelry &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20interested%20in%20certified%20fine%20jewelry%20and%20gold%20pieces."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Tile 3: Glasses & Eyewear */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?subcategory=Glasses" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
+                alt="Luxury Eyewear & Sunglasses"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Prada &bull; Tom Ford &bull; Polarized
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Luxury Eyewear & Glasses
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Beta-titanium aviators, handcrafted Italian acetate frames, & polarized Carl Zeiss optics.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?subcategory=Glasses" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore Eyewear &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20designer%20eyewear%20and%20sunglasses."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Tile 4: Men's Grooming & Cologne */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?subcategory=Grooming" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80"
+                alt="Men's Grooming & Fragrance"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Tom Ford &bull; Creed &bull; Niche Oud
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Men's Grooming & Fragrance
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Handcrafted aftershave balms, rare oud wood oils, & artisanal Millésime scents.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?subcategory=Grooming" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore Grooming &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20inquiring%20about%20luxury%20grooming%20and%20fragrances."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Tile 5: Beauty & Makeup */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?subcategory=Beauty%20%26%20Makeup" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80"
+                alt="Beauty & Haute Skincare"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Dior &bull; Chanel &bull; Haute Skincare
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Beauty & Haute Skincare
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Regenerating Rose de Granville elixirs, couture lip pairings, & revitalizing crèmes.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?subcategory=Beauty%20%26%20Makeup" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore Beauty &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20details%20on%20luxury%20beauty%20and%20skincare."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Tile 6: Handbags & Leather */}
           <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
             <Link to="/shop?category=Accessories" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
               <img
                 src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
-                alt="Haute Handbags"
+                alt="Haute Handbags & Leather"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
               />
               <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
@@ -241,86 +393,10 @@ export const HomePage = () => {
               </div>
               <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
                 <Link to="/shop?category=Accessories" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore &rarr;
+                  Explore Handbags &rarr;
                 </Link>
                 <a
                   href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20interested%20in%20luxury%20handbags%20and%20leather%20goods."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Tile 3: Fashion */}
-          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
-            <Link to="/shop?category=Men" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-              <img
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
-                alt="Designer Fashion"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
-              />
-              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
-                Cashmere &bull; Silk &bull; Outerwear
-              </div>
-            </Link>
-            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
-              <div>
-                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
-                  Designer Apparel & Outerwear
-                </h3>
-                <p className="text-[11px] text-stone-500 font-light mt-1">
-                  Double-faced cashmere coats, silk resort shirts, and bespoke tailoring.
-                </p>
-              </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?category=Men" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore &rarr;
-                </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20designer%20apparel."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ↗</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Tile 4: Fine Footwear */}
-          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
-            <Link to="/shop?category=Footwear" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-              <img
-                src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80"
-                alt="Fine Footwear"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
-              />
-              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
-                Hand-Welted &bull; Chelsea Boots
-              </div>
-            </Link>
-            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
-              <div>
-                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
-                  Hand-Crafted Fine Footwear
-                </h3>
-                <p className="text-[11px] text-stone-500 font-light mt-1">
-                  Goodyear welted Italian leather boots, loafers, and formal oxford shoes.
-                </p>
-              </div>
-              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link to="/shop?category=Footwear" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
-                  Explore &rarr;
-                </Link>
-                <a
-                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20handcrafted%20footwear."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
@@ -504,10 +580,13 @@ export const HomePage = () => {
         <div className="flex items-center space-x-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
           {[
             { id: 'All', label: 'All Curations' },
+            { id: 'Watches', label: 'Watches' },
+            { id: 'Jewelry', label: 'Jewelry' },
+            { id: 'Glasses', label: 'Glasses & Eyewear' },
+            { id: 'Grooming', label: 'Grooming & Fragrance' },
+            { id: 'Beauty', label: 'Beauty & Makeup' },
             { id: 'Men', label: "Men's Edit" },
             { id: 'Women', label: "Women's Edit" },
-            { id: 'Footwear', label: 'Fine Footwear' },
-            { id: 'Accessories', label: 'Accessories & Leather' }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -537,8 +616,20 @@ export const HomePage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {(curationFilter === 'All'
               ? newArrivals
-              : newArrivals.filter((p) => p.category?.toLowerCase() === curationFilter.toLowerCase())
-            ).slice(0, 4).map((product) => (
+              : newArrivals.filter((p) => {
+                  const cat = (p.category || '').toLowerCase();
+                  const sub = (p.subcategory || '').toLowerCase();
+                  const name = (p.name || '').toLowerCase();
+                  const tags = (p.tags || []).join(' ').toLowerCase();
+                  const filt = curationFilter.toLowerCase();
+                  if (filt === 'watches') return cat.includes('watch') || cat.includes('horlogerie') || name.includes('chronograph') || name.includes('watch') || tags.includes('watch');
+                  if (filt === 'jewelry') return sub.includes('jewelry') || name.includes('bangle') || name.includes('ring') || name.includes('bracelet') || tags.includes('jewelry');
+                  if (filt === 'glasses') return sub.includes('glasses') || name.includes('sunglasses') || name.includes('glasses') || name.includes('aviator') || tags.includes('eyewear');
+                  if (filt === 'grooming') return sub.includes('grooming') || name.includes('shave') || name.includes('beard') || name.includes('aventus') || name.includes('oud') || tags.includes('grooming');
+                  if (filt === 'beauty') return sub.includes('beauty') || name.includes('dior') || name.includes('chanel') || name.includes('crème') || name.includes('lip') || tags.includes('beauty');
+                  return cat === filt;
+                })
+            ).slice(0, 8).map((product) => (
               <ProductCard
                 key={product._id}
                 product={product}
@@ -661,11 +752,11 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* Customer Reviews & Testimonials - Genuine Human Voice */}
+      {/* Customer Reviews & Testimonials - Authentic Indian Luxury Patrons */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-8 sm:mb-12">
           <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-amber-800">
-            Real Customer Experiences
+            Real Customer Experiences &bull; भारत भर से रिव्यूज
           </span>
           <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900">
             What Our Customers Say
@@ -682,16 +773,16 @@ export const HomePage = () => {
                 ))}
               </div>
               <p className="text-xs text-stone-700 font-normal leading-relaxed">
-                "The fabric feels incredibly soft and breathes really well. Delivery was super fast to Delhi and the packaging felt genuinely special — neat box with care instructions. Definitely ordering again."
+                "Main pehle online high-end luxury kharidne me thodi hesitant thi, par Cashmere overcoat aur silk shirt ki fabric quality dekh kar dil khush ho gaya! Delhi me complimentary insured delivery sirf 2 din me deliver ho gayi. Packaging ekdum royal thi jaise kisi luxury flagship boutique se aayi ho. 100% recommended!"
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Ananya Sharma</p>
-                <p className="text-[10px] text-stone-500">New Delhi &bull; Verified Buyer</p>
+                <p className="text-[10px] text-stone-500">South Extension, New Delhi &bull; Verified Patron</p>
               </div>
-              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
-                Verified
+              <span className="text-[10px] px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium rounded-full">
+                ✓ Verified
               </span>
             </div>
           </div>
@@ -704,16 +795,16 @@ export const HomePage = () => {
                 ))}
               </div>
               <p className="text-xs text-stone-700 font-normal leading-relaxed">
-                "Ordered the skeleton automatic watch last week. The weight feels solid on the wrist, crown movement is buttery smooth, and the leather strap is top notch. Honestly looks even better in hand than in pictures."
+                "Banaras atelier se skeleton automatic watch order ki thi aur same-day dispatch ho gaya! Dial aur movement ka weight bilkul solid hai. Authorized service center me inspect karwaya toh 100% genuine movement nikla. Luxury wooden box, certificate aur serial number matching tha — sach me kamaal ka experience!"
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Vikramaditya Rathore</p>
-                <p className="text-[10px] text-stone-500">Varanasi &bull; Verified Buyer</p>
+                <p className="text-[10px] text-stone-500">Sigra, Varanasi &bull; Verified Collector</p>
               </div>
-              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
-                Verified
+              <span className="text-[10px] px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium rounded-full">
+                ✓ Verified
               </span>
             </div>
           </div>
@@ -726,16 +817,16 @@ export const HomePage = () => {
                 ))}
               </div>
               <p className="text-xs text-stone-700 font-normal leading-relaxed">
-                "The leather duffel bag exceeded my expectations. Clean stitching, heavy brass zips that don't stick, and fits easily into airline cabin storage. Solid build for frequent travel."
+                "Tuscan full-grain leather weekender bag mangwaya tha. Original leather ki rich fragrance aur heavy brass zips lajawab hain, bilkul international standard. Frequent business travel ke liye cabin storage me perfect fit hota hai. Doorstep free delivery aur authenticity guarantee ke sath aaya — full paisa vasool!"
               </p>
             </div>
             <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold text-stone-900">Rajesh Singhania</p>
-                <p className="text-[10px] text-stone-500">Bengaluru &bull; Verified Buyer</p>
+                <p className="text-[10px] text-stone-500">Indiranagar, Bengaluru &bull; Verified Buyer</p>
               </div>
-              <span className="text-[10px] px-2.5 py-0.5 bg-stone-100 text-stone-700 font-medium rounded-full">
-                Verified
+              <span className="text-[10px] px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium rounded-full">
+                ✓ Verified
               </span>
             </div>
           </div>
