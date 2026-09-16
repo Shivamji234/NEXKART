@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { productAPI } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { QuickViewModal } from '../components/QuickViewModal';
+import { SellConsignModal } from '../components/SellConsignModal';
 import { useNotifications } from '../context/NotificationContext';
 import { formatCurrency } from '../utils/formatters';
 import {
@@ -12,6 +13,11 @@ import {
   Copy,
   Check,
   Sparkles,
+  ShieldCheck,
+  Award,
+  Truck,
+  RotateCcw,
+  MessageSquare,
 } from 'lucide-react';
 
 export const HomePage = () => {
@@ -23,6 +29,7 @@ export const HomePage = () => {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [copiedCode, setCopiedCode] = useState(false);
   const [curationFilter, setCurationFilter] = useState('All');
+  const [sellModalOpen, setSellModalOpen] = useState(false);
 
   const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code);
@@ -71,46 +78,54 @@ export const HomePage = () => {
 
   return (
     <div className="space-y-16 sm:space-y-20 pb-16 w-full overflow-hidden">
-      {/* Hero Banner */}
-      <section className="relative h-[82vh] min-h-[500px] sm:min-h-[600px] w-full overflow-hidden flex items-center justify-center">
-        {/* Background Editorial Image */}
+      {/* Hero Banner - Luxepolis-Style Certified Luxury */}
+      <section className="relative h-[85vh] min-h-[520px] sm:min-h-[620px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=2000&q=85"
-            alt="NexKart Haute Campaign"
-            className="w-full h-full object-cover object-top filter brightness-[0.74]"
+            src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=2000&q=85"
+            alt="NexKart Certified Luxury"
+            className="w-full h-full object-cover object-center filter brightness-[0.68]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#141312]/85 via-black/35 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#141312] via-black/40 to-black/50" />
         </div>
 
-        {/* Hero Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white space-y-4 sm:space-y-6">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[#EBD9BE] text-[10px] tracking-[0.22em] uppercase font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span>Autumn / Winter Collection &bull; Limited Release</span>
+          <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-amber-500/30 text-[#EBD9BE] text-[10px] tracking-[0.24em] uppercase font-medium">
+            <span className="flex items-center text-amber-400">
+              <Star className="w-3 h-3 fill-current mr-1" />
+              <span>4.9 / 5 Authenticity Rating</span>
+            </span>
+            <span className="text-stone-500">&bull;</span>
+            <span>Certified Luxury Destination</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-normal text-white max-w-4xl mx-auto leading-[1.08] tracking-tight">
-            The Art of <span className="italic font-serif text-[#F0DECB]">Everyday Luxury</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-normal text-white max-w-3xl mx-auto leading-[1.12] tracking-tight">
+            The Gold Standard of <span className="italic font-serif text-[#F0DECB]">Certified Luxury</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-stone-200 tracking-wide max-w-xl mx-auto font-light leading-relaxed">
-            Pure cashmere knitwear, handcrafted leather goods, and precision watches — designed for those who appreciate understated style, honest materials, and lasting comfort.
+          <p className="text-xs sm:text-sm text-stone-200 tracking-wide max-w-2xl mx-auto font-light leading-relaxed">
+            India's most trusted atelier for certified authentic timepieces, designer handbags, and fine Italian leather goods. Hand-inspected with 2-Year Movement Warranty & Buy-Back Assurance.
           </p>
 
-          <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
+          <div className="pt-3 sm:pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto">
             <Link
-              to="/shop?category=Men"
-              className="w-full sm:w-auto px-8 py-3.5 bg-[#171615] text-[#FAF8F5] border border-stone-600/70 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-black transition shadow-2xl hover:scale-105"
+              to="/shop?keyword=watch"
+              className="w-full sm:w-auto px-7 py-3.5 bg-[#FAF8F5] text-stone-950 text-xs font-semibold uppercase tracking-[0.18em] rounded-full hover:bg-white transition shadow-2xl hover:scale-105"
             >
-              Shop Men's Collection &rarr;
+              Explore Timepieces &rarr;
             </Link>
             <Link
-              to="/shop?category=Women"
-              className="w-full sm:w-auto px-8 py-3.5 bg-white text-stone-950 text-xs font-medium uppercase tracking-[0.18em] rounded-full hover:bg-stone-100 transition shadow-2xl hover:scale-105"
+              to="/shop?category=Accessories"
+              className="w-full sm:w-auto px-7 py-3.5 bg-[#171615] text-[#FAF8F5] border border-stone-600/80 text-xs font-semibold uppercase tracking-[0.18em] rounded-full hover:bg-black transition shadow-2xl hover:scale-105"
             >
-              Shop Women's Collection &rarr;
+              Luxury Handbags &rarr;
             </Link>
+            <button
+              onClick={() => setSellModalOpen(true)}
+              className="w-full sm:w-auto px-7 py-3.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-xs font-semibold uppercase tracking-[0.18em] rounded-full transition shadow-xl hover:scale-105 cursor-pointer"
+            >
+              Sell / Consign Luxury ✦
+            </button>
           </div>
         </div>
       </section>
@@ -149,65 +164,319 @@ export const HomePage = () => {
         </div>
       </div>
 
-      {/* Human Concierge & Atelier Trust Strip */}
-      <section className="border-y border-stone-200/80 bg-white/70 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Small-Batch Quality</span>
-              <p className="text-[11px] text-stone-500 font-light">Carefully made in small batches with genuine premium materials</p>
+      {/* Luxepolis-Style Top Category Tiles with Direct WhatsApp Consultation */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
+        <div className="text-center space-y-2 mb-8 sm:mb-10">
+          <span className="text-[11px] font-medium uppercase tracking-[0.26em] text-amber-800">
+            Certified Curations
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900 uppercase tracking-wider">
+            Shop Top Categories
+          </h2>
+          <p className="text-xs text-stone-500 font-light max-w-md mx-auto">
+            100% verified authentic creations backed by multi-point physical appraisal
+          </p>
+          <div className="w-12 h-0.5 bg-amber-700/50 mx-auto mt-2" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Tile 1: Watches */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?keyword=watch" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80"
+                alt="Pre-Owned & Fine Watches"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Rolex &bull; Cartier &bull; Omega
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Pre-Owned & Fine Watches
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Certified chronographs with 2-year movement warranty & original papers.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?keyword=watch" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20discuss%20buying%20or%20selling%20luxury%20watches."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
             </div>
-            <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Free Express Shipping</span>
-              <p className="text-[11px] text-stone-500 font-light">100% complimentary, insured doorstep delivery across India</p>
+          </div>
+
+          {/* Tile 2: Handbags */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?category=Accessories" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+                alt="Haute Handbags"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Louis Vuitton &bull; Chanel &bull; Gucci
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Luxury Handbags & Leather
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Full-grain Tuscan weekender bags, totes, and cross-body silhouettes.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?category=Accessories" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20am%20interested%20in%20luxury%20handbags%20and%20leather%20goods."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
             </div>
-            <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Hassle-Free Returns</span>
-              <p className="text-[11px] text-stone-500 font-light">14-day easy returns with free doorstep collection</p>
+          </div>
+
+          {/* Tile 3: Fashion */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?category=Men" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
+                alt="Designer Fashion"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Cashmere &bull; Silk &bull; Outerwear
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Designer Apparel & Outerwear
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Double-faced cashmere coats, silk resort shirts, and bespoke tailoring.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?category=Men" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20designer%20apparel."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
             </div>
-            <div className="space-y-1">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-900">Real Human Support</span>
-              <p className="text-[11px] text-stone-500 font-light">Direct phone & WhatsApp guidance from our Varanasi studio</p>
+          </div>
+
+          {/* Tile 4: Fine Footwear */}
+          <div className="group bg-white rounded-xs border border-stone-200 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col">
+            <Link to="/shop?category=Footwear" className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+              <img
+                src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80"
+                alt="Fine Footwear"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+              />
+              <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/75 text-amber-300 text-[9px] uppercase tracking-widest font-medium rounded-xs backdrop-blur-xs">
+                Hand-Welted &bull; Chelsea Boots
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-1 justify-between space-y-3 bg-white">
+              <div>
+                <h3 className="font-serif text-base uppercase tracking-wider text-stone-900 group-hover:text-amber-900 transition">
+                  Hand-Crafted Fine Footwear
+                </h3>
+                <p className="text-[11px] text-stone-500 font-light mt-1">
+                  Goodyear welted Italian leather boots, loafers, and formal oxford shoes.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                <Link to="/shop?category=Footwear" className="text-xs uppercase tracking-wider font-semibold text-stone-900 hover:text-amber-800">
+                  Explore &rarr;
+                </Link>
+                <a
+                  href="https://wa.me/917268927163?text=Hello%20NexKart%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20handcrafted%20footwear."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-800 font-medium"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp ↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Categories Grid */}
+      {/* Luxepolis Signature Trust Architecture: Shop With Confidence */}
+      <section className="bg-white border-y border-stone-200/80 py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-2 mb-10">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-amber-800 font-medium">
+              The NexKart Standard
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-normal text-stone-900 uppercase tracking-widest">
+              Shop With Confidence
+            </h2>
+            <p className="text-xs text-stone-500 font-light max-w-lg mx-auto">
+              India's premier certified luxury marketplace — 100% peace of mind on every order.
+            </p>
+            <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div className="bg-[#FAF8F5] p-6 rounded-xs border border-stone-200 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-amber-100/80 border border-amber-300 flex items-center justify-center text-amber-900">
+                <ShieldCheck className="w-6 h-6" strokeWidth={1.3} />
+              </div>
+              <h3 className="font-serif text-sm uppercase tracking-wider text-stone-900 font-medium">
+                100% Certified Authenticity
+              </h3>
+              <p className="text-xs text-stone-600 font-light leading-relaxed">
+                Every timepiece, bag, and garment is physically certified and appraised by master horologists before dispatch.
+              </p>
+            </div>
+
+            <div className="bg-[#FAF8F5] p-6 rounded-xs border border-stone-200 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-amber-100/80 border border-amber-300 flex items-center justify-center text-amber-900">
+                <Award className="w-6 h-6" strokeWidth={1.3} />
+              </div>
+              <h3 className="font-serif text-sm uppercase tracking-wider text-stone-900 font-medium">
+                Pristine Condition Guaranteed
+              </h3>
+              <p className="text-xs text-stone-600 font-light leading-relaxed">
+                Vetted against strict luxury standards, complete with original box, documentation, and atelier certificates.
+              </p>
+            </div>
+
+            <div className="bg-[#FAF8F5] p-6 rounded-xs border border-stone-200 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-amber-100/80 border border-amber-300 flex items-center justify-center text-amber-900">
+                <Truck className="w-6 h-6" strokeWidth={1.3} />
+              </div>
+              <h3 className="font-serif text-sm uppercase tracking-wider text-stone-900 font-medium">
+                Insured Pan-India Express
+              </h3>
+              <p className="text-xs text-stone-600 font-light leading-relaxed">
+                100% complimentary doorstep delivery with real-time transit insurance and tamper-evident security packaging.
+              </p>
+            </div>
+
+            <div className="bg-[#FAF8F5] p-6 rounded-xs border border-stone-200 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-amber-100/80 border border-amber-300 flex items-center justify-center text-amber-900">
+                <RotateCcw className="w-6 h-6" strokeWidth={1.3} />
+              </div>
+              <h3 className="font-serif text-sm uppercase tracking-wider text-stone-900 font-medium">
+                14-Day Returns & Buy-Back
+              </h3>
+              <p className="text-xs text-stone-600 font-light leading-relaxed">
+                Complimentary doorstep pickup for exchanges, plus guaranteed buyback privileges on certified timepieces.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Most Coveted Luxury Houses Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-8 sm:mb-12">
-          <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-amber-800">
-            Curated Wardrobe
+        <div className="text-center space-y-1 mb-8">
+          <span className="text-[10px] uppercase tracking-[0.28em] text-stone-500 font-medium">
+            Premier Maisons & Horology
           </span>
-          <h2 className="text-2xl sm:text-4xl font-serif font-normal text-stone-900">
-            Signature Collections
+          <h2 className="text-xl sm:text-2xl font-serif font-normal text-stone-900 uppercase tracking-widest">
+            Most Coveted Houses
           </h2>
-          <div className="w-10 h-0.5 bg-amber-700/60 mx-auto mt-2" />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {categories.map((cat) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {[
+            { name: 'Rolex', tag: 'Certified Horology', query: 'watch' },
+            { name: 'Cartier', tag: 'Timepieces & Jewelry', query: 'watch' },
+            { name: 'Louis Vuitton', tag: 'Leather & Travel', query: 'bag' },
+            { name: 'Chanel', tag: 'Haute Couture', query: 'coat' },
+            { name: 'Bottega Veneta', tag: 'Intrecciato Leather', query: 'bag' },
+            { name: 'Gucci', tag: 'Italian Luxury', query: 'shirt' },
+          ].map((house) => (
             <Link
-              key={cat.slug}
-              to={`/shop?category=${encodeURIComponent(cat.name)}`}
-              className="group relative h-52 sm:h-72 rounded overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+              key={house.name}
+              to={`/shop?keyword=${encodeURIComponent(house.query)}`}
+              className="p-5 bg-white border border-stone-200 hover:border-amber-600/60 rounded-xs text-center transition-all duration-300 hover:shadow-md group flex flex-col items-center justify-center space-y-1"
             >
-              <img
-                src={cat.image}
-                alt={cat.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-center">
-                <h3 className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-white font-serif group-hover:text-gold-400 transition">
-                  {cat.name}
-                </h3>
-                <span className="text-[9px] sm:text-[10px] text-gray-300 tracking-wider uppercase opacity-0 group-hover:opacity-100 transition duration-300">
-                  Discover &rarr;
-                </span>
-              </div>
+              <span className="font-serif text-base sm:text-lg font-normal tracking-[0.18em] text-stone-950 group-hover:text-amber-900 uppercase transition">
+                {house.name}
+              </span>
+              <span className="text-[9px] uppercase tracking-wider text-stone-400 font-light">
+                {house.tag}
+              </span>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Luxepolis Signature Feature: Sell & Consign With Us Banner */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative rounded-xs overflow-hidden bg-[#171615] text-white border border-stone-800 grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+          <div className="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-center space-y-4">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 bg-amber-500/15 border border-amber-500/30 rounded-full w-fit text-amber-300 text-[10px] tracking-[0.24em] uppercase font-medium">
+              <span>✦ Seller Privilege &bull; Consign With Us</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-serif font-normal text-[#FAF8F5] leading-tight">
+              Sell More, Earn More. <br />
+              <span className="italic text-amber-200/90 font-serif">Consign Your Luxury With Us.</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-300 font-light leading-relaxed max-w-xl">
+              Own an authentic pre-loved Rolex, Omega, Cartier, or designer Louis Vuitton bag? Our Varanasi atelier offers instant professional appraisals, zero hidden fees, and doorstep insured collection across India.
+            </p>
+            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+              <button
+                onClick={() => setSellModalOpen(true)}
+                className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-xs font-semibold uppercase tracking-[0.2em] rounded-xs transition shadow-lg flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                <span>Request Instant Appraisal &rarr;</span>
+              </button>
+              <a
+                href="https://wa.me/917268927163?text=Hello%20NexKart%2C%20I%20would%20like%20to%20consign%20or%20sell%20a%20luxury%20item."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 py-3.5 bg-white/10 hover:bg-white/15 text-stone-200 hover:text-white border border-white/20 text-xs font-semibold uppercase tracking-[0.18em] rounded-xs transition text-center flex items-center justify-center space-x-2"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Chat with Appraiser</span>
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-5 relative min-h-[260px] lg:min-h-full bg-stone-900">
+            <img
+              src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1000&q=80"
+              alt="Luxury horology appraisal"
+              className="absolute inset-0 w-full h-full object-cover object-center filter brightness-90"
+            />
+          </div>
         </div>
       </section>
 
@@ -478,6 +747,12 @@ export const HomePage = () => {
         product={quickViewProduct}
         isOpen={!!quickViewProduct}
         onClose={() => setQuickViewProduct(null)}
+      />
+
+      {/* Consignment & Private Sell Appraisal Modal */}
+      <SellConsignModal
+        isOpen={sellModalOpen}
+        onClose={() => setSellModalOpen(false)}
       />
     </div>
   );

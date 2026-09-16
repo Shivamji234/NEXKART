@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { formatCurrency } from '../utils/formatters';
-import { Heart, ShoppingBag, Star } from 'lucide-react';
+import { Heart, ShoppingBag, Star, MessageSquare } from 'lucide-react';
 
 export const ProductCard = ({ product, onQuickView }) => {
   const { addToCart } = useCart();
@@ -55,20 +55,13 @@ export const ProductCard = ({ product, onQuickView }) => {
           />
         </Link>
 
-        {/* Minimalist Editorial Badges */}
+        {/* Luxepolis-Style Certified Authentic Badges */}
         <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex flex-col gap-1 z-10 pointer-events-none">
-          {product.isNewArrival && (
-            <span className="px-2 py-0.5 bg-[#1C1A18]/90 backdrop-blur-sm text-[#EFEBE4] text-[8.5px] sm:text-[9px] font-medium uppercase tracking-[0.16em] rounded-xs shadow-xs">
-              New In
-            </span>
-          )}
-          {product.isBestSeller && (
-            <span className="px-2 py-0.5 bg-[#8E7145] text-white text-[8.5px] sm:text-[9px] font-medium uppercase tracking-[0.16em] rounded-xs shadow-xs">
-              Curator's Pick
-            </span>
-          )}
+          <span className="px-1.5 py-0.5 bg-[#141210]/95 backdrop-blur-sm text-amber-300 text-[8px] sm:text-[8.5px] font-medium uppercase tracking-[0.14em] rounded-xs shadow-xs border border-amber-500/20">
+            ✓ 100% Certified Authentic
+          </span>
           {hasDiscount && (
-            <span className="px-2 py-0.5 bg-stone-800/90 text-amber-200 text-[8.5px] sm:text-[9px] font-medium uppercase tracking-[0.16em] rounded-xs shadow-xs">
+            <span className="px-1.5 py-0.5 bg-stone-900/90 text-stone-200 text-[8px] sm:text-[8.5px] font-medium uppercase tracking-[0.14em] rounded-xs shadow-xs">
               {product.discountPercentage}% Off
             </span>
           )}
@@ -87,8 +80,8 @@ export const ProductCard = ({ product, onQuickView }) => {
           <Heart className={`w-3.5 h-3.5 ${inWish ? 'fill-current text-rose-600' : ''}`} strokeWidth={1.3} />
         </button>
 
-        {/* Hover Action Bar - Clean Uncluttered Typography (Human Luxury) */}
-        <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/60 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
+        {/* Hover Action Bar - Luxepolis Quick Concierge Integration */}
+        <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/75 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-1.5">
           {onQuickView && (
             <button
               onClick={(e) => {
@@ -96,7 +89,7 @@ export const ProductCard = ({ product, onQuickView }) => {
                 e.stopPropagation();
                 onQuickView(product);
               }}
-              className="flex-1 py-2 px-3 bg-white/95 hover:bg-white text-stone-900 text-[10px] font-medium tracking-[0.16em] uppercase rounded-xs transition shadow-sm text-center"
+              className="py-1.5 px-2.5 bg-white/95 hover:bg-white text-stone-900 text-[9.5px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm text-center"
             >
               Quick View
             </button>
@@ -104,10 +97,20 @@ export const ProductCard = ({ product, onQuickView }) => {
           <button
             onClick={handleQuickAdd}
             disabled={product.stock <= 0 || adding}
-            className="flex-1 py-2 px-3 bg-[#171615] hover:bg-black text-[#FAF8F5] text-[10px] font-medium tracking-[0.16em] uppercase rounded-xs transition shadow-sm disabled:opacity-50 text-center"
+            className="flex-1 py-1.5 px-2.5 bg-[#171615] hover:bg-black text-[#FAF8F5] text-[9.5px] font-medium tracking-[0.14em] uppercase rounded-xs transition shadow-sm disabled:opacity-50 text-center"
           >
             {product.stock <= 0 ? 'Sold Out' : adding ? 'Adding...' : '+ Bag'}
           </button>
+          <a
+            href={`https://wa.me/917268927163?text=${encodeURIComponent(`Hello NexKart Concierge, I am inquiring about ${product.name} (Ref: ${product._id}) listed for ${formatCurrency(currentPrice)}.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="p-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-xs transition shadow-sm flex-shrink-0"
+            title="Ask Concierge on WhatsApp"
+          >
+            <MessageSquare className="w-3.5 h-3.5" strokeWidth={1.4} />
+          </a>
         </div>
       </div>
 
@@ -128,6 +131,10 @@ export const ProductCard = ({ product, onQuickView }) => {
               {product.name}
             </h3>
           </Link>
+          <div className="flex items-center space-x-1.5 text-[8.5px] sm:text-[9px] text-stone-500 uppercase tracking-widest font-medium mt-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block flex-shrink-0"></span>
+            <span className="truncate">Condition: Pristine &bull; Box & Papers</span>
+          </div>
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-1 pt-2 border-t border-stone-100">

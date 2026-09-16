@@ -7,6 +7,7 @@ import { useNotifications } from '../context/NotificationContext';
 import { productAPI } from '../services/api';
 import { formatCurrency } from '../utils/formatters';
 import nexkartLogoRich from '../assets/nexkart-logo-rich.png';
+import { SellConsignModal } from './SellConsignModal';
 import {
   Search,
   ShoppingBag,
@@ -35,6 +36,7 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [sellModalOpen, setSellModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -132,14 +134,13 @@ export const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Shop All', path: '/shop' },
+    { name: 'Watches', path: '/shop?keyword=watch' },
     { name: 'Men', path: '/shop?category=Men' },
     { name: 'Women', path: '/shop?category=Women' },
+    { name: 'Handbags & Leather', path: '/shop?category=Accessories' },
     { name: 'Footwear', path: '/shop?category=Footwear' },
-    { name: 'Accessories', path: '/shop?category=Accessories' },
-    { name: 'Kids', path: '/shop?category=Kids' },
-    { name: 'New Arrivals', path: '/shop?newArrival=true' },
-    { name: 'Privilege Sale', path: '/shop?discountOnly=true', highlight: true },
+    { name: 'New In', path: '/shop?newArrival=true' },
+    { name: 'Vault Sale', path: '/shop?discountOnly=true', highlight: true },
   ];
 
   return (
@@ -205,7 +206,7 @@ export const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-7">
+            <nav className="hidden lg:flex items-center space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -220,6 +221,15 @@ export const Navbar = () => {
                   <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-amber-700 transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
+
+              {/* Luxepolis-Style Sell / Consign Button */}
+              <button
+                onClick={() => setSellModalOpen(true)}
+                className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-900 border border-amber-600/40 text-[10px] uppercase tracking-[0.16em] font-semibold rounded-xs transition flex items-center space-x-1 cursor-pointer"
+              >
+                <span>Sell With Us</span>
+                <span className="text-amber-600 text-[9px]">✦</span>
+              </button>
             </nav>
 
             {/* Right Action Icons */}
@@ -468,6 +478,18 @@ export const Navbar = () => {
                 </Link>
               ))}
 
+              {/* Mobile Sell / Consign Button */}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setSellModalOpen(true);
+                }}
+                className="w-full py-2.5 px-3 bg-amber-500/15 hover:bg-amber-500/25 text-amber-900 border border-amber-600/40 text-[11px] uppercase tracking-[0.16em] font-semibold rounded-xs text-center flex items-center justify-center space-x-2 transition cursor-pointer"
+              >
+                <span>Sell & Consign Luxury</span>
+                <span className="text-amber-700">✦</span>
+              </button>
+
               <div className="border-t border-stone-200 pt-4 space-y-3">
                 <Link
                   to="/wishlist"
@@ -571,6 +593,9 @@ export const Navbar = () => {
           </div>
         </div>
       )}
+
+      {/* Consignment & Private Sell Appraisal Modal */}
+      <SellConsignModal isOpen={sellModalOpen} onClose={() => setSellModalOpen(false)} />
     </>
   );
 };
