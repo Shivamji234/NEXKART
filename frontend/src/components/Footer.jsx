@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNotifications } from '../context/NotificationContext';
 import { ArrowRight, Instagram, Youtube } from 'lucide-react';
+import nexkartLogo from '../assets/nexkart-logo.png';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -18,21 +19,21 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-luxury-950 text-white border-t border-white/10 mt-20">
-      {/* Value Proposition Bar - Natural Human Luxury Copy */}
-      <div className="border-b border-stone-800/80 py-8 sm:py-10 bg-[#0c0b0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-left">
+    <footer className="bg-[#171615] text-[#FAF8F5] border-t border-stone-800">
+      {/* Human Luxury Editorial Brand Pillars */}
+      <div className="border-b border-stone-800/80 bg-[#121110]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="border-l border-stone-800 pl-4 space-y-1">
               <span className="font-serif text-xs italic text-amber-300/70">01 &bull; Premium Quality</span>
               <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Authentic Materials</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Pure double-faced cashmere, genuine Italian leather & precision movements</p>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Hand-selected Mongolian cashmere, Tuscan full-grain leather, and Swiss movements</p>
             </div>
 
             <div className="border-l border-stone-800 pl-4 space-y-1">
               <span className="font-serif text-xs italic text-amber-300/70">02 &bull; Express Shipping</span>
               <h4 className="text-xs uppercase tracking-[0.16em] font-medium text-stone-100">Free Insured Delivery</h4>
-              <p className="text-[11px] text-stone-400 font-light leading-relaxed">100% complimentary, insured doorstep delivery anywhere in India</p>
+              <p className="text-[11px] text-stone-400 font-light leading-relaxed">Complimentary door-to-door courier transit across all Indian pin codes</p>
             </div>
 
             <div className="border-l border-stone-800 pl-4 space-y-1">
@@ -55,14 +56,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand & Manifesto */}
           <div className="sm:col-span-2 space-y-4">
-            <div className="flex flex-col text-left">
-              <span className="font-serif text-2xl font-normal tracking-[0.28em] text-[#FAF8F5] uppercase leading-none">
-                NEXKART
-              </span>
-              <span className="text-[8px] tracking-[0.34em] text-stone-400 uppercase font-medium mt-1">
-                Atelier &bull; Est. 2026
-              </span>
-            </div>
+            <Link to="/" className="inline-block py-0.5" aria-label="NEXKART Home">
+              <img 
+                src={nexkartLogo} 
+                alt="NEXKART Luxury Atelier" 
+                className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 hover:scale-[1.03]" 
+              />
+            </Link>
             <p className="text-xs text-stone-300 leading-relaxed pr-2 sm:pr-6 font-light">
               NexKart was founded with an artisan spirit: uniting understated luxury, verified provenance, and attentive personal concierge care to make fine online shopping effortless and deeply rewarding.
             </p>

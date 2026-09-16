@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { orderAPI } from '../services/api';
 import { formatCurrency, formatDate } from '../utils/formatters';
 import { CheckCircle2, Package, ArrowRight, ShieldCheck } from 'lucide-react';
+import nexkartLogoRich from '../assets/nexkart-logo-rich.png';
 
 export const OrderSuccessPage = () => {
   const { id } = useParams();
@@ -30,8 +31,8 @@ export const OrderSuccessPage = () => {
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-24 text-center">
-        <p className="text-xs uppercase tracking-widest text-gray-500 animate-pulse">
-          Confirming order with atelier...
+        <p className="text-xs uppercase tracking-widest text-stone-500 animate-pulse">
+          Confirming order details...
         </p>
       </div>
     );
@@ -40,21 +41,26 @@ export const OrderSuccessPage = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-8">
       {/* Confirmation Banner */}
-      <div className="bg-white rounded-lg border border-gray-200 p-8 text-center space-y-4 shadow-sm">
-        <div className="w-16 h-16 rounded-full bg-gold-50 border border-gold-400 flex items-center justify-center mx-auto text-gold-600">
-          <CheckCircle2 className="w-9 h-9" />
+      <div className="bg-white rounded-xs border border-stone-200 p-8 text-center space-y-4 shadow-sm">
+        {/* Official Brand Logo */}
+        <div className="flex justify-center pb-2">
+          <img src={nexkartLogoRich} alt="NEXKART" className="h-11 w-auto object-contain" />
         </div>
 
-        <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gold-700">
-          Maison Acquisition Confirmed
+        <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600">
+          <CheckCircle2 className="w-7 h-7" />
+        </div>
+
+        <span className="text-[11px] uppercase tracking-[0.24em] font-semibold text-amber-800">
+          Order Successfully Placed
         </span>
 
-        <h1 className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-luxury-950 font-serif">
-          Thank You For Your Patronage
+        <h1 className="text-2xl sm:text-3xl font-normal uppercase tracking-widest text-stone-950 font-serif">
+          Thank You For Your Order
         </h1>
 
-        <p className="text-xs text-gray-600 max-w-md mx-auto leading-relaxed font-light">
-          Your order has been recorded and our master atelier in Biella is preparing your pieces with white-glove care. A confirmation dispatch has been sent to your email.
+        <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed font-light">
+          Your order has been recorded. Our Varanasi team is carefully inspecting and packaging your pieces with premium insured delivery.
         </p>
 
         <div className="pt-2">

@@ -3,19 +3,33 @@ import { Link } from 'react-router-dom';
 import { productAPI } from '../services/api';
 import { ProductCard } from '../components/ProductCard';
 import { QuickViewModal } from '../components/QuickViewModal';
+import { useNotifications } from '../context/NotificationContext';
 import { formatCurrency } from '../utils/formatters';
 import {
   ArrowRight,
   ChevronRight,
   Star,
+  Copy,
+  Check,
+  Sparkles,
 } from 'lucide-react';
 
 export const HomePage = () => {
+  const { addToast } = useNotifications();
   const [newArrivals, setNewArrivals] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [curationFilter, setCurationFilter] = useState('All');
+
+  const handleCopyCode = (code) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(true);
+    addToast(`✦ Privilege code ${code} copied! Enjoy 10% off at checkout.`, 'success');
+    setTimeout(() => setCopiedCode(false), 3000);
+  };
 
   // Limited Edition Drop Countdown timer (simulated 48 hours)
   const [timeLeft, setTimeLeft] = useState({ hours: 47, minutes: 54, seconds: 12 });
@@ -101,6 +115,40 @@ export const HomePage = () => {
         </div>
       </section>
 
+      {/* Interactive Privilege Invitation Banner */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="bg-[#171615] text-[#FAF8F5] border border-amber-500/30 rounded-xs p-3.5 sm:p-4 shadow-[0_12px_40px_rgba(0,0,0,0.25)] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center space-x-3 text-center sm:text-left">
+            <div className="hidden sm:flex w-9 h-9 rounded-full bg-[#24211E] border border-amber-500/30 items-center justify-center text-amber-300 font-serif text-sm">
+              ✦
+            </div>
+            <div>
+              <div className="flex items-center space-x-2 justify-center sm:justify-start">
+                <span className="text-[10px] uppercase tracking-[0.24em] text-amber-300 font-medium">Patron Privilege</span>
+                <span className="text-stone-600">&bull;</span>
+                <span className="text-[10px] text-stone-400 uppercase tracking-widest">Limited Release</span>
+              </div>
+              <p className="text-xs sm:text-sm font-light text-stone-200 mt-0.5">
+                Enjoy <strong className="text-[#FAF8F5] font-medium">10% Off</strong> on your selection with code{' '}
+                <span className="font-mono text-amber-300 font-medium tracking-wider bg-[#22201D] px-1.5 py-0.5 rounded-xs border border-amber-500/20">ATELIER10</span>
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleCopyCode('ATELIER10')}
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-[#22201D] hover:bg-[#2C2925] text-amber-200 border border-amber-500/40 hover:border-amber-400 rounded-full text-[10.5px] uppercase tracking-[0.16em] font-medium transition duration-200 active:scale-95 group shadow-sm flex-shrink-0 cursor-pointer"
+          >
+            <span>{copiedCode ? '✦ Copied to Clipboard!' : 'Copy Code ATELIER10'}</span>
+            {copiedCode ? (
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+            ) : (
+              <Copy className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-6 transition-transform" />
+            )}
+          </button>
+        </div>
+      </div>
+
       {/* Human Concierge & Atelier Trust Strip */}
       <section className="border-y border-stone-200/80 bg-white/70 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,9 +211,9 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* New Arrivals Section */}
+      {/* New Arrivals Section with Interactive Filter Tabs */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-stone-200/80 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 border-b border-stone-200/80 pb-4">
           <div>
             <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-amber-800">
               Direct from the Atelier
@@ -183,6 +231,29 @@ export const HomePage = () => {
           </Link>
         </div>
 
+        {/* Interactive Category Filter Tabs */}
+        <div className="flex items-center space-x-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
+          {[
+            { id: 'All', label: 'All Curations' },
+            { id: 'Men', label: "Men's Edit" },
+            { id: 'Women', label: "Women's Edit" },
+            { id: 'Footwear', label: 'Fine Footwear' },
+            { id: 'Accessories', label: 'Accessories & Leather' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setCurationFilter(tab.id)}
+              className={`px-3.5 py-1.5 text-[11px] uppercase tracking-[0.14em] font-medium rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                curationFilter === tab.id
+                  ? 'bg-[#171615] text-amber-200 border border-amber-500/40 shadow-sm'
+                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200/80 hover:text-stone-900 border border-transparent'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {[...Array(4)].map((_, i) => (
@@ -195,7 +266,10 @@ export const HomePage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
-            {newArrivals.slice(0, 4).map((product) => (
+            {(curationFilter === 'All'
+              ? newArrivals
+              : newArrivals.filter((p) => p.category?.toLowerCase() === curationFilter.toLowerCase())
+            ).slice(0, 4).map((product) => (
               <ProductCard
                 key={product._id}
                 product={product}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, X, MapPin, Mail } from 'lucide-react';
 import founderImg from '../assets/founder.jpg';
+import nexkartMonogram from '../assets/nexkart-monogram.png';
 
 export const AboutPage = () => {
   const [showFounderModal, setShowFounderModal] = useState(false);
@@ -184,9 +185,14 @@ export const AboutPage = () => {
             </button>
 
             {/* Modal Body */}
-            <div className="relative z-10 text-center space-y-5">
+            <div className="relative z-10 text-center space-y-4">
+              {/* Official Brand Monogram */}
+              <div className="mx-auto w-10 h-10 opacity-90">
+                <img src={nexkartMonogram} alt="NX Crest" className="w-full h-full object-contain" />
+              </div>
+
               {/* Founder Photo */}
-              <div className="relative mx-auto w-36 h-36 sm:w-44 sm:h-44">
+              <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40">
                 <div className="w-full h-full rounded-full p-1 bg-gradient-to-tr from-amber-700/80 via-stone-400 to-amber-600/80 shadow-2xl">
                   <div className="w-full h-full rounded-full bg-[#121212] p-1">
                     <img

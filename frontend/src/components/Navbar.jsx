@@ -6,6 +6,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { useNotifications } from '../context/NotificationContext';
 import { productAPI } from '../services/api';
 import { formatCurrency } from '../utils/formatters';
+import nexkartLogoRich from '../assets/nexkart-logo-rich.png';
 import {
   Search,
   ShoppingBag,
@@ -38,6 +39,38 @@ export const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+
+  // Rotating Luxury Announcements
+  const announcements = [
+    {
+      text: "Complimentary Insured Express Delivery Across India",
+      tag: "✦ Free Express Shipping",
+      link: "/policy/shipping",
+    },
+    {
+      text: "VIP Concierge & Atelier Desk",
+      tag: "+91 72689 27163",
+      href: "https://wa.me/917268927163?text=Hello%20NexKart%20Concierge",
+    },
+    {
+      text: "100% Certified Authentic Craftsmanship & Movements",
+      tag: "✦ Verified Provenance",
+      link: "/about",
+    },
+    {
+      text: "Hassle-Free 14-Day Doorstep Returns & Exchanges",
+      tag: "✦ Client Privilege",
+      link: "/policy/returns",
+    },
+  ];
+  const [activeAnnouncement, setActiveAnnouncement] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveAnnouncement((prev) => (prev + 1) % announcements.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [announcements.length]);
 
   const searchRef = useRef(null);
   const userDropdownRef = useRef(null);
@@ -111,33 +144,44 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      {/* Top Announcement Bar */}
-      <div className="bg-[#171615] text-[#E7D9C3] py-2 px-3 text-center text-[10.5px] sm:text-[11px] tracking-wide uppercase font-medium border-b border-stone-800 overflow-hidden">
-        <span className="inline-flex items-center space-x-2 truncate max-w-full justify-center">
-          <span className="text-amber-300">✦</span>
-          <span>Complimentary Insured Delivery Across India</span>
-          <span className="text-stone-600">&bull;</span>
-          <span>Support:{' '}
-            <a href="mailto:concierge@nexkart.com" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
-              concierge@nexkart.com
-            </a>
-          </span>
-          <span className="hidden md:inline text-stone-600">&bull;</span>
-          <span className="hidden md:inline">Concierge:{' '}
-            <a href="tel:+917268927163" className="hover:text-white underline decoration-amber-500/50 underline-offset-2 transition">
-              +91 72689 27163
-            </a>
-          </span>
-        </span>
+      {/* Interactive Top Announcement Bar */}
+      <div className="bg-[#171615] text-[#E7D9C3] py-2 px-3 text-center text-[10px] sm:text-[11px] tracking-wide uppercase font-medium border-b border-stone-800 overflow-hidden relative">
+        <div className="max-w-7xl mx-auto flex items-center justify-center min-h-[20px]">
+          <div className="transition-all duration-500 transform inline-flex items-center space-x-2 truncate">
+            <span className="text-amber-400 font-serif">✦</span>
+            {announcements[activeAnnouncement].link ? (
+              <Link 
+                to={announcements[activeAnnouncement].link}
+                className="hover:text-white transition inline-flex items-center space-x-1.5"
+              >
+                <span className="text-stone-300 font-normal">{announcements[activeAnnouncement].text}</span>
+                <span className="text-amber-300 underline underline-offset-2 decoration-amber-500/40 font-medium">
+                  {announcements[activeAnnouncement].tag}
+                </span>
+              </Link>
+            ) : (
+              <a 
+                href={announcements[activeAnnouncement].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition inline-flex items-center space-x-1.5"
+              >
+                <span className="text-stone-300 font-normal">{announcements[activeAnnouncement].text}</span>
+                <span className="text-amber-300 underline underline-offset-2 decoration-amber-500/40 font-medium">
+                  {announcements[activeAnnouncement].tag}
+                </span>
+              </a>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Main Sticky Header */}
       <header
         className={`sticky top-0 z-40 transition-all duration-300 w-full ${
           isScrolled
-            ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200/85 py-2.5 sm:py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
-            : 'bg-[#FAF8F5] border-b border-stone-200/60 py-3.5 sm:py-4.5'
+            ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200/85 py-2 sm:py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
+            : 'bg-[#FAF8F5] border-b border-stone-200/60 py-2.5 sm:py-3.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -151,14 +195,13 @@ export const Navbar = () => {
               <Menu className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.3} />
             </button>
 
-            {/* Brand Logo - Pure Architectural Typography (Human Luxury) */}
-            <Link to="/" className="flex flex-col group flex-shrink-0 text-left">
-              <span className="font-serif text-xl sm:text-2xl font-normal tracking-[0.28em] text-stone-950 uppercase leading-none group-hover:text-amber-900 transition-colors">
-                NEXKART
-              </span>
-              <span className="text-[7.5px] sm:text-[8px] tracking-[0.36em] text-stone-500 uppercase font-medium mt-1">
-                Atelier &bull; Est. 2026
-              </span>
+            {/* Official NX Luxury Brand Logo */}
+            <Link to="/" className="flex items-center group flex-shrink-0 py-0.5" aria-label="NEXKART Home">
+              <img 
+                src={nexkartLogoRich} 
+                alt="NEXKART Luxury Atelier" 
+                className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]" 
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -389,18 +432,18 @@ export const Navbar = () => {
           />
 
           <div className="relative flex-1 flex flex-col max-w-xs w-full bg-[#FAF9F6] border-r border-gray-200 z-10 p-6 overflow-y-auto">
-            <div className="flex items-center justify-between pb-6 border-b border-stone-200">
+            <div className="flex items-center justify-between pb-5 border-b border-stone-200">
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex flex-col text-left"
+                className="flex items-center group py-0.5"
+                aria-label="NEXKART Home"
               >
-                <span className="font-serif text-xl font-normal tracking-[0.24em] text-stone-950 uppercase leading-none">
-                  NEXKART
-                </span>
-                <span className="text-[7.5px] tracking-[0.32em] text-stone-500 uppercase font-medium mt-1">
-                  Atelier &bull; Est. 2026
-                </span>
+                <img 
+                  src={nexkartLogoRich} 
+                  alt="NEXKART Luxury Atelier" 
+                  className="h-10 w-auto object-contain" 
+                />
               </Link>
               <button
                 onClick={() => setMobileMenuOpen(false)}

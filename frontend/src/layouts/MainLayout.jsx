@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { CartDrawer } from '../components/CartDrawer';
 import { ToastContainer } from '../components/Toast';
+import { VIPConciergeWidget } from '../components/VIPConciergeWidget';
 
 export const MainLayout = () => {
   return (
@@ -14,6 +15,7 @@ export const MainLayout = () => {
       <main className="flex-1 w-full max-w-full overflow-x-hidden">
         <Outlet />
       </main>
+      <VIPConciergeWidget />
       <Footer />
     </div>
   );
